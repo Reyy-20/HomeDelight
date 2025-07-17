@@ -1,105 +1,149 @@
+/* Reset and base styles */
 * {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-	background: #1E1F25;
+body {
+  background: #1E1F25;
 }
 
+/* Navbar styles */
 .navbar {
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background: #1E1F25;
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: black;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-a {
+/* Logo styles */
+.navbar-logo {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #fff;
+  letter-spacing: 0.2em;
   display: flex;
+  align-items: center;
+}
+.trademark {
+  font-size: 0.8rem;
+  vertical-align: super;
+  margin-left: 2px;
+  font-weight: 400;
+}
+
+/* Nav links styles */
+.navbar-links {
+  display: flex;
+  gap: 32px;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 60px;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 1rem 2rem 1.15rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: #ebebeb;
-  min-width: 80px;
-  margin: 0 0.5rem;
-  background: none;
-  border-bottom: none;
 }
-
-a:hover {
-  background-image: url('https://scottyzen.sirv.com/Images/v/button.png');
-  background-size: 100% 100%;
-  color: #27262c;
-  animation: spring 300ms ease-out;
-  text-shadow: 0 -1px 0 #ef816c;
-	font-weight: bold;
+.navbar-links li {
+  list-style: none;
 }
-a:active {
-  transform: translateY(4px);
-}
-
-@keyframes spring {
-  15% {
-    -webkit-transform-origin: center center;
-    -webkit-transform: scale(1.2, 1.1);
-  }
-  40% {
-    -webkit-transform-origin: center center;
-    -webkit-transform: scale(0.95, 0.95);
-  }
-  75% {
-    -webkit-transform-origin: center center;
-    -webkit-transform: scale(1.05, 1);
-  }
-  100% {
-    -webkit-transform-origin: center center;
-    -webkit-transform: scale(1, 1);
-  }
-}
-
-.shameless-plug{
-  position: absolute;
-  bottom: 10px;
-  right: 0;
-  padding: 8px 20px;
-  color: #ccc;
+.navbar-links a {
+  color: #fff;
   text-decoration: none;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 0;
+  transition: color 0.2s;
+  position: relative;
+}
+.navbar-links a:hover {
+  color: #000000;
 }
 
-@media (max-width: 700px) {
-  nav.navbar {
-    position: static;
-  }
-  a {
+/* Actions (buttons) styles */
+.navbar-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.btn {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 28px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  color: #fff;
+  font-weight: 500;
+  display: inline-block;
+}
+.login-btn {
+  border: 2px solid #fff;
+  background: transparent;
+}
+.login-btn:hover {
+  background: #fff;
+  color: #1E1F25;
+}
+.signup-btn {
+  border: none;
+  background: none;
+  color: #fff;
+}
+.signup-btn:hover {
+  text-decoration: underline;
+  color: #000000;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .navbar {
     flex-direction: column;
     height: auto;
-    max-width: 100vw;
-    padding: 0;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    min-width: unset;
-    margin: 0;
-    border-bottom: 1px solid #333;
+    padding: 10px 10px;
   }
-  a:last-child {
-    border-bottom: none;
+  .navbar-links {
+    gap: 18px;
+    margin: 8px 0;
+  }
+  .navbar-actions {
+    gap: 8px;
   }
 }
-
-@media (max-width: 400px) {
-  a {
-    font-size: 0.85rem;
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 4vw;
   }
-  a {
-    padding: 0.5rem 0.5rem;
+  .navbar-logo {
+    font-size: 1.3rem;
+  }
+  .navbar-links {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .navbar-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 }
