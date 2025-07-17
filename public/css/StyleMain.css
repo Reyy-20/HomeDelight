@@ -10,59 +10,7 @@
     color: #2f4f4f;
     }
   
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e3e3e3;
-    padding: 15px 50px;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo img {
-    width: 120px;
-    margin-right: 10px;
-  }
-  
-  .logo span {
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-  }
-  
-  .nav-links li {
-    margin: 0 15px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #2F4F4F;
-    font-size: 16px;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .nav-links a:hover {
-    color: gold;
-  }
-  
-  .contact {
-    color: gold;
-    font-weight: bold;
-  }
-  
-  .contact:hover {
-    color: rgb(236, 226, 29);
-  }
-    
+   
   /* Section Container */
   .landImg {
     position: relative;
