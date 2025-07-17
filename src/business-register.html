@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Registration</title>
+</head>
+<body>
+    <h2>Register your business</h2>
+    <form action="/register-business" method="post">
+        <p>
+            <label for="biz_name">Business Name:</label><br>
+            <input type="text" id="biz_name" name="biz_name" required>
+        </p>
+
+        <p>
+            <label for="biz_email">Business Email:</label><br>
+            <input type="email" id="biz_email" name="biz_email" required>
+        </p>
+
+        <p>
+            <label for="biz_password">Password:</label><br>
+            <input type="password" id="biz_password" name="biz_password" required>
+        </p>
+
+        <p>
+            <label for="biz_phone">Business Phone:</label><br>
+            <input type="tel" id="biz_phone" name="biz_phone">
+        </p>
+
+        <p>
+            <label for="biz_address">Business Address:</label><br>
+            <input type="text" id="biz_address" name="biz_address">
+        </p>
+
+        <p>
+            <label for="biz_license">Business License Number:</label><br>
+            <input type="text" id="biz_license" name="biz_license">
+        </p>
+
+        <p>
+            <input type="submit" value="Register Business">
+        </p>
+    </form>
+
+    <p>
+        <a href="register.html">Back to regular registration</a>
+    </p>
+</body>
+</html> 
