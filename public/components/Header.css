@@ -64,7 +64,7 @@ body{
   position: relative;
 }
 .navbar-links a:hover {
-  color: #000000;
+  color: #eaa015;
 }
 
 /* Actions (buttons) styles */
@@ -105,7 +105,7 @@ body{
 }
 .signup-btn:hover {
   text-decoration: underline;
-  color: #000000;
+  color: #edb910;
 }
 
 /* Responsive styles */

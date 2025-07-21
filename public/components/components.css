@@ -30,21 +30,6 @@
   margin-bottom: 32px;
 }
 
-.footer-btn {
-  background: #2ecc71;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 6px;
-  padding: 14px 32px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.footer-btn:hover {
-  background: #27ae60;
-}
-
 .footer-right {
   max-width: 50%;
   display: flex;
