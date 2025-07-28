@@ -61,6 +61,12 @@
             margin-bottom: 8px;
         }
 
+        .card-contact {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
         .card-date {
             color: #666;
             font-size: 12px;
@@ -89,15 +95,36 @@
             margin-bottom: 40px;
         }
 
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .view-details-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex: 1;
+        }
+
+        .view-details-btn:hover {
+            background: #0056b3;
+        }
+
         .delete-card-btn {
             background: #dc3545;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 8px 16px;
             border-radius: 4px;
             font-size: 12px;
             cursor: pointer;
-            margin-top: 10px;
             transition: background-color 0.3s ease;
         }
 
@@ -151,6 +178,10 @@
             .content-cards {
                 padding: 0 15px;
                 margin: 30px auto;
+            }
+
+            .card-actions {
+                flex-direction: column;
             }
         }
     </style>

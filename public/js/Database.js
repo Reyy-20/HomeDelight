@@ -22,6 +22,7 @@ export async function addCard(cardData) {
         const docRef = await addDoc(collection(db, "dashboard_cards"), {
             title: cardData.title,
             price: cardData.price,
+            contactNumber: cardData.contactNumber,
             date: cardData.date,
             imageUrl: cardData.imageUrl, // Store the image URL
             description: cardData.description || '',
@@ -51,6 +52,26 @@ export async function getAllCards() {
         return cards;
     } catch (error) {
         console.error("Error getting properties: ", error);
+        throw error;
+    }
+}
+
+// Function to get a single card by ID
+export async function getCardById(cardId) {
+    try {
+        const docRef = doc(db, "dashboard_cards", cardId);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+            return {
+                id: docSnap.id,
+                ...docSnap.data()
+            };
+        } else {
+            throw new Error("Property not found");
+        }
+    } catch (error) {
+        console.error("Error getting property: ", error);
         throw error;
     }
 }
@@ -112,9 +133,13 @@ function createCardElement(card) {
         <div class="card-content">
             <h3 class="card-title">${card.title}</h3>
             <div class="card-price">$${card.price.toFixed(2)}</div>
+            <p class="card-contact">Contact: ${card.contactNumber || 'N/A'}</p>
             <p class="card-date">${card.date}</p>
             ${card.description ? `<p class="card-description">${card.description}</p>` : ''}
-            <button class="delete-card-btn" onclick="deleteCardFromUI('${card.id}')">Delete</button>
+            <div class="card-actions">
+                <button class="view-details-btn" onclick="viewPropertyDetails('${card.id}')">View Details</button>
+                <button class="delete-card-btn" onclick="deleteCardFromUI('${card.id}')">Delete</button>
+            </div>
         </div>
     `;
 
@@ -131,6 +156,11 @@ window.deleteCardFromUI = async function(cardId) {
     } catch (error) {
         console.error("Error deleting property from UI: ", error);
     }
+};
+
+// Global function to view property details (needs to be global for onclick)
+window.viewPropertyDetails = function(cardId) {
+    window.location.href = `property-details.html?id=${cardId}`;
 };
 
 // Function to load and display cards when dashboard loads

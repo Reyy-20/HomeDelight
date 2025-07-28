@@ -46,6 +46,11 @@
             </div>
 
             <div class="form-group">
+                <label for="contactNumber" class="form-label">Contact Number</label>
+                <input type="tel" id="contactNumber" name="contactNumber" class="form-input" required placeholder="Enter contact number">
+            </div>
+
+            <div class="form-group">
                 <label for="date" class="form-label">Date</label>
                 <input type="text" id="date" name="date" class="form-input" required placeholder="e.g., 09 September">
             </div>
@@ -91,6 +96,7 @@
                 <div class="preview-content">
                     <h4 class="preview-title-text" id="previewTitle">Property Title</h4>
                     <div class="preview-price" id="previewPrice">$0.00</div>
+                    <p class="preview-contact" id="previewContact">Contact: -</p>
                     <p class="preview-date" id="previewDate">Date</p>
                     <p class="preview-description" id="previewDescription"></p>
                 </div>
@@ -113,6 +119,7 @@
         // Preview elements
         const previewTitle = document.getElementById('previewTitle');
         const previewPrice = document.getElementById('previewPrice');
+        const previewContact = document.getElementById('previewContact');
         const previewDate = document.getElementById('previewDate');
         const previewImage = document.getElementById('previewImage');
         const previewDescription = document.getElementById('previewDescription');
@@ -123,6 +130,7 @@
         // Update preview when form fields change
         document.getElementById('title').addEventListener('input', updatePreview);
         document.getElementById('price').addEventListener('input', updatePreview);
+        document.getElementById('contactNumber').addEventListener('input', updatePreview);
         document.getElementById('date').addEventListener('input', updatePreview);
         document.getElementById('description').addEventListener('input', updatePreview);
 
@@ -186,11 +194,13 @@
         function updatePreview() {
             const title = document.getElementById('title').value || 'Property Title';
             const price = document.getElementById('price').value || '0.00';
+            const contactNumber = document.getElementById('contactNumber').value || '-';
             const date = document.getElementById('date').value || 'Date';
             const description = document.getElementById('description').value || '';
 
             previewTitle.textContent = title;
             previewPrice.textContent = `$${parseFloat(price).toFixed(2)}`;
+            previewContact.textContent = `Contact: ${contactNumber}`;
             previewDate.textContent = date;
             previewDescription.textContent = description;
         }
@@ -221,6 +231,7 @@
                 const cardData = {
                     title: formData.get('title'),
                     price: parseFloat(formData.get('price')),
+                    contactNumber: formData.get('contactNumber'),
                     date: formData.get('date'),
                     imageUrl: imageUrl, // Store the URL instead of base64
                     description: formData.get('description')
