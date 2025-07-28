@@ -120,19 +120,12 @@
     font-size: 13px;
   }
 }
-
+/*Header End*/
 body {
   background-color: #Ece8e2;
   color: #2f4f4f;
 }
 
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: black;
-  min-height: max-content;
-}
 
 /* Section Container */
 .landImg {
