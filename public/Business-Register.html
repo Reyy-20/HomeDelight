@@ -29,7 +29,7 @@
     </header>
     <main class="login-container">
         <h1>Register your business</h1>
-        <form action="/register-business" method="post">
+        <form id="business-register-form">
             <div>
                 <label for="biz_name">Business Name:</label>
                 <input type="text" id="biz_name" name="biz_name" required>
@@ -67,6 +67,44 @@
         </div>
         <div id="register-error" style="color:#a0793d; margin-top:10px;"></div>
     </main>
-<script type="module" src="../firebase/register.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Authentication Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        document.getElementById('business-register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('biz_email').value;
+            const password = document.getElementById('biz_password').value;
+            const businessData = {
+                businessName: document.getElementById('biz_name').value,
+                phone: document.getElementById('biz_phone').value,
+                address: document.getElementById('biz_address').value,
+                license: document.getElementById('biz_license').value
+            };
+            
+            const errorDiv = document.getElementById('register-error');
+            
+            try {
+                const result = await authManager.register(email, password, businessData);
+                
+                if (result.success) {
+                    // Redirect to dashboard on successful registration
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorDiv.textContent = result.error;
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred during registration. Please try again.';
+            }
+        });
+    </script>
 </body>
 </html> 

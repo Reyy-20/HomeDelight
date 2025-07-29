@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Delight</title>
     <link rel="stylesheet" href="CSS/dashboard.css">
+    <link rel="stylesheet" href="css/profile-dropdown.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Estilos para las tarjetas de contenido */
         .content-cards {
@@ -222,11 +224,29 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Authentication Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+
     <script type="module">
         import { loadDashboardCards } from './js/Database.js';
 
-        // Load cards when page loads
+        // Check authentication before loading dashboard
         document.addEventListener('DOMContentLoaded', async () => {
+            // Wait for auth to initialize
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            if (!authManager.currentUser) {
+                // Redirect to login if not authenticated
+                window.location.href = 'business-login.html';
+                return;
+            }
+
             try {
                 await loadDashboardCards();
                 document.getElementById('loadingMessage').style.display = 'none';
