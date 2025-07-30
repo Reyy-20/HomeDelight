@@ -1,124 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Delight</title>
-    <link rel="stylesheet" href="CSS/StyleMain.css">
-    <link rel="stylesheet" href="css/profile-dropdown.css">
+    <title>HomeDelight - Tu hogar, tu felicidad</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">Home Delight
-            </a>
-
-            <nav class="nav">
-                <a href="dashboard.html" class="nav-item">Dashboard</a>
-                <a href="Upload.html" class="nav-item">Upload</a>
-                <a href="Updates.html" class="nav-item">Updates</a>
-                <a href="ContactUs.html" class="nav-item">Contact Us</a>
-            </nav>
-
-            <div class="actions">
-                <a class="login-btn" href="business-login.html">Log in</a>
-                <button class="cta-btn" href="dashboard.html">Find Yours Now </button>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-home"></i>
+                    <span>HomeDelight</span>
+                </div>
+                <div class="nav-dropdown">
+                    <span>Categorías <i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
-        </div>
+            
+            <div class="nav-center">
+                <div class="search-bar">
+                    <input type="text" placeholder="Busca productos, marcas y más">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Enviar a Ciudad de Panamá</span>
+                </div>
+                <div class="nav-icons">
+                    <a href="dashboard.html" class="nav-icon-link">
+                        <i class="fas fa-store"></i>
+                    </a>
+                    <a href="business-login.html" class="nav-icon-link">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </nav>
     </header>
-    
-    <section class="landImg">
-        <img src="https://images.pexels.com/photos/1587097/pexels-photo-1587097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="Background Image" class="background-img">
 
-        <div class="hero-content">
-            <h1>Unveiling a New Era in Real Estate</h1>
-            <p>Discover your dream home with our exclusive properties, designed to cater to your lifestyle needs and
-                preferences, in prime locations.</p>
-            <a href="#" class="btn">
-                <span>Get Started</span>
-            </a>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Promotional Banner/Carousel -->
+            <section class="promo-section">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="carousel-slide active">
+                            <div class="promo-banner">
+                                <div class="promo-content">
+                                    <div class="store-logo">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span class="store-name">CELL MAX STORE</span>
+                                    </div>
+                                    <h2>CON LA NUEVA O LA CLÁSICA JUEGA COMO QUIERAS</h2>
+                                    <div class="product-image">
+                                        <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Nintendo+Switch" alt="Nintendo Switch">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="promo-banner">
+                                <div class="promo-content">
+                                    <h2>OFERTAS ESPECIALES</h2>
+                                    <p>Encuentra los mejores productos para tu hogar</p>
+                                    <div class="product-image">
+                                        <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Ofertas" alt="Ofertas">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="promo-banner">
+                                <div class="promo-content">
+                                    <h2>NUEVOS PRODUCTOS</h2>
+                                    <p>Descubre las últimas novedades</p>
+                                    <div class="product-image">
+                                        <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Nuevos" alt="Nuevos">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                    <button class="carousel-btn prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Flash Sale Section -->
+            <section class="flash-sale-section">
+                <div class="flash-sale-card">
+                    <div class="flash-header">
+                        <h3>Flash Sale</h3>
+                        <div class="countdown">
+                            <span>Quedan</span>
+                            <div class="timer">
+                                <div class="time-box">10</div>
+                                <div class="time-box">11</div>
+                                <div class="time-box">26</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flash-content">
+                        <p>¡Pen Pen se puso La Roja! Edición limitada de la colaboración de Pen Pen x La Sele</p>
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/150x150/87CEEB/FFD700?text=Pen+Pen" alt="Pen Pen Plush">
+                        </div>
+                        <div class="discount-badge">
+                            <span>Ahorra 16%</span>
+                        </div>
+                        <div class="price">
+                            <span class="current-price">$25</span>
+                            <span class="original-price">$30</span>
+                        </div>
+                        <button class="add-to-cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stat-item">
-                <h2>50</h2>
-                <p>Projects Completed</p>
-            </div>
-            <div class="stat-item">
-                <h2>65</h2>
-                <p>New Listings</p>
-            </div>
-            <div class="stat-item">
-                <h2>85</h2>
-                <p>Happy Clients</p>
-            </div>
-            <div class="stat-item">
-                <h2>25</h2>
-                <p>Awards Won</p>
-            </div>
-        </div>
-    </section>
-    <div class="wrapper">
-        <section class="container">
-            <div class="image-box">
-                <img src="https://c4.wallpaperflare.com/wallpaper/327/12/971/arquitectura-casa-moderna-wallpaper-preview.jpg"
-                    alt="Green Living Space">
-                <div class="info-box">
-                    <h3>Green Oasis</h3>
-                    <p>Environmentally Conscious</p>
+
+        <!-- Additional Content Sections -->
+        <section class="featured-products">
+            <h2 class="section-title">Productos Destacados</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+1" alt="Producto 1">
+                    <h3>Producto 1</h3>
+                    <p class="price">$99.99</p>
+                    <button class="buy-btn">Comprar</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+2" alt="Producto 2">
+                    <h3>Producto 2</h3>
+                    <p class="price">$149.99</p>
+                    <button class="buy-btn">Comprar</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+3" alt="Producto 3">
+                    <h3>Producto 3</h3>
+                    <p class="price">$79.99</p>
+                    <button class="buy-btn">Comprar</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+4" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p class="price">$199.99</p>
+                    <button class="buy-btn">Comprar</button>
                 </div>
             </div>
-            <div class="text-box">
-                <h2>Innovative Green Living Spaces</h2>
-                <p>Our latest project redefines urban living with a focus on sustainability, incorporating eco-friendly
-                    features and community-centric spaces for a harmonious lifestyle.</p>
-                <button class="btn">→ Discover More</button>
-            </div>
         </section>
-    </div>
-    <div class="wrapper">
-        <section class="container2">
-            <div class="content2">
-                <h2>Building Dreams, Creating Remarkable Homes</h2>
-                <p>We are committed to transforming urban landscapes by integrating innovation, quality, and
-                    sustainability in every project. Your dream home awaits.</p>
-                <div class="solutions">
-                    <ul>
-                        <li>Smart Solutions</li>
-                        <li>Artistic Interiors</li>
-                        <li>Dynamic Layouts</li>
-                        <li>Energy Efficient</li>
-                    </ul>
-                    <ul>
-                        <li>Culinary Spaces</li>
-                        <li>Security Features</li>
-                        <li>Integrated Technology</li>
-                        <li>Natural Light</li>
-                    </ul>
-                </div>
-                <button class="btn">→ Explore More</button>
-            </div>
-            <div class="images2">
-                <img src="https://c0.wallpaperflare.com/preview/551/517/184/building-gate-step-stairs.jpg"
-                    alt="Architectural Design">
-                <img src="https://c0.wallpaperflare.com/preview/323/574/391/minimal-modern-contemporary-architecture.jpg"
-                    alt="Textile Rolls">
-            </div>
-        </section>
-    </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
-    <!-- Authentication Scripts -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/auth.js"></script>
-    
+        <section class="categories-section">
+            <h2 class="section-title">Categorías Populares</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <i class="fas fa-couch"></i>
+                    <h3>Muebles</h3>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Iluminación</h3>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Decoración</h3>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Cocina</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
