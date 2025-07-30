@@ -1,11 +1,11 @@
-// Firebase configuration
+// Firebase configuration for Expo Project SENIOR
 const firebaseConfig = {
-  apiKey: "AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef123456"
+  apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+  authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+  projectId: "expo-project-senior-6bfea",
+  storageBucket: "expo-project-senior-6bfea.appspot.com",
+  messagingSenderId: "188431803500",
+  appId: "1:188431803500:web:abcdef123456"
 };
 
 // Initialize Firebase

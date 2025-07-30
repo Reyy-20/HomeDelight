@@ -38,11 +38,11 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Enviar a Ciudad de Panamá</span>
                 </div>
-                <div class="nav-icons">
+                <div class="nav-icons" id="nav-icons">
                     <a href="dashboard.html" class="nav-icon-link">
                         <i class="fas fa-store"></i>
                     </a>
-                    <a href="business-login.html" class="nav-icon-link">
+                    <a href="business-login.html" class="nav-icon-link" id="login-link">
                         <i class="fas fa-user"></i>
                     </a>
                     <i class="fas fa-shopping-cart"></i>
@@ -198,6 +198,35 @@
         </section>
     </main>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Authentication Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notification.js"></script>
     <script src="js/main.js"></script>
+    
+    <script>
+        // Update navigation based on auth state
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            if (authManager.currentUser) {
+                const loginLink = document.getElementById('login-link');
+                const displayName = authManager.currentUser.businessData?.businessName || 
+                                  authManager.currentUser.userData?.name || 
+                                  authManager.currentUser.email;
+                
+                loginLink.innerHTML = `
+                    <i class="fas fa-user-circle"></i>
+                    <span style="font-size: 12px; margin-left: 5px;">${displayName}</span>
+                `;
+                loginLink.href = 'dashboard.html';
+                loginLink.title = `Bienvenido, ${displayName}`;
+            }
+        });
+    </script>
 </body>
 </html>
