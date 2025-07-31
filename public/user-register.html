@@ -36,6 +36,13 @@
                 <div>
                     <label for="user_address">Address:</label>
                     <input type="text" id="user_address" name="user_address">
+</div>
+
+            <div>
+                <label for="user_photo">Profile Picture (ImageBB URL):</label>
+                <input type="url" id="user_photo" name="user_photo">
+                <small style="color: var(--gris-medio);">Optional - Upload your photo to ImageBB</small>
+            </div>
                 </div>
 
                 <button type="submit">Create Account</button>
@@ -66,7 +73,8 @@
             const userData = {
                 name: document.getElementById('user_name').value,
                 phone: document.getElementById('user_phone').value,
-                address: document.getElementById('user_address').value
+                address: document.getElementById('user_address').value,
+                photo: document.getElementById('user_photo').value
             };
             
             const errorDiv = document.getElementById('register-error');

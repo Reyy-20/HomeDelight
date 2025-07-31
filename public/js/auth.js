@@ -156,11 +156,11 @@ class AuthManager {
             `;
         }
 
-        // Hide login/register links in navigation
+        // Show dashboard and upload links in navigation for logged in users
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
-            if (item.textContent === 'Dashboard' || item.textContent === 'Upload') {
-                item.style.display = 'none';
+            if (item.getAttribute('href') === 'dashboard.html' || item.getAttribute('href') === 'upload.html' || item.getAttribute('href') === 'Upload.html') {
+                item.style.display = 'inline-block';
             }
         });
     }
@@ -174,11 +174,11 @@ class AuthManager {
             `;
         }
 
-        // Show login/register links in navigation
+        // Hide dashboard and upload links in navigation for logged out users
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
-            if (item.textContent === 'Dashboard' || item.textContent === 'Upload') {
-                item.style.display = 'inline-block';
+            if (item.getAttribute('href') === 'dashboard.html' || item.getAttribute('href') === 'upload.html' || item.getAttribute('href') === 'Upload.html') {
+                item.style.display = 'none';
             }
         });
     }

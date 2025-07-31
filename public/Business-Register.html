@@ -42,6 +42,12 @@
                 <input type="text" id="biz_license" name="biz_license">
             </div>
 
+            <div>
+                <label for="biz_photo">Business Photo (ImageBB URL):</label>
+                <input type="url" id="biz_photo" name="biz_photo">
+                <small style="color: var(--gris-medio);">Optional</small>
+            </div>
+
             <button type="submit">Register Business</button>
         </form>
         <div class="switch-login">
@@ -72,7 +78,8 @@
                 businessName: document.getElementById('biz_name').value,
                 phone: document.getElementById('biz_phone').value,
                 address: document.getElementById('biz_address').value,
-                license: document.getElementById('biz_license').value
+                license: document.getElementById('biz_license').value,
+                photo: document.getElementById('biz_photo').value
             };
             
             const errorDiv = document.getElementById('register-error');

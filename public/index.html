@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Delight</title>
+    <link rel="stylesheet" href="css/Syle.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Home Delight</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="#" >Marketplace</a></li>
+                <li><a href="dashboard.html" >Dashboard</a></li>
+            </ul>
+
+            <div class="auth-buttons" id="authButtons">
+                <a href="business-login.html" class="btn btn-secondary" >Iniciar Sesión</a>
+                <a href="user-register.html" class="btn btn-primary" >Registrarse</a>
+            </div>
+
+            <div class="user-profile" id="userProfile">
+                <img src="" alt="Perfil" class="profile-img" id="profileImg" onclick="toggleDropdown()">
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="showPage('dashboard')">Dashboard</div>
+                    <div class="dropdown-item" onclick="showPage('upload')">Subir Propiedad</div>
+                    <div class="dropdown-item" onclick="logout()">Cerrar Sesión</div>
+                </div>
+            </div>
+
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="mainContent">
+        <!-- INDEX PAGE -->
+        <div id="indexPage" class="page">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Encuentra tu hogar ideal</h1>
+                    <p>La plataforma inmobiliaria más completa donde propietarios y compradores se conectan</p>
+                    <a href="#" class="btn btn-primary" onclick="showPage('marketplace')">Explorar Propiedades</a>
+                </div>
+            </section>
+
+            <!-- Recent Properties Carousel -->
+            <section class="carousel-section">
+                <h2 class="section-title">Propiedades Recientes</h2>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <button class="carousel-nav carousel-prev" onclick="prevSlide()">&lt;</button>
+                    <button class="carousel-nav carousel-next" onclick="nextSlide()">&gt;</button>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="features-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏠</div>
+                        <h3>Amplia Variedad</h3>
+                        <p>Encuentra desde casas grandes hasta departamentos modernos en las mejores ubicaciones</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Búsqueda Avanzada</h3>
+                        <p>Filtros inteligentes para encontrar exactamente lo que buscas</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💼</div>
+                        <h3>Para Empresas</h3>
+                        <p>Herramientas especializadas para inmobiliarias y desarrolladores</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MARKETPLACE PAGE -->
+        <div id="marketplacePage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh;">
+                <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+                    <h1 class="section-title">Marketplace</h1>
+                    
+                    <!-- Filters -->
+                    <div style="background: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            <input type="text" id="searchInput" placeholder="Buscar por nombre..." style="padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                            <input type="text" id="locationFilter" placeholder="Filtrar por ubicación..." style="padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                            <input type="number" id="minPrice" placeholder="Precio mínimo" style="padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                            <input type="number" id="maxPrice" placeholder="Precio máximo" style="padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <select id="categoryFilter" style="padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                                <option value="">Todas las categorías</option>
+                                <option value="casa-grande">Casas Grandes</option>
+                                <option value="casa-pequeña">Casas Pequeñas</option>
+                                <option value="departamento">Departamentos</option>
+                            </select>
+                            <button onclick="applyFilters()" class="btn btn-primary">Aplicar Filtros</button>
+                            <button onclick="clearFilters()" class="btn btn-secondary">Limpiar</button>
+                        </div>
+                    </div>
+
+                    <!-- Properties Grid -->
+                    <div id="propertiesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD PAGE -->
+        <div id="dashboardPage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh;">
+                <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+                    <h1 class="section-title">Mi Dashboard</h1>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2>Mis Propiedades</h2>
+                        <button onclick="showPage('upload')" class="btn btn-primary">Subir Nueva Propiedad</button>
+                    </div>
+
+                    <div id="userPropertiesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPLOAD PAGE -->
+        <div id="uploadPage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 2rem;">
+                    <h1 class="section-title">Subir Nueva Propiedad</h1>
+                    
+                    <form id="uploadForm" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Nombre de la Propiedad</label>
+                            <input type="text" id="propertyName" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Descripción</label>
+                            <textarea id="propertyDescription" required rows="4" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px; resize: vertical;"></textarea>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Precio (USD)</label>
+                            <input type="number" id="propertyPrice" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Ubicación</label>
+                            <input type="text" id="propertyLocation" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Categoría</label>
+                            <select id="propertyCategory" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                                <option value="">Seleccionar categoría</option>
+                                <option value="casa-grande">Casa Grande</option>
+                                <option value="casa-pequeña">Casa Pequeña</option>
+                                <option value="departamento">Departamento</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">URL de Imagen (ImageBB)</label>
+                            <input type="url" id="propertyImage" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                            <small style="color: var(--gris-medio);">Sube tu imagen a ImageBB y pega el enlace directo aquí</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">Publicar Propiedad</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGIN PAGE -->
+        <div id="userLoginPage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+                <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--negro);">Iniciar Sesión</h2>
+                    
+                    <form id="loginForm">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email</label>
+                            <input type="email" id="loginEmail" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Contraseña</label>
+                            <input type="password" id="loginPassword" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">Iniciar Sesión</button>
+                    </form>
+
+                    <div style="text-align: center;">
+                        <p>¿No tienes cuenta? <a href="#" onclick="showPage('user-register')" style="color: var(--dorado);">Regístrate aquí</a></p>
+                        <p style="margin-top: 1rem;">¿Eres una empresa? <a href="#" onclick="showPage('business-login')" style="color: var(--dorado);">Login empresarial</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTER PAGE -->
+        <div id="userRegisterPage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+                <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--negro);">Registrarse</h2>
+                    
+                    <form id="registerForm">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Nombre Completo</label>
+                            <input type="text" id="registerName" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email</label>
+                            <input type="email" id="registerEmail" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Contraseña</label>
+                            <input type="password" id="registerPassword" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">URL Foto de Perfil (ImageBB)</label>
+                            <input type="url" id="registerPhoto" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                            <small style="color: var(--gris-medio);">Opcional - Sube tu foto a ImageBB</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">Registrarse</button>
+                    </form>
+
+                    <div style="text-align: center;">
+                        <p>¿Ya tienes cuenta? <a href="#" onclick="showPage('user-login')" style="color: var(--dorado);">Inicia sesión aquí</a></p>
+                        <p style="margin-top: 1rem;">¿Eres una empresa? <a href="#" onclick="showPage('business-register')" style="color: var(--dorado);">Registro empresarial</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUSINESS REGISTER PAGE -->
+        <div id="businessRegisterPage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+                <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 500px;">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--negro);">Registro Empresarial</h2>
+                    
+                    <form id="businessRegisterForm">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Nombre de la Empresa</label>
+                            <input type="text" id="businessRegisterName" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email Empresarial</label>
+                            <input type="email" id="businessRegisterEmail" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Contraseña</label>
+                            <input type="password" id="businessRegisterPassword" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">RUC/NIT Empresarial</label>
+                            <input type="text" id="businessRuc" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Logo de la Empresa (ImageBB)</label>
+                            <input type="url" id="businessRegisterPhoto" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                            <small style="color: var(--gris-medio);">Opcional - Sube el logo a ImageBB</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">Registrar Empresa</button>
+                    </form>
+
+                    <div style="text-align: center;">
+                        <p>¿Ya tienes cuenta empresarial? <a href="#" onclick="showPage('business-login')" style="color: var(--dorado);">Inicia sesión aquí</a></p>
+                        <p style="margin-top: 1rem;">¿Eres usuario individual? <a href="#" onclick="showPage('user-register')" style="color: var(--dorado);">Registro de usuario</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUSINESS LOGIN PAGE -->
+        <div id="businessLoginPage" class="page" style="display: none;">
+            <div style="padding-top: 80px; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+                <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--negro);">Login Empresarial</h2>
+                    
+                    <form id="businessLoginForm">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email Empresarial</label>
+                            <input type="email" id="businessLoginEmail" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Contraseña</label>
+                            <input type="password" id="businessLoginPassword" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris-claro); border-radius: 5px;">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">Iniciar Sesión</button>
+                    </form>
+
+                    <div style="text-align: center;">
+                        <p>¿No tienes cuenta empresarial? <a href="#" onclick="showPage('business-register')" style="color: var(--dorado);">Regístrate aquí</a></p>
+                        <p style="margin-top: 1rem;">¿Eres usuario individual? <a href="#" onclick="showPage('user-login')" style="color: var(--dorado);">Login de usuario</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>InmoPlaza</h3>
+                <p>La plataforma inmobiliaria más completa donde propietarios y compradores se conectan.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces</h3>
+                <p><a href="#" onclick="showPage('index')" style="color: var(--blanco-calido); text-decoration: none;">Inicio</a></p>
+                <p><a href="#" onclick="showPage('marketplace')" style="color: var(--blanco-calido); text-decoration: none;">Marketplace</a></p>
+                <p><a href="#" onclick="showPage('dashboard')" style="color: var(--blanco-calido); text-decoration: none;">Dashboard</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Email: info@inmoplaza.com</p>
+                <p>Teléfono: +507 1234-5678</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 InmoPlaza. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Configuration -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, limit, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            // Reemplaza con tu configuración de Firebase
+            apiKey: "tu-api-key",
+            authDomain: "tu-proyecto.firebaseapp.com",
+            projectId: "tu-proyecto-id",
+            storageBucket: "tu-proyecto.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "tu-app-id"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Global variables
+        window.auth = auth;
+        window.db = db;
+        window.currentUser = null;
+        window.currentSlide = 0;
+        window.properties = [];
+        window.filteredProperties = [];
+
+        // Authentication State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.currentUser = user;
+                updateNavbar(true);
+                loadUserProfile();
+            } else {
+                window.currentUser = null;
+                updateNavbar(false);
+            }
+        });
+
+        // Load user profile
+        async function loadUserProfile() {
+            if (window.currentUser) {
+                try {
+                    const userDoc = await getDocs(query(collection(db, 'users'), where('uid', '==', window.currentUser.uid)));
+                    if (!userDoc.empty) {
+                        const userData = userDoc.docs[0].data();
+                        document.getElementById('profileImg').src = userData.fotoPerfilURL || 'https://via.placeholder.com/40';
+                    }
+                } catch (error) {
+                    console.error('Error loading user profile:', error);
+                }
+            }
+        }
+
+        // Update navbar based on auth state
+        function updateNavbar(isLoggedIn) {
+            const authButtons = document.getElementById('authButtons');
+            const userProfile = document.getElementById('userProfile');
+            
+            if (isLoggedIn) {
+                authButtons.style.display = 'none';
+                userProfile.style.display = 'block';
+            } else {
+                authButtons.style.display = 'flex';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        // Page navigation
+        window.showPage = function(pageName) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageName + 'Page');
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                
+                // Load page-specific content
+                if (pageName === 'index') {
+                    loadRecentProperties();
+                } else if (pageName === 'marketplace') {
+                    loadAllProperties();
+                } else if (pageName === 'dashboard') {
+                    if (!window.currentUser) {
+                        showPage('user-login');
+                        return;
+                    }
+                    loadUserProperties();
+                }
+            }
+        };
+
+        // User Registration
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const photoURL = document.getElementById('registerPhoto').value || 'https://via.placeholder.com/40';
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save user data to Firestore
+                await setDoc(doc(db, 'users', user.uid), {
+                    uid: user.uid,
+                    nombre: name,
+                    correo: email,
+                    fotoPerfilURL: photoURL,
+                    empresa: 'no',
+                    fechaRegistro: new Date()
+                });
+
+                alert('Registro exitoso!');
+                showPage('index');
+            } catch (error) {
+                alert('Error en el registro: ' + error.message);
+            }
+        });
+
+        // Business Registration
+        document.getElementById('businessRegisterForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('businessRegisterName').value;
+            const email = document.getElementById('businessRegisterEmail').value;
+            const password = document.getElementById('businessRegisterPassword').value;
+            const ruc = document.getElementById('businessRuc').value;
+            const photoURL = document.getElementById('businessRegisterPhoto').value || 'https://via.placeholder.com/40';
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save business data to Firestore
+                await setDoc(doc(db, 'users', user.uid), {
+                    uid: user.uid,
+                    nombre: name,
+                    correo: email,
+                    fotoPerfilURL: photoURL,
+                    empresa: 'sí',
+                    ruc: ruc,
+                    fechaRegistro: new Date()
+                });
+
+                alert('Registro empresarial exitoso!');
+                showPage('index');
+            } catch (error) {
+                alert('Error en el registro: ' + error.message);
+            }
+        });
+
+        // User Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                alert('Inicio de sesión exitoso!');
+                showPage('index');
+            } catch (error) {
+                alert('Error en el inicio de sesión: ' + error.message);
+            }
+        });
+
+        // Business Login
+        document.getElementById('businessLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('businessLoginEmail').value;
+            const password = document.getElementById('businessLoginPassword').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                alert('Inicio de sesión empresarial exitoso!');
+                showPage('index');
+            } catch (error) {
+                alert('Error en el inicio de sesión: ' + error.message);
+            }
+        });
+
+        // Property Upload
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!window.currentUser) {
+                alert('Debes iniciar sesión para subir propiedades');
+                return;
+            }
+
+            const propertyData = {
+                nombre: document.getElementById('propertyName').value,
+                descripcion: document.getElementById('propertyDescription').value,
+                precio: parseFloat(document.getElementById('propertyPrice').value),
+                ubicacion: document.getElementById('propertyLocation').value,
+                categoria: document.getElementById('propertyCategory').value,
+                imagenURL: document.getElementById('propertyImage').value,
+                creadorUID: window.currentUser.uid,
+                timestamp: new Date()
+            };
+
+            try {
+                await addDoc(collection(db, 'propiedades'), propertyData);
+                alert('Propiedad subida exitosamente!');
+                document.getElementById('uploadForm').reset();
+                showPage('dashboard');
+            } catch (error) {
+                alert('Error al subir la propiedad: ' + error.message);
+            }
+        });
+
+        // Load recent properties for carousel
+        window.loadRecentProperties = async function() {
+            try {
+                const q = query(collection(db, 'propiedades'), orderBy('timestamp', 'desc'), limit(5));
+                const querySnapshot = await getDocs(q);
+                const properties = [];
+                
+                querySnapshot.forEach((doc) => {
+                    properties.push({ id: doc.id, ...doc.data() });
+                });
+
+                displayCarousel(properties);
+            } catch (error) {
+                console.error('Error loading recent properties:', error);
+                document.getElementById('carouselTrack').innerHTML = '<div style="padding: 2rem; text-align: center;">Error al cargar propiedades</div>';
+            }
+        };
+
+        // Display carousel
+        function displayCarousel(properties) {
+            const track = document.getElementById('carouselTrack');
+            const indicators = document.getElementById('carouselIndicators');
+            
+            if (properties.length === 0) {
+                track.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--gris-medio);">No hay propiedades disponibles</div>';
+                return;
+            }
+
+            track.innerHTML = properties.map(property => `
+                <div class="property-card" style="background-image: url('${property.imagenURL}');">
+                    <div class="property-info">
+                        <div class="property-name">${property.nombre}</div>
+                        <div class="property-location">📍 ${property.ubicacion}</div>
+                        <div class="property-price">${property.precio.toLocaleString()}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            indicators.innerHTML = properties.map((_, index) => `
+                <div class="indicator ${index === 0 ? 'active' : ''}" onclick="goToSlide(${index})"></div>
+            `).join('');
+
+            window.totalSlides = properties.length;
+            window.currentSlide = 0;
+        }
+
+        // Load all properties for marketplace
+        window.loadAllProperties = async function() {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'propiedades'));
+                window.properties = [];
+                
+                querySnapshot.forEach((doc) => {
+                    window.properties.push({ id: doc.id, ...doc.data() });
+                });
+
+                window.filteredProperties = [...window.properties];
+                displayProperties(window.filteredProperties);
+            } catch (error) {
+                console.error('Error loading properties:', error);
+                document.getElementById('propertiesGrid').innerHTML = '<div style="padding: 2rem; text-align: center;">Error al cargar propiedades</div>';
+            }
+        };
+
+        // Load user properties for dashboard
+        window.loadUserProperties = async function() {
+            if (!window.currentUser) return;
+
+            try {
+                const q = query(collection(db, 'propiedades'), where('creadorUID', '==', window.currentUser.uid));
+                const querySnapshot = await getDocs(q);
+                const userProperties = [];
+                
+                querySnapshot.forEach((doc) => {
+                    userProperties.push({ id: doc.id, ...doc.data() });
+                });
+
+                displayUserProperties(userProperties);
+            } catch (error) {
+                console.error('Error loading user properties:', error);
+                document.getElementById('userPropertiesGrid').innerHTML = '<div style="padding: 2rem; text-align: center;">Error al cargar tus propiedades</div>';
+            }
+        };
+
+        // Display properties in marketplace
+        function displayProperties(properties) {
+            const grid = document.getElementById('propertiesGrid');
+            
+            if (properties.length === 0) {
+                grid.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--gris-medio); grid-column: 1 / -1;">No se encontraron propiedades</div>';
+                return;
+            }
+
+            grid.innerHTML = properties.map(property => `
+                <div class="property-card-grid" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; animation: fadeInUp 0.6s ease-out;">
+                    <div style="height: 200px; background-image: url('${property.imagenURL}'); background-size: cover; background-position: center;"></div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="color: var(--negro); margin-bottom: 0.5rem; font-size: 1.2rem;">${property.nombre}</h3>
+                        <p style="color: var(--gris-medio); margin-bottom: 1rem; font-size: 0.9rem;">${property.descripcion.substring(0, 100)}...</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span style="color: var(--dorado); font-weight: bold;">📍 ${property.ubicacion}</span>
+                            <span style="background: var(--dorado); color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem;">${property.categoria}</span>
+                        </div>
+                        <div style="font-size: 1.3rem; font-weight: bold; color: var(--negro);">${property.precio.toLocaleString()}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add hover effects
+            const cards = grid.querySelectorAll('.property-card-grid');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Display user properties in dashboard
+        function displayUserProperties(properties) {
+            const grid = document.getElementById('userPropertiesGrid');
+            
+            if (properties.length === 0) {
+                grid.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--gris-medio); grid-column: 1 / -1;">No has subido propiedades aún</div>';
+                return;
+            }
+
+            grid.innerHTML = properties.map(property => `
+                <div class="property-card-grid" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                    <div style="height: 200px; background-image: url('${property.imagenURL}'); background-size: cover; background-position: center;"></div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="color: var(--negro); margin-bottom: 0.5rem;">${property.nombre}</h3>
+                        <p style="color: var(--gris-medio); margin-bottom: 1rem; font-size: 0.9rem;">${property.descripcion.substring(0, 100)}...</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span style="color: var(--dorado);">📍 ${property.ubicacion}</span>
+                            <span style="background: var(--dorado); color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem;">${property.categoria}</span>
+                        </div>
+                        <div style="font-size: 1.3rem; font-weight: bold; color: var(--negro); margin-bottom: 1rem;">${property.precio.toLocaleString()}</div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="editProperty('${property.id}')" class="btn btn-secondary" style="flex: 1; padding: 0.5rem;">Editar</button>
+                            <button onclick="deleteProperty('${property.id}')" class="btn" style="flex: 1; padding: 0.5rem; background: #dc3545; color: white;">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Carousel navigation
+        window.nextSlide = function() {
+            if (window.totalSlides) {
+                window.currentSlide = (window.currentSlide + 1) % window.totalSlides;
+                updateCarousel();
+            }
+        };
+
+        window.prevSlide = function() {
+            if (window.totalSlides) {
+                window.currentSlide = window.currentSlide === 0 ? window.totalSlides - 1 : window.currentSlide - 1;
+                updateCarousel();
+            }
+        };
+
+        window.goToSlide = function(index) {
+            window.currentSlide = index;
+            updateCarousel();
+        };
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            track.style.transform = `translateX(-${window.currentSlide * 100}%)`;
+            
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === window.currentSlide);
+            });
+        }
+
+        // Auto-advance carousel
+        setInterval(() => {
+            if (window.totalSlides > 1) {
+                nextSlide();
+            }
+        }, 5000);
+
+        // Filters
+        window.applyFilters = function() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+
+            window.filteredProperties = window.properties.filter(property => {
+                const matchesSearch = property.nombre.toLowerCase().includes(searchTerm);
+                const matchesLocation = property.ubicacion.toLowerCase().includes(locationFilter);
+                const matchesPrice = property.precio >= minPrice && property.precio <= maxPrice;
+                const matchesCategory = !categoryFilter || property.categoria === categoryFilter;
+
+                return matchesSearch && matchesLocation && matchesPrice && matchesCategory;
+            });
+
+            displayProperties(window.filteredProperties);
+        };
+
+        window.clearFilters = function() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('categoryFilter').value = '';
+            
+            window.filteredProperties = [...window.properties];
+            displayProperties(window.filteredProperties);
+        };
+
+        // Utility functions
+        window.toggleDropdown = function() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('show');
+        };
+
+        window.toggleMobileMenu = function() {
+            // Mobile menu functionality can be implemented here
+            console.log('Mobile menu toggled');
+        };
+
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                alert('Sesión cerrada exitosamente');
+                showPage('index');
+            } catch (error) {
+                alert('Error al cerrar sesión: ' + error.message);
+            }
+        };
+
+        window.editProperty = function(propertyId) {
+            alert('Función de edición en desarrollo');
+        };
+
+        window.deleteProperty = function(propertyId) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta propiedad?')) {
+                // Delete functionality would be implemented here
+                alert('Función de eliminación en desarrollo');
+            }
+        };
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdownMenu');
+            const profileImg = document.getElementById('profileImg');
+            
+            if (!profileImg.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Initialize the app
+        showPage('index');
+    </script>
+</body>
+</html>
