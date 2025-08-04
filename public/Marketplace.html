@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace</title>
+    <link rel="stylesheet" href="CSS/Marketplace.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Home Delight</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
+                <li><a href="#upload" class="nav-link">Publicar</a></li>
+                <li><a href="#Login" class="nav-link">Iniciar Sesion</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">
+            <h1>Marketplace Inmobiliario</h1>
+            <p>Descubre tu próximo hogar entre 6 propiedades disponibles</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar por nombre, ubicación o descripción...">
+                <button class="filter-btn">
+                    ⚙️ Filtros
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>🔍 Filtros</h3>
+                
+                <div class="filter-group">
+                    <h4>📂 Categoría</h4>
+                    <ul class="category-list">
+                        <li class="category-item active">
+                            <span class="category-icon icon-todas"></span>
+                            Todas las categorías
+                        </li>
+                        <li class="category-item">
+                            <span class="category-icon icon-casas-grandes"></span>
+                            Casas Grandes
+                        </li>
+                        <li class="category-item">
+                            <span class="category-icon icon-casas-pequenas"></span>
+                            Casas Pequeñas
+                        </li>
+                        <li class="category-item">
+                            <span class="category-icon icon-departamentos"></span>
+                            Departamentos
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="filter-group">
+                    <h4>💰 Rango de Precio (MXN)</h4>
+                    <div class="price-inputs">
+                        <input type="text" class="price-input" placeholder="0" value="0">
+                        <span>—</span>
+                        <input type="text" class="price-input" placeholder="∞">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>📍 Ubicación</h4>
+                    <select class="location-select">
+                        <option>Selecciona una ciudad</option>
+                        <option>Ciudad de México</option>
+                        <option>Cancún</option>
+                        <option>Puebla</option>
+                        <option>Santa Fe</option>
+                    </select>
+                </div>
+
+                <div class="filter-group quick-filters">
+                    <h4>Filtros Rápidos</h4>
+                    <div class="quick-filter-item">Hasta $1M</div>
+                    <div class="quick-filter-item">$1M - $3M</div>
+                    <div class="quick-filter-item">$3M - $5M</div>
+                    <div class="quick-filter-item">Más de $5M</div>
+                </div>
+            </div>
+
+            <div class="properties-section">
+                <div class="properties-header">
+                    <span class="properties-count">6 propiedades encontradas</span>
+                    <div class="view-options">
+                        <select style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option>Más recientes</option>
+                            <option>Precio menor</option>
+                            <option>Precio mayor</option>
+                        </select>
+                        <button class="view-btn">📋</button>
+                        <button class="view-btn active">⊞</button>
+                    </div>
+                </div>
+
+                <div class="properties-grid">
+                    <!-- Casa Moderna -->
+                    <div class="property-card">
+                        <div class="property-image img-moderna">
+                            <span class="property-tag tag-casa-grande">Casa Grande</span>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Casa Moderna en...</h3>
+                            <div class="property-location">
+                                📍 Polanco, Ciudad de México
+                            </div>
+                            <p class="property-description">
+                                Hermosa casa de 3 niveles con acabados de lujo, jardín privado, 4...
+                            </p>
+                            <div class="property-price">$8,500,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Departamento -->
+                    <div class="property-card">
+                        <div class="property-image img-departamento">
+                            <span class="property-tag tag-departamento">Departamento</span>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Departamento con...</h3>
+                            <div class="property-location">
+                                📍 Cancún, Quintana Roo
+                            </div>
+                            <p class="property-description">
+                                Espectacular departamento en el piso 15 con vista panorámica a...
+                            </p>
+                            <div class="property-price">$3,200,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Casa Familiar -->
+                    <div class="property-card">
+                        <div class="property-image img-familiar">
+                            <span class="property-tag tag-casa-pequena">Casa Pequeña</span>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Casa Familiar en...</h3>
+                            <div class="property-location">
+                                📍 Ciudad Satélite, Estado de...
+                            </div>
+                            <p class="property-description">
+                                Acogedora casa familiar de 2 niveles, perfecta para familias, 3...
+                            </p>
+                            <div class="property-price">$2,850,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Penthouse -->
+                    <div class="property-card">
+                        <div class="property-image img-penthouse">
+                            <span class="property-tag tag-departamento">Departamento</span>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Penthouse de Lujo</h3>
+                            <div class="property-location">
+                                📍 Santa Fe, Ciudad de México
+                            </div>
+                            <p class="property-description">
+                                Exclusivo penthouse de dos niveles con terraza privada y jacuzzi, 3...
+                            </p>
+                            <div class="property-price">$12,000,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Casa Colonial -->
+                    <div class="property-card">
+                        <div class="property-image img-colonial">
+                            <span class="property-tag tag-casa-grande">Casa Grande</span>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Casa Colonial...</h3>
+                            <div class="property-location">
+                                📍 Centro Histórico, Puebla
+                            </div>
+                            <p class="property-description">
+                                Hermosa casona colonial completamente restaurada...
+                            </p>
+                            <div class="property-price">$6,750,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Departamento Moderno -->
+                    <div class="property-card">
+                        <div class="property-image img-moderno-depto">
+                            <span class="property-tag tag-departamento">Departamento</span>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Departamento...</h3>
+                            <div class="property-location">
+                                📍 Roma Norte, Ciudad de México
+                            </div>
+                            <p class="property-description">
+                                Moderno departamento ideal para ejecutivos, 1 recámara con vestidor...
+                            </p>
+                            <div class="property-price">$1,850,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad básica
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtros de categoría
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    categoryItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Filtros rápidos
+            const quickFilters = document.querySelectorAll('.quick-filter-item');
+            quickFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    quickFilters.forEach(f => f.style.background = '#f8f9fa');
+                    this.style.background = '#e9ecef';
+                });
+            });
+
+            // Botones de vista
+            const viewBtns = document.querySelectorAll('.view-btn');
+            viewBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    viewBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Animación en las tarjetas
+            const propertyCards = document.querySelectorAll('.property-card');
+            propertyCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
