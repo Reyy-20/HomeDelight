@@ -94,7 +94,9 @@
      font-size: 1.3rem;
      color: #929191;
  }
-
+section{
+    padding: 100px 10px 10px 10px;
+}
  .filters {
      background: #fff;
      padding: 18px 24px 12px 24px;
@@ -300,7 +302,7 @@
      box-shadow: 0 4px 16px rgba(216, 175, 83, 0.18);
      cursor: pointer;
      z-index: 20;
-     transition: background 0.2s;
+     transition: background 0.5s;
  }
 
  .publish-btn:hover {
