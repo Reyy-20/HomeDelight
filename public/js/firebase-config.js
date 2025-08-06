@@ -5,7 +5,7 @@ const firebaseConfig = {
   projectId: "expo-project-senior-6bfea",
   storageBucket: "expo-project-senior-6bfea.appspot.com",
   messagingSenderId: "188431803500",
-  appId: "1:188431803500:web:abcdef123456"
+  appId: "1:188431803500:web:80042018163db2d925d0db"
 };
 
 // Initialize Firebase

@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to all users under any document
+    match /{document=**} {
+      allow read, write: if true;
+    }
+    
+    // Specific rules for better security (uncomment when ready)
+    /*
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Businesses collection
+    match /businesses/{businessId} {
+      allow read, write: if request.auth != null && request.auth.uid == businessId;
+    }
+    
+    // Active users collection (for real-time tracking)
+    match /activeUsers/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Properties collection
+    match /properties/{propertyId} {
+      allow read: if true; // Public read access
+      allow write: if request.auth != null && 
+        (request.auth.uid == resource.data.businessId || 
+         request.auth.uid == resource.data.userId);
+    }
+    */
+  }
+} 
