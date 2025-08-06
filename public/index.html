@@ -1,236 +1,113 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeDelight - Tu hogar, tu felicidad</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Home Delight</title>
+    <link rel="stylesheet" href="CSS/Style.css">
+    <link rel="stylesheet" href="css/profile-dropdown.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <!-- Header/Navigation -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-left">
-                <div class="logo">
-                    <i class="fas fa-home"></i>
-                    <span>HomeDelight</span>
-                </div>
-                <div class="nav-dropdown">
-                    <span>Categorías <i class="fas fa-chevron-down"></i></span>
-                </div>
-                <div class="hamburger">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-            
-            <div class="nav-center">
-                <div class="search-bar">
-                    <input type="text" placeholder="Busca productos, marcas y más">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="nav-right">
-                <div class="location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Enviar a Ciudad de Panamá</span>
-                </div>
-                <div class="nav-icons" id="nav-icons">
-                    <a href="dashboard.html" class="nav-icon-link">
-                        <i class="fas fa-store"></i>
-                    </a>
-                    <a href="business-login.html" class="nav-icon-link" id="login-link">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
+
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">Home Delight</a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                    <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
+                    <li><a href="#upload" class="nav-link">Publicar</a></li>
+                    <li><a href="#Login" class="nav-link">Iniciar Sesion</a></li>
+                </ul>
             </div>
         </nav>
-    </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="content-wrapper">
-            <!-- Promotional Banner/Carousel -->
-            <section class="promo-section">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <div class="carousel-slide active">
-                            <div class="promo-banner">
-                                <div class="promo-content">
-                                    <div class="store-logo">
-                                        <i class="fas fa-mobile-alt"></i>
-                                        <span class="store-name">CELL MAX STORE</span>
-                                    </div>
-                                    <h2>CON LA NUEVA O LA CLÁSICA JUEGA COMO QUIERAS</h2>
-                                    <div class="product-image">
-                                        <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Nintendo+Switch" alt="Nintendo Switch">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="promo-banner">
-                                <div class="promo-content">
-                                    <h2>OFERTAS ESPECIALES</h2>
-                                    <p>Encuentra los mejores productos para tu hogar</p>
-                                    <div class="product-image">
-                                        <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Ofertas" alt="Ofertas">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="promo-banner">
-                                <div class="promo-content">
-                                    <h2>NUEVOS PRODUCTOS</h2>
-                                    <p>Descubre las últimas novedades</p>
-                                    <div class="product-image">
-                                        <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Nuevos" alt="Nuevos">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Encuentra tu hogar ideal</h1>
+                    <p>Descubre propiedades excepcionales con nuestra plataforma de bienes raíces premium</p>
+                    <div class="hero-buttons">
+                        <a href="#marketplace" class="btn btn-primary nav-link">
+                            <i class="fas fa-search"></i>
+                            Explorar Propiedades
+                        </a>
+                        <a href="#upload" class="btn btn-outline nav-link">
+                            <i class="fas fa-plus"></i>
+                            Publicar Propiedad
+                        </a>
                     </div>
-                    <div class="carousel-dots">
-                        <span class="dot active" data-slide="0"></span>
-                        <span class="dot" data-slide="1"></span>
-                        <span class="dot" data-slide="2"></span>
-                    </div>
-                    <button class="carousel-btn prev">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-btn next">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
                 </div>
             </section>
 
-            <!-- Flash Sale Section -->
-            <section class="flash-sale-section">
-                <div class="flash-sale-card">
-                    <div class="flash-header">
-                        <h3>Flash Sale</h3>
-                        <div class="countdown">
-                            <span>Quedan</span>
-                            <div class="timer">
-                                <div class="time-box">10</div>
-                                <div class="time-box">11</div>
-                                <div class="time-box">26</div>
+            <!-- Stats Section -->
+            <section class="stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-building"></i>
                             </div>
+                            <div class="stat-number">250+</div>
+                            <div class="stat-label">Propiedades Disponibles</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Ubicaciones Únicas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number">1,200+</div>
+                            <div class="stat-label">Usuarios Activos</div>
                         </div>
                     </div>
-                    <div class="flash-content">
-                        <p>¡Pen Pen se puso La Roja! Edición limitada de la colaboración de Pen Pen x La Sele</p>
-                        <div class="product-image">
-                            <img src="https://via.placeholder.com/150x150/87CEEB/FFD700?text=Pen+Pen" alt="Pen Pen Plush">
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>¿Por qué elegir Home Delight?</h2>
+                        <p>Ofrecemos la mejor experiencia en bienes raíces con tecnología de vanguardia y un servicio
+                            personalizado de primera clase.</p>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Búsqueda Avanzada</h3>
+                            <p>Encuentra la propiedad perfecta con nuestros filtros inteligentes</p>
                         </div>
-                        <div class="discount-badge">
-                            <span>Ahorra 16%</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <h3>Calidad Premium</h3>
+                            <p>Solo las mejores propiedades seleccionadas cuidadosamente</p>
                         </div>
-                        <div class="price">
-                            <span class="current-price">$25</span>
-                            <span class="original-price">$30</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Comunidad Confiable</h3>
+                            <p>Conecta con propietarios y empresas verificadas</p>
                         </div>
-                        <button class="add-to-cart-btn">
-                            <i class="fas fa-shopping-cart"></i>
-                            Agregar al Carrito
-                        </button>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- Additional Content Sections -->
-        <section class="featured-products">
-            <h2 class="section-title">Productos Destacados</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+1" alt="Producto 1">
-                    <h3>Producto 1</h3>
-                    <p class="price">$99.99</p>
-                    <button class="buy-btn">Comprar</button>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+2" alt="Producto 2">
-                    <h3>Producto 2</h3>
-                    <p class="price">$149.99</p>
-                    <button class="buy-btn">Comprar</button>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+3" alt="Producto 3">
-                    <h3>Producto 3</h3>
-                    <p class="price">$79.99</p>
-                    <button class="buy-btn">Comprar</button>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200x200/CCCCCC/FFFFFF?text=Producto+4" alt="Producto 4">
-                    <h3>Producto 4</h3>
-                    <p class="price">$199.99</p>
-                    <button class="buy-btn">Comprar</button>
-                </div>
-            </div>
-        </section>
+    </body>
 
-        <section class="categories-section">
-            <h2 class="section-title">Categorías Populares</h2>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <i class="fas fa-couch"></i>
-                    <h3>Muebles</h3>
-                </div>
-                <div class="category-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Iluminación</h3>
-                </div>
-                <div class="category-card">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Decoración</h3>
-                </div>
-                <div class="category-card">
-                    <i class="fas fa-utensils"></i>
-                    <h3>Cocina</h3>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
-    <!-- Authentication Scripts -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/notification.js"></script>
-    <script src="js/main.js"></script>
-    
-    <script>
-        // Update navigation based on auth state
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check if user is logged in
-            if (authManager.currentUser) {
-                const loginLink = document.getElementById('login-link');
-                const displayName = authManager.currentUser.businessData?.businessName || 
-                                  authManager.currentUser.userData?.name || 
-                                  authManager.currentUser.email;
-                
-                loginLink.innerHTML = `
-                    <i class="fas fa-user-circle"></i>
-                    <span style="font-size: 12px; margin-left: 5px;">${displayName}</span>
-                `;
-                loginLink.href = 'dashboard.html';
-                loginLink.title = `Bienvenido, ${displayName}`;
-            }
-        });
-    </script>
-</body>
 </html>
-=======
-
->>>>>>> 645569e255d43858d0285a785e012507a9bc6228
