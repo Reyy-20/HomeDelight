@@ -45,6 +45,14 @@ class AuthManager {
 
     async register(email, password, userData, userType = 'user') {
         try {
+            // Test connection first
+            if (window.firebaseErrorHandler) {
+                const connectionTest = await window.firebaseErrorHandler.testConnection();
+                if (!connectionTest) {
+                    return { success: false, error: 'No se pudo conectar con Firebase. Verifica tu conexión.' };
+                }
+            }
+
             const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
             const user = userCredential.user;
             
@@ -59,28 +67,63 @@ class AuthManager {
                 ...userData
             };
 
-            // Save user data to appropriate collection
-            if (userType === 'business') {
-                await this.db.collection('businesses').doc(user.uid).set(userInfo);
-                console.log('Business registered successfully in Firestore:', userInfo);
-            } else {
-                await this.db.collection('users').doc(user.uid).set(userInfo);
-                console.log('User registered successfully in Firestore:', userInfo);
-            }
+            // Use retry mechanism for Firestore operations
+            if (window.firebaseErrorHandler) {
+                await window.firebaseErrorHandler.retryOperation(async () => {
+                    // Save user data to appropriate collection
+                    if (userType === 'business') {
+                        await this.db.collection('businesses').doc(user.uid).set(userInfo);
+                        console.log('Business registered successfully in Firestore:', userInfo);
+                    } else {
+                        await this.db.collection('users').doc(user.uid).set(userInfo);
+                        console.log('User registered successfully in Firestore:', userInfo);
+                    }
 
-            // Also save to activeUsers collection for real-time tracking
-            await this.db.collection('activeUsers').doc(user.uid).set({
-                uid: user.uid,
-                email: email,
-                userType: userType,
-                lastSeen: new Date(),
-                online: true,
-                registrationDate: new Date()
-            });
+                    // Also save to activeUsers collection for real-time tracking
+                    await this.db.collection('activeUsers').doc(user.uid).set({
+                        uid: user.uid,
+                        email: email,
+                        userType: userType,
+                        lastSeen: new Date(),
+                        online: true,
+                        registrationDate: new Date()
+                    });
+                });
+            } else {
+                // Fallback without retry mechanism
+                if (userType === 'business') {
+                    await this.db.collection('businesses').doc(user.uid).set(userInfo);
+                    console.log('Business registered successfully in Firestore:', userInfo);
+                } else {
+                    await this.db.collection('users').doc(user.uid).set(userInfo);
+                    console.log('User registered successfully in Firestore:', userInfo);
+                }
+
+                await this.db.collection('activeUsers').doc(user.uid).set({
+                    uid: user.uid,
+                    email: email,
+                    userType: userType,
+                    lastSeen: new Date(),
+                    online: true,
+                    registrationDate: new Date()
+                });
+            }
 
             return { success: true, user };
         } catch (error) {
             console.error('Registration error:', error);
+            
+            // Handle specific Firebase errors
+            if (error.code === 'auth/email-already-in-use') {
+                return { success: false, error: 'Este email ya está registrado. Usa otro email o inicia sesión.' };
+            } else if (error.code === 'auth/weak-password') {
+                return { success: false, error: 'La contraseña es muy débil. Usa al menos 6 caracteres.' };
+            } else if (error.code === 'auth/invalid-email') {
+                return { success: false, error: 'El email no es válido.' };
+            } else if (error.code === 'permission-denied') {
+                return { success: false, error: 'No tienes permisos para registrar usuarios. Verifica las reglas de Firestore.' };
+            }
+            
             return { success: false, error: error.message };
         }
     }
