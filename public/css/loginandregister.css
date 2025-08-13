@@ -193,7 +193,9 @@
   
   .login-container input[type="email"],
   .login-container input[type="password"],
-  .login-container input[type="tel"] {
+  .login-container input[type="tel"],
+  .login-container input[type="text"],
+  .login-container input[type="URL"]{
     width: 100%;
     padding: 12px 14px;
     border: 1.5px solid #e2c6a8;

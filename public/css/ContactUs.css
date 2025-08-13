@@ -97,7 +97,7 @@
         }
 
         .submit-btn:hover {
-            background-color: #0056b3;
+            background-color: #c9a800;
         }
 
         .contact-info {
@@ -132,7 +132,7 @@
 
         .method-icon {
             font-size: 2.5rem;
-            color: #007bff;
+            color: #e1d726;
             margin-bottom: 15px;
         }
 
@@ -168,7 +168,7 @@
         }
 
         .cta-section {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: #d8af53;
             color: white;
             padding: 60px 40px;
             text-align: center;
@@ -190,8 +190,9 @@
             line-height: 1.2;
         }
 
-        .cta-btn {
-            background-color: white;
+        .look {
+            background-color:white;
+            background: #d8b05370;
             color: #007bff;
             padding: 15px 35px;
             border: none;
@@ -202,9 +203,10 @@
             transition: all 0.3s ease;
         }
 
-        .cta-btn:hover {
+        .look:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: wheat;
         }
 
         @media (max-width: 768px) {

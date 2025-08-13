@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,66 +8,68 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/Marketplace.css">
-     <link rel="stylesheet" href="css/Header.css">
+    <link rel="stylesheet" href="css/Header.css">
 </head>
+
 <body>
     <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="index.html" class="logo">Home Delight</a>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
-                    <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
-                    <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                    <li><a href="#" class="nav-link">LogIn/register</a></li>
-                </ul>
-            </div>
-        </nav>
-    <!-- Filtros -->
-     <section>
-    <form class="filters" id="filtersForm" autocomplete="off" onsubmit="return false;">
-        <div class="filters-row">
-            <div class="filter-group">
-                <label for="filtroUbicacion">Ubicación</label>
-                <select id="filtroUbicacion">
-                    <option value="">Todas</option>
-                    <option>San Francisco</option>
-                    <option>Tumba Muerto</option>
-                    <option>Avenida Balboa</option>
-                    <option>Costa del Este</option>
-                    <option>Brisas del Golf</option>
-                    <option>12 de Octubre</option>
-                    <option>Albrook</option>
-                    <option>Costa Sur</option>
-                    <option>Punta Barco</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="filtroPrecioMin">Precio Mínimo (B/.)</label>
-                <input type="number" id="filtroPrecioMin" min="0" placeholder="Mínimo">
-            </div>
-            <div class="filter-group">
-                <label for="filtroPrecioMax">Precio Máximo (B/.)</label>
-                <input type="number" id="filtroPrecioMax" min="0" placeholder="Máximo">
-            </div>
-            <div class="filter-group">
-                <label for="filtroTipo">Tipo de propiedad</label>
-                <select id="filtroTipo">
-                    <option value="">Todos</option>
-                    <option>Casa</option>
-                    <option>PH</option>
-                    <option>Departamento</option>
-                </select>
-            </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Home Delight</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active">Inicio</a></li>
+                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
+                <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
+                <li><a href="login&register.html" class="nav-link">LogIn/register</a></li>
+            </ul>
         </div>
-    </form>
-     </section>
+    </nav>
+    <!-- Filtros -->
+    <section>
+        <form class="filters" id="filtersForm" autocomplete="off" onsubmit="return false;">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="filtroUbicacion">Ubicación</label>
+                    <select id="filtroUbicacion">
+                        <option value="">Todas</option>
+                        <option>San Francisco</option>
+                        <option>Tumba Muerto</option>
+                        <option>Avenida Balboa</option>
+                        <option>Costa del Este</option>
+                        <option>Brisas del Golf</option>
+                        <option>12 de Octubre</option>
+                        <option>Albrook</option>
+                        <option>Costa Sur</option>
+                        <option>Punta Barco</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filtroPrecioMin">Precio Mínimo (B/.)</label>
+                    <input type="number" id="filtroPrecioMin" min="0" placeholder="Mínimo">
+                </div>
+                <div class="filter-group">
+                    <label for="filtroPrecioMax">Precio Máximo (B/.)</label>
+                    <input type="number" id="filtroPrecioMax" min="0" placeholder="Máximo">
+                </div>
+                <div class="filter-group">
+                    <label for="filtroTipo">Tipo de propiedad</label>
+                    <select id="filtroTipo">
+                        <option value="">Todos</option>
+                        <option>Casa</option>
+                        <option>PH</option>
+                        <option>Departamento</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </section>
     <!-- Cards -->
     <div class="cards-container" id="cardsContainer">
         <!-- Card 1 -->
         <div class="property-card" data-ubicacion="Albrook" data-precio="395000">
-            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" class="property-image" alt="Casa El Roble">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80"
+                class="property-image" alt="Casa El Roble">
             <div class="options"><i class="bi bi-three-dots"></i></div>
             <div class="property-content">
                 <div class="property-header-row">
@@ -91,7 +94,8 @@
         </div>
         <!-- Card 2 -->
         <div class="property-card" data-ubicacion="Costa Sur" data-precio="520000">
-            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80" class="property-image" alt="Villa Serena">
+            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80"
+                class="property-image" alt="Villa Serena">
             <div class="options"><i class="bi bi-three-dots"></i></div>
             <div class="property-content">
                 <div class="property-header-row">
@@ -116,7 +120,8 @@
         </div>
         <!-- Card 3 -->
         <div class="property-card" data-ubicacion="Punta Barco" data-precio="420000">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="property-image" alt="Villa Sol y Mar">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                class="property-image" alt="Villa Sol y Mar">
             <div class="options"><i class="bi bi-three-dots"></i></div>
             <div class="property-content">
                 <div class="property-header-row">
@@ -141,7 +146,8 @@
         </div>
         <!-- Card 4 -->
         <div class="property-card" data-ubicacion="San Francisco" data-precio="280000">
-            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80" class="property-image" alt="Casa Moderna">
+            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80"
+                class="property-image" alt="Casa Moderna">
             <div class="options"><i class="bi bi-three-dots"></i></div>
             <div class="property-content">
                 <div class="property-header-row">
@@ -165,7 +171,8 @@
         </div>
         <!-- Card 5 -->
         <div class="property-card" data-ubicacion="Costa del Este" data-precio="750000">
-            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80" class="property-image" alt="Mansión Costa del Este">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
+                class="property-image" alt="Mansión Costa del Este">
             <div class="options"><i class="bi bi-three-dots"></i></div>
             <div class="property-content">
                 <div class="property-header-row">
@@ -175,7 +182,8 @@
                     </div>
                 </div>
                 <div class="property-title">Mansión Costa del Este</div>
-                <div class="property-desc">Lujosa mansión con vista al mar, piscina infinita y garaje para 4 autos.</div>
+                <div class="property-desc">Lujosa mansión con vista al mar, piscina infinita y garaje para 4 autos.
+                </div>
                 <div class="property-details-row">
                     <span><i class="bi bi-house"></i> 6</span>
                     <span><i class="bi bi-badge-wc"></i> 7</span>
@@ -190,7 +198,8 @@
         </div>
         <!-- Card 6 -->
         <div class="property-card" data-ubicacion="Tumba Muerto" data-precio="180000">
-            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80" class="property-image" alt="Casa Familiar">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80"
+                class="property-image" alt="Casa Familiar">
             <div class="options"><i class="bi bi-three-dots"></i></div>
             <div class="property-content">
                 <div class="property-header-row">
@@ -213,512 +222,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal para nuevo anuncio -->
-    <div class="modal" id="modalAnuncio" style="display:none;">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()"><i class="bi bi-x"></i></button>
-            <h2>Publicar nuevo anuncio</h2>
-            <form id="formAnuncio" autocomplete="off">
-                <label for="imgInput">Imagen principal</label>
-                <input type="file" id="imgInput" accept="image/*" required>
-                <img id="imgPreview" class="img-preview" alt="Vista previa">
-                <label for="nombre">Nombre de la casa</label>
-                <input type="text" id="nombre" required maxlength="40">
-                <label for="precio">Precio (B/.)</label>
-                <input type="number" id="precio" required min="0">
-                <label for="rebaja">Rebajado (%)</label>
-                <input type="number" id="rebaja" min="0" max="99" value="0">
-                <label for="desc">Descripción corta</label>
-                <textarea id="desc" maxlength="80" required></textarea>
-                <label for="ubicacion">Ubicación</label>
-                <input type="text" id="ubicacion" required maxlength="30">
-                <label for="tamano">Tamaño (m²)</label>
-                <input type="number" id="tamano" required min="1">
-                <label for="habitaciones">Habitaciones</label>
-                <input type="number" id="habitaciones" required min="1">
-                <label for="banos">Baños</label>
-                <input type="number" id="banos" required min="1">
-                <label for="anio">Año</label>
-                <input type="number" id="anio" required min="1900" max="2100">
-                <label for="interesados">Personas interesadas</label>
-                <input type="number" id="interesados" required min="0">
-                <button type="submit" class="submit-btn">Publicar</button>
-            </form>
-        </div>
-    </div>
-    <!-- Botón publicar -->
-    <button class="publish-btn" onclick="openModal()">PUBLICAR ANUNCIO</button>
-    <script>
-        // Modal logic
-        const modal = document.getElementById('modalAnuncio');
-        function openModal() {
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
-        }
-        function closeModal() {
-            modal.classList.remove('active');
-            setTimeout(() => { modal.style.display = 'none'; }, 200);
-            document.getElementById('formAnuncio').reset();
-            document.getElementById('imgPreview').style.display = 'none';
-        }
-        window.onclick = function(event) {
-            if (event.target === modal) closeModal();
-        }
-        // Imagen preview
-        document.getElementById('imgInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const preview = document.getElementById('imgPreview');
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    preview.src = ev.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            } else {
-                preview.style.display = 'none';
-            }
-        });
-        // Añadir anuncio dinámicamente
-        document.getElementById('formAnuncio').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nombre = document.getElementById('nombre').value;
-            const precio = document.getElementById('precio').value;
-            const rebaja = document.getElementById('rebaja').value;
-            const desc = document.getElementById('desc').value;
-            const ubicacion = document.getElementById('ubicacion').value;
-            const tamano = document.getElementById('tamano').value;
-            const habitaciones = document.getElementById('habitaciones').value;
-            const banos = document.getElementById('banos').value;
-            const anio = document.getElementById('anio').value;
-            const interesados = document.getElementById('interesados').value;
-            const imgFile = document.getElementById('imgInput').files[0];
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                const imgSrc = ev.target.result;
-                const card = document.createElement('div');
-                card.className = 'property-card';
-                card.setAttribute('data-ubicacion', ubicacion);
-                card.setAttribute('data-precio', precio);
-                card.innerHTML = `
-                    <img src="${imgSrc}" class="property-image" alt="${nombre}">
-                    <div class="options"><i class="bi bi-three-dots"></i></div>
-                    <div class="property-content">
-                        <div class="property-header-row">
-                            <div class="property-price">
-                                B/. ${Number(precio).toLocaleString('es-PA')}
-                                ${rebaja > 0 ? `<span class='rebajado'>Rebajado ${rebaja}%</span>` : ''}
-                            </div>
-                        </div>
-                        <div class="property-title">${nombre}</div>
-                        <div class="property-desc">${desc}</div>
-                        <div class="property-details-row">
-                            <span><i class="bi bi-house"></i> ${habitaciones}</span>
-                            <span><i class="bi bi-badge-wc"></i> ${banos}</span>
-                            <span><i class="bi bi-aspect-ratio"></i> ${tamano} m²</span>
-                        </div>
-                        <div class="property-meta-row">
-                            <span><i class="bi bi-geo-alt"></i> ${ubicacion}</span>
-                            <span><i class="bi bi-calendar"></i> ${anio}</span>
-                            <span class="interested"><i class="bi bi-heart-fill"></i> ${interesados}</span>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('cardsContainer').prepend(card);
-                closeModal();
-                filtrarPropiedades();
-            }
-            if (imgFile) reader.readAsDataURL(imgFile);
-        });
-        // Filtros
-        const filtroUbicacion = document.getElementById('filtroUbicacion');
-        const filtroPrecioMin = document.getElementById('filtroPrecioMin');
-        const filtroPrecioMax = document.getElementById('filtroPrecioMax');
-        const filtroTipo = document.getElementById('filtroTipo');
-        filtroUbicacion.addEventListener('change', filtrarPropiedades);
-        filtroPrecioMin.addEventListener('input', filtrarPropiedades);
-        filtroPrecioMax.addEventListener('input', filtrarPropiedades);
-        filtroTipo.addEventListener('change', filtrarPropiedades);
-        function filtrarPropiedades() {
-            const ubicacion = filtroUbicacion.value.trim();
-            const precioMin = parseInt(filtroPrecioMin.value) || 0;
-            const precioMax = parseInt(filtroPrecioMax.value) || Infinity;
-            const tipo = filtroTipo.value.trim();
-            
-            // Validar que el precio máximo sea mayor o igual al mínimo
-            if (precioMax !== Infinity && precioMin > precioMax) {
-                // Si el mínimo es mayor al máximo, no mostrar nada
-                document.querySelectorAll('.property-card').forEach(card => {
-                    card.style.display = 'none';
-                });
-                return;
-            }
-            
-            document.querySelectorAll('.property-card').forEach(card => {
-                const cardUbicacion = (card.getAttribute('data-ubicacion') || '').trim();
-                const cardPrecio = parseInt(card.getAttribute('data-precio')) || 0;
-                let visible = true;
-                
-                // Filtro por ubicación
-                if (ubicacion && cardUbicacion !== ubicacion) visible = false;
-                
-                // Filtro por precio mínimo
-                if (precioMin > 0 && cardPrecio < precioMin) visible = false;
-                
-                // Filtro por precio máximo
-                if (precioMax !== Infinity && cardPrecio > precioMax) visible = false;
-                
-                // Filtro por tipo (si se implementa en el futuro)
-                if (tipo && card.getAttribute('data-tipo') !== tipo) visible = false;
-                
-                card.style.display = visible ? '' : 'none';
-            });
-        }
-        // Función para limpiar filtros
-        function limpiarFiltros() {
-            filtroUbicacion.value = '';
-            filtroPrecioMin.value = '';
-            filtroPrecioMax.value = '';
-            filtroTipo.value = '';
-            filtrarPropiedades();
-        }
-        
-        // Agregar botón de limpiar filtros al formulario
-        const filtersForm = document.getElementById('filtersForm');
-        const limpiarBtn = document.createElement('button');
-        limpiarBtn.type = 'button';
-        limpiarBtn.textContent = 'Limpiar Filtros';
-        limpiarBtn.style.cssText = `
-            background: #e3e3e3;
-            color: #000;
-            border: 1px solid #929191;
-            border-radius: 6px;
-            padding: 7px 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: background 0.2s;
-        `;
-        limpiarBtn.onmouseover = () => limpiarBtn.style.background = '#D3b76d';
-        limpiarBtn.onmouseout = () => limpiarBtn.style.background = '#e3e3e3';
-        limpiarBtn.onclick = limpiarFiltros;
-        
-        // Insertar el botón después del último filtro
-        const filtersRow = document.querySelector('.filters-row');
-        const limpiarContainer = document.createElement('div');
-        limpiarContainer.className = 'filter-group';
-        limpiarContainer.style.display = 'flex';
-        limpiarContainer.style.alignItems = 'flex-end';
-        limpiarContainer.appendChild(limpiarBtn);
-        filtersRow.appendChild(limpiarContainer);
-        
-        // Inicializar filtro al cargar
-        filtrarPropiedades();
-    </script>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="login-modal">
-        <div class="login-modal-content">
-            <button class="close-modal" onclick="closeLoginModal()">&times;</button>
-            
-            <!-- Login Options -->
-            <div id="loginOptions" class="login-options-container">
-                <div class="login-modal-header">
-                    <h2>Iniciar Sesión / Registro</h2>
-                    <p>Elige el tipo de cuenta con el que quieres acceder</p>
-                </div>
-                
-                <div class="login-options">
-                    <div class="login-option" onclick="showLoginForm('user-login')">
-                        <div class="login-option-icon">👤</div>
-                        <h3>Cliente</h3>
-                        <p>Accede a tu cuenta de cliente para explorar propiedades</p>
-                    </div>
-                    
-                    <div class="login-option" onclick="showLoginForm('business-login')">
-                        <div class="login-option-icon">🏢</div>
-                        <h3>Negocio</h3>
-                        <p>Accede a tu cuenta de negocio para gestionar propiedades</p>
-                    </div>
-                    
-                    <div class="login-option" onclick="showLoginForm('user-register')">
-                        <div class="login-option-icon">📝</div>
-                        <h3>Registrar Cliente</h3>
-                        <p>Crea una nueva cuenta de cliente</p>
-                    </div>
-                    
-                    <div class="login-option" onclick="showLoginForm('business-register')">
-                        <div class="login-option-icon">🏗️</div>
-                        <h3>Registrar Negocio</h3>
-                        <p>Crea una nueva cuenta de negocio</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- User Login Form -->
-            <div id="user-login-form" class="login-form-container">
-                <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-                <div class="login-modal-header">
-                    <h2>Login de Cliente</h2>
-                </div>
-                <form id="userLoginForm">
-                    <div>
-                        <label for="user-email">Correo electrónico:</label>
-                        <input type="email" id="user-email" name="email" required>
-                    </div>
-                    <div>
-                        <label for="user-password">Contraseña:</label>
-                        <input type="password" id="user-password" name="password" required>
-                    </div>
-                    <button type="submit">Iniciar sesión</button>
-                </form>
-                <div id="user-login-error" style="color:#a0793d; margin-top:10px;"></div>
-            </div>
-
-            <!-- Business Login Form -->
-            <div id="business-login-form" class="login-form-container">
-                <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-                <div class="login-modal-header">
-                    <h2>Login de Negocio</h2>
-                </div>
-                <form id="businessLoginForm">
-                    <div>
-                        <label for="business-email">Email:</label>
-                        <input type="email" id="business-email" name="email" required>
-                    </div>
-                    <div>
-                        <label for="business-password">Password:</label>
-                        <input type="password" id="business-password" name="password" required>
-                    </div>
-                    <div>
-                        <label for="business-phone">Phone Number:</label>
-                        <input type="tel" id="business-phone" name="phone" required>
-                    </div>
-                    <button type="submit">Sign In</button>
-                </form>
-                <div id="business-login-error" style="color:#a0793d; margin-top:10px;"></div>
-            </div>
-
-            <!-- User Register Form -->
-            <div id="user-register-form" class="login-form-container">
-                <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-                <div class="login-modal-header">
-                    <h2>Registro de Cliente</h2>
-                </div>
-                <form id="userRegisterForm">
-                    <div>
-                        <label for="user-reg-name">Nombre completo:</label>
-                        <input type="text" id="user-reg-name" name="name" required>
-                    </div>
-                    <div>
-                        <label for="user-reg-email">Correo electrónico:</label>
-                        <input type="email" id="user-reg-email" name="email" required>
-                    </div>
-                    <div>
-                        <label for="user-reg-password">Contraseña:</label>
-                        <input type="password" id="user-reg-password" name="password" required>
-                    </div>
-                    <div>
-                        <label for="user-reg-phone">Teléfono:</label>
-                        <input type="tel" id="user-reg-phone" name="phone" required>
-                    </div>
-                    <button type="submit">Registrarse</button>
-                </form>
-                <div id="user-register-error" style="color:#a0793d; margin-top:10px;"></div>
-            </div>
-
-            <!-- Business Register Form -->
-            <div id="business-register-form" class="login-form-container">
-                <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-                <div class="login-modal-header">
-                    <h2>Registro de Negocio</h2>
-                </div>
-                <form id="businessRegisterForm">
-                    <div>
-                        <label for="business-reg-name">Business Name:</label>
-                        <input type="text" id="business-reg-name" name="biz_name" required>
-                    </div>
-                    <div>
-                        <label for="business-reg-email">Business Email:</label>
-                        <input type="email" id="business-reg-email" name="biz_email" required>
-                    </div>
-                    <div>
-                        <label for="business-reg-password">Password:</label>
-                        <input type="password" id="business-reg-password" name="biz_password" required>
-                    </div>
-                    <div>
-                        <label for="business-reg-phone">Business Phone:</label>
-                        <input type="tel" id="business-reg-phone" name="biz_phone">
-                    </div>
-                    <div>
-                        <label for="business-reg-address">Business Address:</label>
-                        <input type="text" id="business-reg-address" name="biz_address">
-                    </div>
-                    <div>
-                        <label for="business-reg-license">Business License Number:</label>
-                        <input type="text" id="business-reg-license" name="biz_license">
-                    </div>
-                    <button type="submit">Register Business</button>
-                </form>
-                <div id="business-register-error" style="color:#a0793d; margin-top:10px;"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
-    <!-- Authentication Scripts -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/firebase-error-handler.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/notification.js"></script>
-
-    <script>
-        // Modal functionality
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.add('show');
-            showLoginOptions();
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.remove('show');
-            showLoginOptions();
-        }
-
-        function showLoginOptions() {
-            document.getElementById('loginOptions').style.display = 'block';
-            document.querySelectorAll('.login-form-container').forEach(form => {
-                form.classList.remove('active');
-            });
-        }
-
-        function showLoginForm(formType) {
-            document.getElementById('loginOptions').style.display = 'none';
-            document.querySelectorAll('.login-form-container').forEach(form => {
-                form.classList.remove('active');
-            });
-            document.getElementById(formType + '-form').classList.add('active');
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('loginModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeLoginModal();
-            }
-        });
-
-        // Add click event to "LogIn/register" link
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginLinks = document.querySelectorAll('.nav-link');
-            loginLinks.forEach(link => {
-                if (link.textContent.trim() === 'LogIn/register') {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openLoginModal();
-                    });
-                }
-            });
-        });
-
-        // Form submissions
-        document.getElementById('userLoginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('user-email').value;
-            const password = document.getElementById('user-password').value;
-            const errorDiv = document.getElementById('user-login-error');
-            
-            try {
-                const result = await authManager.login(email, password);
-                if (result.success) {
-                    notificationManager.showSuccess('¡Inicio de sesión exitoso!');
-                    closeLoginModal();
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                } else {
-                    errorDiv.textContent = result.error;
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Error durante el inicio de sesión. Por favor, inténtalo de nuevo.';
-            }
-        });
-
-        document.getElementById('businessLoginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('business-email').value;
-            const password = document.getElementById('business-password').value;
-            const errorDiv = document.getElementById('business-login-error');
-            
-            try {
-                const result = await authManager.login(email, password);
-                if (result.success) {
-                    notificationManager.showSuccess('¡Inicio de sesión exitoso!');
-                    closeLoginModal();
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                } else {
-                    errorDiv.textContent = result.error;
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Error durante el inicio de sesión. Por favor, inténtalo de nuevo.';
-            }
-        });
-
-        document.getElementById('userRegisterForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('user-reg-name').value;
-            const email = document.getElementById('user-reg-email').value;
-            const password = document.getElementById('user-reg-password').value;
-            const phone = document.getElementById('user-reg-phone').value;
-            const errorDiv = document.getElementById('user-register-error');
-            
-            try {
-                const result = await authManager.register(email, password, { name, phone });
-                if (result.success) {
-                    notificationManager.showSuccess('¡Registro exitoso!');
-                    closeLoginModal();
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                } else {
-                    errorDiv.textContent = result.error;
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Error durante el registro. Por favor, inténtalo de nuevo.';
-            }
-        });
-
-        document.getElementById('businessRegisterForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const bizName = document.getElementById('business-reg-name').value;
-            const email = document.getElementById('business-reg-email').value;
-            const password = document.getElementById('business-reg-password').value;
-            const phone = document.getElementById('business-reg-phone').value;
-            const address = document.getElementById('business-reg-address').value;
-            const license = document.getElementById('business-reg-license').value;
-            const errorDiv = document.getElementById('business-register-error');
-            
-            try {
-                const result = await authManager.register(email, password, { 
-                    bizName, phone, address, license 
-                });
-                if (result.success) {
-                    notificationManager.showSuccess('¡Registro de negocio exitoso!');
-                    closeLoginModal();
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                } else {
-                    errorDiv.textContent = result.error;
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Error durante el registro. Por favor, inténtalo de nuevo.';
-            }
-        });
-    </script>
 </body>
-</html> 
+
+</html>
