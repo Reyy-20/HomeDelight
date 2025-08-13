@@ -8,316 +8,271 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/Style.css">
      <link rel="stylesheet" href="css/Header.css">
+     <link rel="stylesheet" href="css/login&register.css">
 </head>
 <body>
- <!-- Login Modal -->
-  <div id="loginModal" class="login-modal">
-    <div class="login-modal-content">
-        <button class="close-modal" onclick="closeLoginModal()">&times;</button>
-        
-        <!-- Login Options -->
-        <div id="loginOptions" class="login-options-container">
-            <div class="login-modal-header">
-                <h2>Iniciar Sesión / Registro</h2>
-                <p>Elige el tipo de cuenta con el que quieres acceder</p>
-            </div>
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-modal-content">
+            <button class="close-modal" onclick="closeLoginModal()">&times;</button>
             
-            <div class="login-options">
-                <div class="login-option" onclick="showLoginForm('user-login')">
-                    <h3>Cliente</h3>
-                    <p>Accede a tu cuenta de cliente para explorar propiedades</p>
-                </div>
-                
-                <div class="login-option" onclick="showLoginForm('business-login')">
-                    <h3>Negocio</h3>
-                    <p>Accede a tu cuenta de negocio para gestionar propiedades</p>
-                </div>
-                
-                <div class="login-option" onclick="showLoginForm('user-register')">
-                    <h3>Registrar Cliente</h3>
-                    <p>Crea una nueva cuenta de cliente</p>
-                </div>
-                
-                <div class="login-option" onclick="showLoginForm('business-register')">
-                    <h3>Registrar Negocio</h3>
-                    <p>Crea una nueva cuenta de negocio</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- User Login Form -->
-        <div id="user-login-form" class="login-form-container">
-            <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
             <div class="login-modal-header">
-                <h2>Login de Cliente</h2>
+                <h2 id="modal-title">Bienvenido</h2>
+                <p id="modal-subtitle">Accede o crea tu cuenta</p>
             </div>
-            <form id="userLoginForm">
-                <div>
-                    <label for="user-email">Correo electrónico:</label>
-                    <input type="email" id="user-email" name="email" required>
-                </div>
-                <div>
-                    <label for="user-password">Contraseña:</label>
-                    <input type="password" id="user-password" name="password" required>
-                </div>
-                <button type="submit">Iniciar sesión</button>
-            </form>
-            <div id="user-login-error" style="color:#a0793d; margin-top:10px;"></div>
-        </div>
 
-        <!-- Business Login Form -->
-        <div id="business-login-form" class="login-form-container">
-            <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-            <div class="login-modal-header">
-                <h2>Login de Negocio</h2>
-            </div>
-            <form id="businessLoginForm">
-                <div>
-                    <label for="business-email">Email:</label>
-                    <input type="email" id="business-email" name="email" required>
+            <!-- User Type Selection -->
+            <div class="user-type-selection">
+                <div class="user-type-buttons">
+                    <div class="user-type-btn active" data-type="client" onclick="selectUserType('client')">
+                        <h3>Cliente</h3>
+                        <p>Explora propiedades</p>
+                    </div>
+                    <div class="user-type-btn" data-type="business" onclick="selectUserType('business')">
+                        <h3>Negocio</h3>
+                        <p>Gestiona propiedades</p>
+                    </div>
                 </div>
-                <div>
-                    <label for="business-password">Password:</label>
-                    <input type="password" id="business-password" name="password" required>
-                </div>
-                <div>
-                    <label for="business-phone">Phone Number:</label>
-                    <input type="tel" id="business-phone" name="phone" required>
-                </div>
-                <button type="submit">Sign In</button>
-            </form>
-            <div id="business-login-error" style="color:#a0793d; margin-top:10px;"></div>
-        </div>
 
-        <!-- User Register Form -->
-        <div id="user-register-form" class="login-form-container">
-            <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-            <div class="login-modal-header">
-                <h2>Registro de Cliente</h2>
+                <!-- Auth Toggle (Login/Register) -->
+                <div class="auth-toggle">
+                    <button class="auth-toggle-btn active" data-mode="login" onclick="toggleAuthMode('login')">
+                        Iniciar Sesión
+                    </button>
+                    <button class="auth-toggle-btn" data-mode="register" onclick="toggleAuthMode('register')">
+                        Registrarse
+                    </button>
+                </div>
             </div>
-            <form id="userRegisterForm">
-                <div>
-                    <label for="user-reg-name">Nombre completo:</label>
-                    <input type="text" id="user-reg-name" name="name" required>
-                </div>
-                <div>
-                    <label for="user-reg-email">Correo electrónico:</label>
-                    <input type="email" id="user-reg-email" name="email" required>
-                </div>
-                <div>
-                    <label for="user-reg-password">Contraseña:</label>
-                    <input type="password" id="user-reg-password" name="password" required>
-                </div>
-                <div>
-                    <label for="user-reg-phone">Teléfono:</label>
-                    <input type="tel" id="user-reg-phone" name="phone" required>
-                </div>
-                <button type="submit">Registrarse</button>
-            </form>
-            <div id="user-register-error" style="color:#a0793d; margin-top:10px;"></div>
-        </div>
 
-        <!-- Business Register Form -->
-        <div id="business-register-form" class="login-form-container">
-            <button class="back-to-options" onclick="showLoginOptions()">← Volver a opciones</button>
-            <div class="login-modal-header">
-                <h2>Registro de Negocio</h2>
+            <!-- Forms Container -->
+            <div class="form-container">
+                <!-- Client Login Form -->
+                <form id="client-login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="client-login-email">Correo electrónico:</label>
+                        <input type="email" id="client-login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-login-password">Contraseña:</label>
+                        <input type="password" id="client-login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Iniciar Sesión</button>
+                    <div class="error-message" id="client-login-error"></div>
+                </form>
+
+                <!-- Client Register Form -->
+                <form id="client-register-form" class="auth-form hidden">
+                    <div class="form-group">
+                        <label for="client-reg-name">Nombre completo:</label>
+                        <input type="text" id="client-reg-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-reg-email">Correo electrónico:</label>
+                        <input type="email" id="client-reg-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-reg-password">Contraseña:</label>
+                        <input type="password" id="client-reg-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-reg-phone">Teléfono:</label>
+                        <input type="tel" id="client-reg-phone" name="phone" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Registrarse</button>
+                    <div class="error-message" id="client-register-error"></div>
+                </form>
+
+                <!-- Business Login Form -->
+                <form id="business-login-form" class="auth-form hidden">
+                    <div class="form-group">
+                        <label for="business-login-email">Email empresarial:</label>
+                        <input type="email" id="business-login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business-login-password">Contraseña:</label>
+                        <input type="password" id="business-login-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business-login-phone">Teléfono de contacto:</label>
+                        <input type="tel" id="business-login-phone" name="phone" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Acceder</button>
+                    <div class="error-message" id="business-login-error"></div>
+                </form>
+
+                <!-- Business Register Form -->
+                <form id="business-register-form" class="auth-form hidden">
+                    <div class="form-group">
+                        <label for="business-reg-name">Nombre del negocio:</label>
+                        <input type="text" id="business-reg-name" name="bizName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business-reg-email">Email empresarial:</label>
+                        <input type="email" id="business-reg-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business-reg-password">Contraseña:</label>
+                        <input type="password" id="business-reg-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business-reg-phone">Teléfono empresarial:</label>
+                        <input type="tel" id="business-reg-phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="business-reg-address">Dirección del negocio:</label>
+                        <input type="text" id="business-reg-address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="business-reg-license">Número de licencia:</label>
+                        <input type="text" id="business-reg-license" name="license">
+                    </div>
+                    <button type="submit" class="submit-btn">Registrar Negocio</button>
+                    <div class="error-message" id="business-register-error"></div>
+                </form>
             </div>
-            <form id="businessRegisterForm">
-                <div>
-                    <label for="business-reg-name">Business Name:</label>
-                    <input type="text" id="business-reg-name" name="biz_name" required>
-                </div>
-                <div>
-                    <label for="business-reg-email">Business Email:</label>
-                    <input type="email" id="business-reg-email" name="biz_email" required>
-                </div>
-                <div>
-                    <label for="business-reg-password">Password:</label>
-                    <input type="password" id="business-reg-password" name="biz_password" required>
-                </div>
-                <div>
-                    <label for="business-reg-phone">Business Phone:</label>
-                    <input type="tel" id="business-reg-phone" name="biz_phone">
-                </div>
-                <div>
-                    <label for="business-reg-address">Business Address:</label>
-                    <input type="text" id="business-reg-address" name="biz_address">
-                </div>
-                <div>
-                    <label for="business-reg-license">Business License Number:</label>
-                    <input type="text" id="business-reg-license" name="biz_license">
-                </div>
-                <button type="submit">Register Business</button>
-            </form>
-            <div id="business-register-error" style="color:#a0793d; margin-top:10px;"></div>
         </div>
     </div>
-</div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
 
-<!-- Authentication Scripts -->
-<script src="js/firebase-config.js"></script>
-<script src="js/firebase-error-handler.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/notification.js"></script>
+    <script>
+        // Global variables
+        let currentUserType = 'client';
+        let currentAuthMode = 'login';
 
-<script>
-    // Modal functionality
-    function openLoginModal() {
-        document.getElementById('loginModal').classList.add('show');
-        showLoginOptions();
-    }
-
-    function closeLoginModal() {
-        document.getElementById('loginModal').classList.remove('show');
-        showLoginOptions();
-    }
-
-    function showLoginOptions() {
-        document.getElementById('loginOptions').style.display = 'block';
-        document.querySelectorAll('.login-form-container').forEach(form => {
-            form.classList.remove('active');
-        });
-    }
-
-    function showLoginForm(formType) {
-        document.getElementById('loginOptions').style.display = 'none';
-        document.querySelectorAll('.login-form-container').forEach(form => {
-            form.classList.remove('active');
-        });
-        document.getElementById(formType + '-form').classList.add('active');
-    }
-
-    // Close modal when clicking outside
-    document.getElementById('loginModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeLoginModal();
+        // Modal functionality
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
-    });
 
-    // Add click event to "LogIn/register" link
-    document.addEventListener('DOMContentLoaded', function() {
-        const loginLink = document.querySelector('a[href="#"]:contains("LogIn/register")');
-        if (!loginLink) {
-            // Try alternative selector
-            const loginLinks = document.querySelectorAll('.nav-link');
-            loginLinks.forEach(link => {
-                if (link.textContent.trim() === 'LogIn/register') {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openLoginModal();
-                    });
-                }
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+            // Clear all forms
+            document.querySelectorAll('.auth-form input').forEach(input => input.value = '');
+            hideAllErrors();
+        }
+
+        // User type selection
+        function selectUserType(type) {
+            currentUserType = type;
+            
+            // Update UI
+            document.querySelectorAll('.user-type-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-        } else {
-            loginLink.addEventListener('click', function(e) {
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
+            
+            updateFormVisibility();
+            updateModalTexts();
+        }
+
+        // Auth mode toggle
+        function toggleAuthMode(mode) {
+            currentAuthMode = mode;
+            
+            // Update UI
+            document.querySelectorAll('.auth-toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            
+            updateFormVisibility();
+            updateModalTexts();
+        }
+
+        // Update form visibility
+        function updateFormVisibility() {
+            // Hide all forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.add('hidden');
+            });
+            
+            // Show current form
+            const formId = `${currentUserType}-${currentAuthMode}-form`;
+            document.getElementById(formId).classList.remove('hidden');
+            
+            hideAllErrors();
+        }
+
+        // Update modal texts
+        function updateModalTexts() {
+            const titles = {
+                'client-login': 'Iniciar Sesión - Cliente',
+                'client-register': 'Registrarse - Cliente',
+                'business-login': 'Iniciar Sesión - Negocio',
+                'business-register': 'Registrarse - Negocio'
+            };
+            
+            const subtitles = {
+                'client-login': 'Accede a tu cuenta de cliente',
+                'client-register': 'Crea tu cuenta de cliente',
+                'business-login': 'Accede a tu cuenta empresarial',
+                'business-register': 'Registra tu negocio'
+            };
+            
+            const key = `${currentUserType}-${currentAuthMode}`;
+            document.getElementById('modal-title').textContent = titles[key];
+            document.getElementById('modal-subtitle').textContent = subtitles[key];
+        }
+
+        // Error handling
+        function showError(formType, message) {
+            const errorDiv = document.getElementById(`${formType}-error`);
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+
+        function hideAllErrors() {
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+                error.textContent = '';
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+            }
+        });
+
+        // Prevent form submission for demo
+        document.querySelectorAll('.auth-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                openLoginModal();
+                
+                // Get form ID and show demo message
+                const formId = this.id.replace('-form', '');
+                const errorDiv = document.getElementById(`${formId}-error`);
+                
+                // Simulate success
+                errorDiv.style.color = '#2e7d32';
+                errorDiv.style.background = '#e8f5e8';
+                errorDiv.style.borderLeftColor = '#2e7d32';
+                errorDiv.textContent = '¡Operación exitosa! (Demo mode)';
+                errorDiv.classList.add('show');
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    errorDiv.classList.remove('show');
+                    errorDiv.style.color = '#d32f2f';
+                    errorDiv.style.background = '#ffebee';
+                    errorDiv.style.borderLeftColor = '#d32f2f';
+                }, 3000);
             });
-        }
-    });
+        });
 
-    // Form submissions
-    document.getElementById('userLoginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('user-email').value;
-        const password = document.getElementById('user-password').value;
-        const errorDiv = document.getElementById('user-login-error');
-        
-        try {
-            const result = await authManager.login(email, password);
-            if (result.success) {
-                notificationManager.showSuccess('¡Inicio de sesión exitoso!');
-                closeLoginModal();
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            } else {
-                errorDiv.textContent = result.error;
-            }
-        } catch (error) {
-            errorDiv.textContent = 'Error durante el inicio de sesión. Por favor, inténtalo de nuevo.';
-        }
-    });
-
-    document.getElementById('businessLoginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('business-email').value;
-        const password = document.getElementById('business-password').value;
-        const errorDiv = document.getElementById('business-login-error');
-        
-        try {
-            const result = await authManager.login(email, password);
-            if (result.success) {
-                notificationManager.showSuccess('¡Inicio de sesión exitoso!');
-                closeLoginModal();
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            } else {
-                errorDiv.textContent = result.error;
-            }
-        } catch (error) {
-            errorDiv.textContent = 'Error durante el inicio de sesión. Por favor, inténtalo de nuevo.';
-        }
-    });
-
-    document.getElementById('userRegisterForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.getElementById('user-reg-name').value;
-        const email = document.getElementById('user-reg-email').value;
-        const password = document.getElementById('user-reg-password').value;
-        const phone = document.getElementById('user-reg-phone').value;
-        const errorDiv = document.getElementById('user-register-error');
-        
-        try {
-            const result = await authManager.register(email, password, { name, phone });
-            if (result.success) {
-                notificationManager.showSuccess('¡Registro exitoso!');
-                closeLoginModal();
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            } else {
-                errorDiv.textContent = result.error;
-            }
-        } catch (error) {
-            errorDiv.textContent = 'Error durante el registro. Por favor, inténtalo de nuevo.';
-        }
-    });
-
-    document.getElementById('businessRegisterForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const bizName = document.getElementById('business-reg-name').value;
-        const email = document.getElementById('business-reg-email').value;
-        const password = document.getElementById('business-reg-password').value;
-        const phone = document.getElementById('business-reg-phone').value;
-        const address = document.getElementById('business-reg-address').value;
-        const license = document.getElementById('business-reg-license').value;
-        const errorDiv = document.getElementById('business-register-error');
-        
-        try {
-            const result = await authManager.register(email, password, { 
-                bizName, phone, address, license 
-            });
-            if (result.success) {
-                notificationManager.showSuccess('¡Registro de negocio exitoso!');
-                closeLoginModal();
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            } else {
-                errorDiv.textContent = result.error;
-            }
-        } catch (error) {
-            errorDiv.textContent = 'Error durante el registro. Por favor, inténtalo de nuevo.';
-        }
-    });
+        // Initialize modal
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFormVisibility();
+            updateModalTexts();
+        });
     </script>
     <script src="js/script.js"></script>
 </body>
