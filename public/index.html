@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Delight</title>
-    <link rel="stylesheet" href="CSS/StyleMain.css">
+    <link rel="stylesheet" href="css/StyleMain.css">
+    <script>
+      // Redirigir automáticamente al login si no está autenticado
+      window.onload = function() {
+        // Aquí puedes agregar lógica de autenticación si la tienes
+        window.location.href = "pages/empresa-login.html";
+      };
+    </script>
 </head>
 <body>
-
     <iframe src="components/header.html" id="main-navbar"></iframe>
-
     <section class="landImg">
         <img src="https://images.pexels.com/photos/1587097/pexels-photo-1587097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             alt="Background Image" class="background-img">
-
         <div class="hero-content">
             <h1>Unveiling a New Era in Real Estate</h1>
             <p>Discover your dream home with our exclusive properties, designed to cater to your lifestyle needs and
@@ -93,4 +96,7 @@
         </section>
     </div>
     <iframe src="components/footer.html" id="main-footer"></iframe>
+    <script src="firebase/auth.js"></script>
+    <script src="firebase/firebaseConfig.js"></script>
 </body>
+</html>

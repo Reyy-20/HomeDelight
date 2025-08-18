@@ -6,31 +6,29 @@
     <title>Business Login - Home Delight</title>
 </head>
 <body>
-    <table style="width:100vw; height:100vh; border:0;" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="center" valign="middle">
-          <table border="0" cellspacing="0" cellpadding="20">
-            <tr>
-              <td align="center">
-                <main>
-                  <h1>Business Login</h1>
-                  <form action="/login-business" method="POST">
-                    <table border="0" align="center">
-                      <tr><td align="right"><label for="email">Email:</label></td><td><input type="email" id="email" name="email" required></td></tr>
-                      <tr><td align="right"><label for="password">Password:</label></td><td><input type="password" id="password" name="password" required></td></tr>
-                      <tr><td align="right"><label for="phone">Phone Number:</label></td><td><input type="tel" id="phone" name="phone" required></td></tr>
-                      <tr><td colspan="2" align="center"><button type="submit">Sign In</button></td></tr>
-                    </table>
-                  </form>
-                  <form action="login.html" method="get">
-                      <button type="submit">Back to Customer Login</button>
-                  </form>
-                </main>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
+    <main class="login-container">
+        <h1>Business Login</h1>
+        <form id="business-login-form">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="switch-login">
+            <form action="empresa-login.html" method="get">
+                <button type="submit">Volver al login de clientes</button>
+            </form>
+        </div>
+        <div id="login-error" style="color:#a0793d; margin-top:10px;"></div>
+    </main>
 </body>
 </html> 

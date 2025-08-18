@@ -6,16 +6,15 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Configuración de tu proyecto Expo Proyect SENIOR
 const firebaseConfig = {
-  apiKey: "AIzaSyCYIZJ6NnfiyHn5oWcbggCfj_cmJVJ96yw",
-  authDomain: "expo-project-2fa4a.firebaseapp.com",
-  projectId: "expo-project-2fa4a",
-  storageBucket: "expo-project-2fa4a.firebasestorage.app",
-  messagingSenderId: "221023394114",
-  appId: "1:221023394114:web:80042018163db2d925d0db",
-  measurementId: "G-4JV41VG4KQ"
+  apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+  authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+  projectId: "expo-project-senior-6bfea",
+  storageBucket: "expo-project-senior-6bfea.appspot.com",
+  messagingSenderId: "188431803500",
+  appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
+  measurementId: "G-5Q8NB4WFK6"
 };
 
 // Initialize Firebase
