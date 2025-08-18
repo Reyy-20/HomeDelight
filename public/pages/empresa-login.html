@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Empresas - Home Delight</title>
+</head>
+<body>
+    <main class="login-container">
+        <h1>Login de Empresas</h1>
+        <form id="empresa-login-form">
+            <div>
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+        <div>
+            <form action="business-login.html" method="get">
+                <button type="submit">Ir al login de empresas</button>
+            </form>
+            <a href="empresa-register.html" style="display:block;margin-top:12px;color:#a0793d;text-decoration:underline;font-size:1rem;">¿No tienes cuenta? Regístrate aquí</a>
+        </div>
+        <div id="login-error" style="color:#a0793d; margin-top:10px;"></div>
+    </main>
+</body>
+</html> 
