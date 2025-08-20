@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer Inmobiliaria</title>
-    <style>
-        :root {
-            --color-gold-2: #B9A160;
-            /* tono ligeramente más oscuro */
+:root {
+            --color-gold-2: #B9A160; /* tono ligeramente más oscuro */
             --color-cream: #ECE8E2;
         }
 
-        body {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -145,59 +136,3 @@
                 gap: 16px;
             }
         }
-    </style>
-</head>
-
-<body>
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span>Home Delight</span>
-            </div>
-
-            <div class="footer-section">
-                <h3>Propiedades</h3>
-                <a href="/listings" aria-label="Ver propiedades">Ver Propiedades</a>
-                <a href="/search" aria-label="Buscar propiedades">Buscar</a>
-                <a href="/favorites" aria-label="Favoritos">Favoritos</a>
-                <a href="/map" aria-label="Mapa">Mapa</a>
-            </div>
-
-            <div class="footer-section">
-                <h3>Servicios</h3>
-                <a href="/buy" aria-label="Comprar">Comprar</a>
-                <a href="/rent" aria-label="Alquilar">Alquilar</a>
-                <a href="/sell" aria-label="Vender">Vender</a>
-                <a href="/contact" aria-label="Contacto">Contacto</a>
-            </div>
-
-            <div class="footer-section">
-                <h3>Recursos</h3>
-                <a href="/about" aria-label="Sobre nosotros">Sobre Nosotros</a>
-                <a href="/blog" aria-label="Blog">Blog</a>
-                <a href="/faq" aria-label="Preguntas frecuentes">FAQ</a>
-                <a href="/support" aria-label="Soporte">Soporte</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="policy-links">
-                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
-                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
-                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
-                <a href="/legal" aria-label="Aviso legal">Legal</a>
-            </div>
-
-            <div class="copyright">
-                © 2025 Home Delight. Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
-</body>
-
-</html>
-
-<!-- 
-
- Para cambiar las rutas de About Us/Privacy/Terms: modificar href="/about", href="/privacy", href="/terms" en los enlaces correspondientes
--->
