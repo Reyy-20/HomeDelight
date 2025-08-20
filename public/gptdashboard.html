@@ -7,33 +7,97 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chatbot.css">
+
+    <!-- Estilos que aseguran apertura desde la derecha y overlay funcional -->
+    <style>
+        /* Forzar que el sidebar se abra desde la derecha */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 340px;             /* ancho del dashboard */
+            max-width: 92%;
+            background: #ffffff;
+            transform: translateX(100%); /* oculto fuera de pantalla a la derecha */
+            transition: transform .32s cubic-bezier(.2,.9,.2,1);
+            box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+            z-index: 1002;
+            overflow-y: auto;
+            will-change: transform;
+        }
+
+        /* Clase que activa la apertura */
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        /* Overlay (capa oscura) */
+        .overlay {
+            position: fixed;
+            inset: 0; /* top:0; right:0; bottom:0; left:0 */
+            background: rgba(0,0,0,0.42);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s ease;
+            z-index: 1000;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Hacer el avatar clicable */
+        .user-info {
+            display:flex;
+            gap:8px;
+            align-items:center;
+            cursor: pointer; /* indica que se puede tocar */
+        }
+
+        /* Ajustes pequeños para el botón cerrar */
+        .close-btn {
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Accesibilidad: ocultar el sidebar si no está abierto */
+        .sidebar[aria-hidden="true"] {
+            visibility: visible; /* transform maneja visibilidad */
+        }
+    </style>
 </head>
 <body>
     <!-- Header con menú hamburguesa -->
     <header class="header">
         <div class="header-content">
-            <button class="hamburger-btn" id="hamburgerBtn">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
             <h1 class="logo">HomeDelight</h1>
-            <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar">
+
+            <!-- Perfil del usuario: ahora actúa como disparador para abrir el dashboard -->
+            <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true" aria-controls="sidebar" aria-expanded="false">
+                <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" />
                 <span class="user-name">Usuario</span>
             </div>
         </div>
     </header>
 
-    <!-- Overlay para cerrar sidebar -->
-    <div class="overlay" id="overlay"></div>
+    <!-- Overlay único para cerrar sidebar -->
+    <div class="overlay" id="overlay" aria-hidden="true"></div>
 
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar" id="sidebar">
+    <!-- Sidebar Navigation (ahora a la derecha) -->
+    <nav class="sidebar" id="sidebar" aria-hidden="true">
         <div class="sidebar-header">
             <h2>Dashboard</h2>
-            <button class="close-btn" id="closeBtn">
-                <i class="fas fa-times"></i>
+            <button class="close-btn" id="closeBtn" aria-label="Cerrar dashboard">
+                <i class="fas fa-times" aria-hidden="true"></i>
             </button>
         </div>
         <ul class="nav-menu">
@@ -64,11 +128,9 @@
         </ul>
     </nav>
 
-    <!-- Overlay para cerrar sidebar en móvil -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Main Content -->
+    <!-- Main Content (sin cambios) -->
     <main class="main-content">
+        <!-- ... (mantuve el contenido original tal cual) ... -->
         <!-- Sección Perfil -->
         <section id="profile" class="content-section active">
             <div class="section-header">
@@ -167,121 +229,175 @@
                 </div>
             </div>
         </section>
-
-        <!-- Sección Subir Propiedades -->
-        <section id="upload-property" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-home"></i> Subir Propiedad</h2>
-            </div>
-            <div class="upload-container">
-                <form class="property-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="propertyType">Tipo de Propiedad</label>
-                            <select id="propertyType" required>
-                                <option value="">Seleccionar tipo</option>
-                                <option value="casa">Casa</option>
-                                <option value="apartamento">Apartamento</option>
-                                <option value="condominio">Condominio</option>
-                                <option value="villa">Villa</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="propertyPrice">Precio</label>
-                            <input type="number" id="propertyPrice" placeholder="Precio en USD" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="propertyTitle">Título de la Propiedad</label>
-                        <input type="text" id="propertyTitle" placeholder="Ej: Hermosa casa con jardín" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="propertyDescription">Descripción</label>
-                        <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..." required></textarea>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="bedrooms">Habitaciones</label>
-                            <input type="number" id="bedrooms" min="1" placeholder="Número de habitaciones">
-                        </div>
-                        <div class="form-group">
-                            <label for="bathrooms">Baños</label>
-                            <input type="number" id="bathrooms" min="1" placeholder="Número de baños">
-                        </div>
-                        <div class="form-group">
-                            <label for="area">Área (m²)</label>
-                            <input type="number" id="area" placeholder="Área en metros cuadrados">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="propertyAddress">Dirección</label>
-                        <input type="text" id="propertyAddress" placeholder="Dirección completa" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="propertyImages">Imágenes de la Propiedad</label>
-                        <div class="image-upload-area" id="imageUploadArea">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Arrastra las imágenes aquí o haz clic para seleccionar</p>
-                            <input type="file" id="propertyImages" multiple accept="image/*" hidden>
-                        </div>
-                        <div class="image-preview" id="imagePreview"></div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary">Guardar Borrador</button>
-                        <button type="submit" class="btn-primary">Publicar Propiedad</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- Sección Mis Propiedades -->
-        <section id="my-properties" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-building"></i> Mis Propiedades</h2>
-                <button class="btn-primary" onclick="showSection('upload-property')">
-                    <i class="fas fa-plus"></i> Nueva Propiedad
-                </button>
-            </div>
-            <div class="properties-grid">
-                <!-- Ejemplo de propiedad -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://via.placeholder.com/300x200" alt="Propiedad">
-                        <div class="property-status active">Activa</div>
-                    </div>
-                    <div class="property-info">
-                        <h3>Casa Moderna en el Centro</h3>
-                        <p class="property-price">$250,000</p>
-                        <p class="property-details">
-                            <i class="fas fa-bed"></i> 3 hab
-                            <i class="fas fa-bath"></i> 2 baños
-                            <i class="fas fa-ruler-combined"></i> 120 m²
-                        </p>
-                        <div class="property-actions">
-                            <button class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
-                            <button class="btn-delete"><i class="fas fa-trash"></i> Eliminar</button>
-                        </div>
-                    </div>
+ <!-- Sección Subir Propiedades -->
+ <section id="upload-property" class="content-section">
+    <div class="section-header">
+        <h2><i class="fas fa-home"></i> Subir Propiedad</h2>
+    </div>
+    <div class="upload-container">
+        <form class="property-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="propertyType">Tipo de Propiedad</label>
+                    <select id="propertyType" required>
+                        <option value="">Seleccionar tipo</option>
+                        <option value="casa">Casa</option>
+                        <option value="apartamento">Apartamento</option>
+                        <option value="condominio">Condominio</option>
+                        <option value="villa">Villa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="propertyPrice">Precio</label>
+                    <input type="number" id="propertyPrice" placeholder="Precio en USD" required>
                 </div>
             </div>
-        </section>
+
+            <div class="form-group">
+                <label for="propertyTitle">Título de la Propiedad</label>
+                <input type="text" id="propertyTitle" placeholder="Ej: Hermosa casa con jardín" required>
+            </div>
+
+            <div class="form-group">
+                <label for="propertyDescription">Descripción</label>
+                <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..." required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bedrooms">Habitaciones</label>
+                    <input type="number" id="bedrooms" min="1" placeholder="Número de habitaciones">
+                </div>
+                <div class="form-group">
+                    <label for="bathrooms">Baños</label>
+                    <input type="number" id="bathrooms" min="1" placeholder="Número de baños">
+                </div>
+                <div class="form-group">
+                    <label for="area">Área (m²)</label>
+                    <input type="number" id="area" placeholder="Área en metros cuadrados">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="propertyAddress">Dirección</label>
+                <input type="text" id="propertyAddress" placeholder="Dirección completa" required>
+            </div>
+
+            <div class="form-group">
+                <label for="propertyImages">Imágenes de la Propiedad</label>
+                <div class="image-upload-area" id="imageUploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Arrastra las imágenes aquí o haz clic para seleccionar</p>
+                    <input type="file" id="propertyImages" multiple accept="image/*" hidden>
+                </div>
+                <div class="image-preview" id="imagePreview"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary">Guardar Borrador</button>
+                <button type="submit" class="btn-primary">Publicar Propiedad</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Sección Mis Propiedades -->
+<section id="my-properties" class="content-section">
+    <div class="section-header">
+        <h2><i class="fas fa-building"></i> Mis Propiedades</h2>
+        <button class="btn-primary" onclick="showSection('upload-property')">
+            <i class="fas fa-plus"></i> Nueva Propiedad
+        </button>
+    </div>
+    <div class="properties-grid">
+        <!-- Ejemplo de propiedad -->
+        <div class="property-card">
+            <div class="property-image">
+                <img src="https://via.placeholder.com/300x200" alt="Propiedad">
+                <div class="property-status active">Activa</div>
+            </div>
+            <div class="property-info">
+                <h3>Casa Moderna en el Centro</h3>
+                <p class="property-price">$250,000</p>
+                <p class="property-details">
+                    <i class="fas fa-bed"></i> 3 hab
+                    <i class="fas fa-bath"></i> 2 baños
+                    <i class="fas fa-ruler-combined"></i> 120 m²
+                </p>
+                <div class="property-actions">
+                    <button class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn-delete"><i class="fas fa-trash"></i> Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- ... resto del contenido permanece igual ... -->
     </main>
 
+    <!-- Scripts: lógica para abrir/cerrar el dashboard desde el perfil, cierre por X, overlay y Esc -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileBtn = document.getElementById('profileBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const closeBtn = document.getElementById('closeBtn');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebar.setAttribute('aria-hidden', 'false');
+                profileBtn.setAttribute('aria-expanded', 'true');
+                overlay.classList.add('show');
+                overlay.setAttribute('aria-hidden', 'false');
+                // Mover foco al sidebar para accesibilidad
+                sidebar.focus?.();
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebar.setAttribute('aria-hidden', 'true');
+                profileBtn.setAttribute('aria-expanded', 'false');
+                overlay.classList.remove('show');
+                overlay.setAttribute('aria-hidden', 'true');
+                // devolver foco al disparador
+                profileBtn.focus?.();
+            }
+
+            // Abrir al hacer click / Enter / Space sobre el perfil
+            profileBtn.addEventListener('click', openSidebar);
+            profileBtn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openSidebar();
+                }
+            });
+
+            // Cerrar con la X
+            closeBtn.addEventListener('click', closeSidebar);
+
+            // Cerrar tocando el overlay
+            overlay.addEventListener('click', closeSidebar);
+
+            // Cerrar con Esc
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closeSidebar();
+                }
+            });
+
+            hamburgerBtn.addEventListener('click', openSidebar);
+        });
+    </script>
+
+    <!-- Si existía tu js/dashboard.js, lo dejamos al final (no obligatorio) -->
     <script src="js/dashboard.js"></script>
 
-    <!-- Footer -->
+    <!-- Footer (igual que antes) -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <span>Home Delight</span>
             </div>
-            
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
@@ -289,7 +405,6 @@
                 <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
                 <a href="Pricing.html" aria-label="Precios">Precios</a>
             </div>
-            
             <div class="footer-section">
                 <h3>Servicios</h3>
                 <a href="/buy" aria-label="Comprar">Comprar</a>
@@ -297,7 +412,6 @@
                 <a href="/sell" aria-label="Vender">Vender</a>
                 <a href="/contact" aria-label="Contacto">Contacto</a>
             </div>
-            
             <div class="footer-section">
                 <h3>Lugares</h3>
                 <a href="/panama" aria-label="Panamá">Panamá</a>
@@ -306,7 +420,6 @@
                 <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
             </div>
         </div>
-        
         <div class="footer-bottom">
             <div class="policy-links">
                 <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
@@ -314,13 +427,11 @@
                 <a href="/cookies" aria-label="Política de cookies">Cookies</a>
                 <a href="/legal" aria-label="Aviso legal">Legal</a>
             </div>
-            
             <div class="copyright">
                 © 2025 Home Delight. Todos los derechos reservados.
             </div>
         </div>
     </footer>
-
     <style>
         :root {
             --color-gold-2: #B9A160;
