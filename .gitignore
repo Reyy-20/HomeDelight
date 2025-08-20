@@ -28,6 +28,9 @@ firebase-debug.*.log*
 # Firebase cache
 .firebase/
 
+# Archivos de configuración con tokens/API keys
+public/js/config.js
+
 # IDE
 .idea/
 .vscode/

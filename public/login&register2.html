@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-wrapper">
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-form="client">Cliente</button>
+                <button class="tab-btn" data-form="business">Negocio</button>
+            </div>
+
+            <!-- Forms Container -->
+            <div class="form-container">
+                <!-- Client Forms Section -->
+                <div id="client-section" class="auth-section active">
+                    <div class="section-tabs">
+                        <button class="section-tab-btn active" data-subform="client-login">Iniciar Sesión</button>
+                        <button class="section-tab-btn" data-subform="client-register">Registrarse</button>
+                    </div>
+
+                    <!-- Client Login Form -->
+                    <form id="client-login-form" class="auth-form active">
+                        <h2>Iniciar Sesión - Cliente</h2>
+                        <div class="form-group">
+                            <label for="client-login-email">Correo electrónico:</label>
+                            <input type="email" id="client-login-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-login-password">Contraseña:</label>
+                            <input type="password" id="client-login-password" name="password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Iniciar Sesión</button>
+                        <div class="error-message" id="client-login-error"></div>
+                    </form>
+
+                    <!-- Client Register Form -->
+                    <form id="client-register-form" class="auth-form">
+                        <h2>Registro - Cliente</h2>
+                        <div class="form-group">
+                            <label for="client-reg-name">Nombre completo:</label>
+                            <input type="text" id="client-reg-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-reg-email">Correo electrónico:</label>
+                            <input type="email" id="client-reg-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-reg-password">Contraseña:</label>
+                            <input type="password" id="client-reg-password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-reg-phone">Teléfono:</label>
+                            <input type="tel" id="client-reg-phone" name="phone" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Registrarse</button>
+                        <div class="error-message" id="client-register-error"></div>
+                    </form>
+                </div>
+
+                <!-- Business Forms Section -->
+                <div id="business-section" class="auth-section">
+                    <div class="section-tabs">
+                        <button class="section-tab-btn active" data-subform="business-login">Iniciar Sesión</button>
+                        <button class="section-tab-btn" data-subform="business-register">Registrarse</button>
+                    </div>
+
+                    <!-- Business Login Form -->
+                    <form id="business-login-form" class="auth-form active">
+                        <h2>Acceso - Negocio</h2>
+                        <div class="form-group">
+                            <label for="business-login-email">Email empresarial:</label>
+                            <input type="email" id="business-login-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-login-password">Contraseña:</label>
+                            <input type="password" id="business-login-password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-login-phone">Teléfono de contacto:</label>
+                            <input type="tel" id="business-login-phone" name="phone" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Acceder</button>
+                        <div class="error-message" id="business-login-error"></div>
+                    </form>
+
+                    <!-- Business Register Form -->
+                    <form id="business-register-form" class="auth-form">
+                        <h2>Registro - Negocio</h2>
+                        <div class="form-group">
+                            <label for="business-reg-name">Nombre del negocio:</label>
+                            <input type="text" id="business-reg-name" name="bizName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-reg-email">Email empresarial:</label>
+                            <input type="email" id="business-reg-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-reg-password">Contraseña:</label>
+                            <input type="password" id="business-reg-password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-reg-phone">Teléfono empresarial:</label>
+                            <input type="tel" id="business-reg-phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="business-reg-address">Dirección del negocio:</label>
+                            <input type="text" id="business-reg-address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="business-reg-license">Número de licencia:</label>
+                            <input type="text" id="business-reg-license" name="license">
+                        </div>
+                        <button type="submit" class="submit-btn">Registrar Negocio</button>
+                        <div class="error-message" id="business-register-error"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad mejorada para navegación por secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainTabs = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.auth-section');
+            const sectionTabs = document.querySelectorAll('.section-tab-btn');
+            const forms = document.querySelectorAll('.auth-form');
+            const switchLinks = document.querySelectorAll('.switch-link');
+
+            // Navegación principal (Cliente/Negocio)
+            mainTabs.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetSection = this.dataset.form;
+                    
+                    // Remover clase active de tabs principales y secciones
+                    mainTabs.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Activar tab y sección seleccionada
+                    this.classList.add('active');
+                    const targetSectionElement = document.getElementById(targetSection + '-section');
+                    if (targetSectionElement) {
+                        targetSectionElement.classList.add('active');
+                    }
+                });
+            });
+
+            // Navegación secundaria (Login/Register dentro de cada sección)
+            sectionTabs.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetForm = this.dataset.subform;
+                    const parentSection = this.closest('.auth-section');
+                    
+                    // Remover clase active de tabs secundarios y formularios en esta sección
+                    parentSection.querySelectorAll('.section-tab-btn').forEach(btn => btn.classList.remove('active'));
+                    parentSection.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                    
+                    // Activar tab y formulario seleccionado
+                    this.classList.add('active');
+                    const targetFormElement = document.getElementById(targetForm + '-form');
+                    if (targetFormElement) {
+                        targetFormElement.classList.add('active');
+                    }
+                });
+            });
+
+            // Enlaces para cambiar entre login/register
+            switchLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetForm = this.dataset.target;
+                    const parentSection = this.closest('.auth-section');
+                    
+                    // Cambiar tabs secundarios
+                    parentSection.querySelectorAll('.section-tab-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.subform === targetForm) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    // Cambiar formularios
+                    parentSection.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                    const targetFormElement = document.getElementById(targetForm + '-form');
+                    if (targetFormElement) {
+                        targetFormElement.classList.add('active');
+                    }
+                });
+            });
+
+            // Manejo de envío de formularios
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(this);
+                    const formType = this.id;
+                    
+                    // Aquí puedes agregar la lógica para enviar los datos
+                    console.log(`Formulario ${formType} enviado:`, Object.fromEntries(formData));
+                    
+                    // Limpiar mensajes de error
+                    const errorElement = this.querySelector('.error-message');
+                    errorElement.textContent = '';
+                    
+                    // Simular validación exitosa
+                    alert(`${formType} procesado correctamente`);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .auth-wrapper {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .tab-btn.active {
+            background: #007bff;
+            color: white;
+        }
+
+        .form-container {
+            position: relative;
+            min-height: 500px;
+        }
+
+        .auth-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(20px);
+            transition: all 0.4s ease;
+        }
+
+        .auth-section.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            position: relative;
+        }
+
+        .section-tabs {
+            display: flex;
+            background: #f1f3f4;
+            margin: 0;
+        }
+
+        .section-tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .section-tab-btn:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .section-tab-btn.active {
+            background: white;
+            color: #007bff;
+            border-bottom-color: #007bff;
+        }
+
+        .auth-form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .auth-form.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            position: relative;
+        }
+
+        .auth-form h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .form-group input:valid {
+            border-color: #28a745;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .switch-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .switch-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .tab-btn {
+                font-size: 11px;
+                padding: 12px 8px;
+            }
+
+            .auth-form {
+                padding: 20px;
+            }
+
+            .auth-form h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>

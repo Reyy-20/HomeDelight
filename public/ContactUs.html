@@ -1,257 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #ECE8E2 0%, #e3e3e3 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .header h1 {
-            color: #000000;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .header-line {
-            width: 60px;
-            height: 3px;
-            background: #D3b76d;
-            margin: 0 auto;
-        }
-
-        .contact-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-            align-items: start;
-        }
-
-        .form-container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e3e3e3;
-        }
-
-        .form-container h2 {
-            color: #929191;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ECE8E2;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #D3b76d;
-            box-shadow: 0 0 0 3px rgba(211, 183, 109, 0.1);
-        }
-
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #d8af53 0%, #D3b76d 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(211, 183, 109, 0.3);
-        }
-
-        .contact-info {
-            color: #929191;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 40px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .info-item {
-            text-align: center;
-            padding: 25px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ECE8E2;
-            transition: all 0.3s ease;
-        }
-
-        .info-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .info-item h3 {
-            color: #000000;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .info-item p {
-            color: #929191;
-            font-size: 1rem;
-        }
-
-        .map-container {
-            background: linear-gradient(135deg, #D3b76d 0%, #d8af53 100%);
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 10px 30px rgba(211, 183, 109, 0.2);
-        }
-
-        .map-container h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .map-placeholder {
-            background: rgba(255, 255, 255, 0.1);
-            height: 200px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            margin-top: 20px;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #d8af53 0%, #D3b76d 100%);
-            padding: 60px 40px;
-            border-radius: 20px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 15px 40px rgba(211, 183, 109, 0.3);
-        }
-
-        .cta-section h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .cta-section p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .cta-btn {
-            background: #000000;
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .cta-btn:hover {
-            background: #929191;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .contact-section {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .form-container,
-            .map-container,
-            .cta-section {
-                padding: 30px 25px;
-            }
-
-            .cta-section h2 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -260,92 +9,267 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/Marketplace.css">
     <link rel="stylesheet" href="css/Header.css">
-    <link rel="stylesheet" href="css/loginandregister.css">
+    <link rel="stylesheet" href="css/ContactUs.css">
+    <link rel="stylesheet" href="css/chatbot.css">
 </head>
+
 <body>
     <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="index.html" class="logo">Home Delight</a>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
-                    <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
-                    <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                    <li><a href="login&register.html" class="nav-link">LogIn/register</a></li>
-                </ul>
-            </div>
-        </nav>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Home Delight</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
+                <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
+                <li><a href="login&register2.html" class="nav-link">LogIn/register</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        </body>
-        </html>
-    <div class="container">
-        <div class="header">
-            <h1>Contact Us</h1>
-            <div class="header-line"></div>
+
+    <div class="contact-section">
+        <div class="form-container">
+            <h2>Get In Touch</h2>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Message" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Type Here...">
+                </div>
+                <button type="submit" class="submit-btn">Send Now</button>
+            </form>
         </div>
 
-        <div class="contact-section">
-            <div class="form-container">
-                <h2>Get In Touch</h2>
-                <form>
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="example@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Title">
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Message" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Type Here...">
-                    </div>
-                    <button type="submit" class="submit-btn">Send Now</button>
-                </form>
+        <div>
+            <div class="contact-info">
+                In tempor sed sapien ut audax dignissim. Donec ut quam vel ante consectetur aliquet vestibulum ut est.
+                Morbi rutrum blandit ante et accumsan at justo molestie mauris commodo quis.
             </div>
 
-            <div>
-                <div class="contact-info">
-                    In tempor sed sapien ut audax dignissim. Donec ut quam vel ante consectetur aliquet vestibulum ut est. Morbi rutrum blandit ante et accumsan at justo molestie mauris commodo quis.
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Phone Number</h3>
+                    <p>+1234 2567 990</p>
                 </div>
-
-                <div class="info-grid">
-                    <div class="info-item">
-                        <h3>Phone Number</h3>
-                        <p>+1234 2567 990</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Email Address</h3>
-                        <p>Example@gmail.com</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>WhatsApp</h3>
-                        <p>662-345-7239</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Our Office</h3>
-                        <p>3444 Oak Ridge Omaha, GA 45645</p>
-                    </div>
+                <div class="info-item">
+                    <h3>Email Address</h3>
+                    <p>Example@gmail.com</p>
                 </div>
-
-                <div class="map-container">
-                    <h3>Interactive Map Location</h3>
-                    <div class="map-placeholder">
-                        <p>🗺️ Mapa Interactivo</p>
-                    </div>
+                <div class="info-item">
+                    <h3>WhatsApp</h3>
+                    <p>662-345-7239</p>
+                </div>
+                <div class="info-item">
+                    <h3>Our Office</h3>
+                    <p>3444 Oak Ridge Omaha, GA 45645</p>
                 </div>
             </div>
-        </div>
 
-        <div class="cta-section">
-            <p>See Offers Now</p>
-            <h2>The perfect place to live<br>In one click</h2>
-            <button class="cta-btn">Look Now</button>
+            <div class="map-container">
+                <h3>Interactive Map Location</h3>
+                <div class="map-placeholder">
+                    <p>🗺️ Mapa Interactivo</p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="cta-section">
+        <p>See Offers Now</p>
+        <h2>The perfect place to live<br>In one click</h2>
+        <button class="cta-btn">Look Now</button>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Home Delight</span>
+            </div>
+
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
+                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
+                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
+                <a href="Pricing.html" aria-label="Precios">Precios</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="/buy" aria-label="Comprar">Comprar</a>
+                <a href="/rent" aria-label="Alquilar">Alquilar</a>
+                <a href="/sell" aria-label="Vender">Vender</a>
+                <a href="/contact" aria-label="Contacto">Contacto</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Lugares</h3>
+                <a href="/panama" aria-label="Panamá">Panamá</a>
+                <a href="/colon" aria-label="Colón">Colón</a>
+                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
+                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="policy-links">
+                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
+                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
+                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
+                <a href="/legal" aria-label="Aviso legal">Legal</a>
+            </div>
+
+            <div class="copyright">
+                © 2025 Home Delight. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        :root {
+            --color-gold-2: #B9A160;
+            --color-cream: #ECE8E2;
+        }
+
+        .site-footer {
+            background: white;
+            color: var(--color-gold-2);
+            padding: 40px 24px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: flex-start;
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-section h3 {
+            font-size: calc(14px * 1.15);
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-gold-2);
+        }
+
+        .footer-section a {
+            color: var(--color-gold-2);
+            text-decoration: none;
+            font-size: calc(14px * 1.15);
+            transition: text-decoration 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--color-gold-2);
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(185, 161, 96, 0.2);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .policy-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .policy-links a {
+            color: var(--color-gold-2);
+            text-decoration: none;
+            font-size: calc(14px * 1.15);
+            transition: text-decoration 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .policy-links a:hover,
+        .policy-links a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--color-gold-2);
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: calc(12px * 1.15);
+            color: var(--color-gold-2);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .site-footer {
+                padding: 24px 20px 16px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                margin-bottom: 20px;
+            }
+
+            .footer-brand {
+                justify-content: center;
+                margin-bottom: 16px;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .policy-links {
+                justify-content: center;
+                gap: 16px;
+            }
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/chatbot.js"></script>
 </body>
+
 </html>
