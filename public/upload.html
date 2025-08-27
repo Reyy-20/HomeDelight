@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,7 @@
             --blanco-calido: #ECE8E2;
             --oro-apagado: #D3B76D;
         }
-        
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: var(--blanco-calido);
@@ -23,13 +24,13 @@
             padding: 0;
             color: var(--negro);
         }
-        
+
         .header {
             background: linear-gradient(135deg, #000000 0%, #333333 100%);
             padding: 12px 0;
             border-bottom: 1px solid #e2e8f0;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -38,7 +39,7 @@
             justify-content: space-between;
             padding: 0 20px;
         }
-        
+
         .logo {
             font-size: 24px;
             font-weight: 700;
@@ -46,14 +47,14 @@
             text-decoration: none;
             letter-spacing: -0.5px;
         }
-        
+
         .nav {
             display: flex;
             align-items: center;
             gap: 32px;
             border-radius: 6px;
         }
-        
+
         .nav-item {
             position: relative;
             color: #ECE8E2;
@@ -67,18 +68,18 @@
             gap: 4px;
             border-radius: 6px;
         }
-        
+
         .nav-item:hover {
             color: var(--dorado);
             background-color: rgba(216, 175, 83, 0.1);
         }
-        
+
         .actions {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .login-btn {
             background: none;
             border: none;
@@ -90,12 +91,12 @@
             border-radius: 6px;
             transition: all 0.2s ease;
         }
-        
+
         .login-btn:hover {
             background-color: rgba(216, 175, 83, 0.1);
             color: var(--dorado);
         }
-        
+
         .cta-btn {
             background-color: var(--dorado);
             color: var(--negro);
@@ -109,17 +110,17 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .cta-btn:hover {
             background-color: var(--oro-apagado);
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(210, 173, 9, 0.3);
         }
-        
+
         .profile-dropdown {
             position: relative;
         }
-        
+
         .profile-icon {
             display: flex;
             align-items: center;
@@ -130,11 +131,11 @@
             border-radius: 6px;
             transition: background 0.2s ease;
         }
-        
+
         .profile-icon:hover {
             background-color: rgba(216, 175, 83, 0.1);
         }
-        
+
         .dropdown-menu {
             position: absolute;
             top: 100%;
@@ -146,11 +147,11 @@
             z-index: 100;
             display: none;
         }
-        
+
         .dropdown-menu.show {
             display: block;
         }
-        
+
         .dropdown-item {
             display: flex;
             align-items: center;
@@ -160,32 +161,32 @@
             text-decoration: none;
             transition: background 0.2s ease;
         }
-        
+
         .dropdown-item:hover {
             background-color: var(--gris-claro);
         }
-        
+
         .dropdown-divider {
             height: 1px;
             background-color: var(--gris-claro);
             margin: 4px 0;
         }
-        
+
         .main-content {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
         }
-        
+
         .upload-container {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             padding: 30px;
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         .upload-title {
             color: var(--negro);
             font-size: 2rem;
@@ -193,19 +194,21 @@
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--negro);
         }
-        
-        .form-input, .form-textarea, .form-select {
+
+        .form-input,
+        .form-textarea,
+        .form-select {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--gris-claro);
@@ -215,18 +218,20 @@
             background-color: #fff;
             transition: border 0.2s ease;
         }
-        
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
             outline: none;
             border-color: var(--dorado);
             box-shadow: 0 0 0 2px rgba(216, 175, 83, 0.2);
         }
-        
+
         .form-textarea {
             min-height: 120px;
             resize: vertical;
         }
-        
+
         .submit-btn {
             background-color: var(--dorado);
             color: var(--negro);
@@ -241,67 +246,68 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .submit-btn:hover {
             background-color: var(--oro-apagado);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(210, 173, 9, 0.3);
         }
-        
+
         .image-instructions {
             font-size: 0.85rem;
             color: var(--gris-medio);
             margin-top: 5px;
         }
-        
+
         .notification {
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 20px;
             text-align: center;
         }
-        
+
         .notification.success {
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-        
+
         .notification.error {
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-        
+
         @media (max-width: 768px) {
             .nav {
                 display: none;
             }
-            
+
             .container {
                 padding: 0 16px;
             }
-            
+
             .actions {
                 gap: 8px;
             }
-            
+
             .login-btn {
                 padding: 6px 12px;
                 font-size: 13px;
             }
-            
+
             .cta-btn {
                 padding: 8px 16px;
                 font-size: 13px;
             }
-            
+
             .upload-container {
                 padding: 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <header class="header">
         <div class="container">
@@ -321,30 +327,30 @@
     <main class="main-content">
         <div class="upload-container">
             <h1 class="upload-title">Subir Nueva Propiedad</h1>
-            
+
             <div id="notification-container"></div>
-            
+
             <form id="property-form">
                 <div class="form-group">
                     <label for="property-name" class="form-label">Nombre de la Propiedad</label>
                     <input type="text" id="property-name" class="form-input" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="property-description" class="form-label">Descripción</label>
                     <textarea id="property-description" class="form-textarea" required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="property-price" class="form-label">Precio (USD)</label>
                     <input type="number" id="property-price" class="form-input" min="0" step="0.01" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="property-location" class="form-label">Ubicación</label>
                     <input type="text" id="property-location" class="form-input" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="property-category" class="form-label">Categoría</label>
                     <select id="property-category" class="form-select" required>
@@ -354,7 +360,7 @@
                         <option value="departamento">Departamento</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="property-image" class="form-label">URL de Imagen (ImageBB)</label>
                     <input type="url" id="property-image" class="form-input" required>
@@ -362,7 +368,7 @@
                         Sube tu imagen a ImageBB y pega el enlace directo aquí
                     </div>
                 </div>
-                
+
                 <button type="submit" class="submit-btn">Publicar Propiedad</button>
             </form>
         </div>
@@ -372,24 +378,24 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
+
     <!-- Authentication Scripts -->
     <script src="js/firebase-config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/notification.js"></script>
     <script src="js/Database.js"></script>
-    
+
     <script>
         // Handle form submission
-        document.getElementById('property-form').addEventListener('submit', async function(e) {
+        document.getElementById('property-form').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             // Check if user is authenticated
             if (!window.authManager || !window.authManager.currentUser) {
                 showNotification('Debes iniciar sesión para subir propiedades', 'error');
                 return;
             }
-            
+
             // Get form data
             const propertyData = {
                 title: document.getElementById('property-name').value,
@@ -403,15 +409,15 @@
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
-            
+
             try {
                 // Add property to database
                 await addCard(propertyData);
                 showNotification('Propiedad subida exitosamente!', 'success');
-                
+
                 // Reset form
                 document.getElementById('property-form').reset();
-                
+
                 // Redirect to dashboard after 2 seconds
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
@@ -421,7 +427,7 @@
                 showNotification('Error al subir la propiedad: ' + error.message, 'error');
             }
         });
-        
+
         // Show notification function
         function showNotification(message, type) {
             const container = document.getElementById('notification-container');
@@ -430,13 +436,13 @@
                     ${message}
                 </div>
             `;
-            
+
             // Clear notification after 5 seconds
             setTimeout(() => {
                 container.innerHTML = '';
             }, 5000);
         }
-        
+
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', () => {
             // Check if user is authenticated
@@ -456,7 +462,7 @@
             <div class="footer-brand">
                 <span>Home Delight</span>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
@@ -464,7 +470,7 @@
                 <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
                 <a href="Pricing.html" aria-label="Precios">Precios</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Servicios</h3>
                 <a href="/buy" aria-label="Comprar">Comprar</a>
@@ -472,7 +478,7 @@
                 <a href="/sell" aria-label="Vender">Vender</a>
                 <a href="/contact" aria-label="Contacto">Contacto</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Lugares</h3>
                 <a href="/panama" aria-label="Panamá">Panamá</a>
@@ -481,7 +487,7 @@
                 <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="policy-links">
                 <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
@@ -489,7 +495,7 @@
                 <a href="/cookies" aria-label="Política de cookies">Cookies</a>
                 <a href="/legal" aria-label="Aviso legal">Legal</a>
             </div>
-            
+
             <div class="copyright">
                 © 2025 Home Delight. Todos los derechos reservados.
             </div>
@@ -623,7 +629,7 @@
             }
         }
     </style>
-    
+
     <!-- Scripts del Chatbot -->
     <script src="js/config.js"></script>
     <script src="js/chatbot.js"></script>

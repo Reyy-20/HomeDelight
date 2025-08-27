@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - HomeDelight</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header del Panel -->
+    <header class="admin-header">
+        <div class="header-content">
+            <h1>Panel de Administración</h1>
+            <p>Expo Project Senior - HomeDelight</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-outline" onclick="window.location.href='index.html'">
+                Volver al Sitio
+            </button>
+            <button class="btn btn-primary" onclick="logout()">
+                Cerrar Sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="admin-main">
+        <!-- Estadísticas Generales -->
+        <section class="stats-section">
+            <h2>Estadísticas Generales</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3 id="total-users">0</h3>
+                        <p>Total Usuarios</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👤</div>
+                    <div class="stat-content">
+                        <h3 id="total-clients">0</h3>
+                        <p>Clientes</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-content">
+                        <h3 id="total-businesses">0</h3>
+                        <p>Negocios</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-content">
+                        <h3 id="pending-approvals">0</h3>
+                        <p>Pendientes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráficos -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3>Distribución de Usuarios</h3>
+                <canvas id="usersChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Actividad Reciente</h3>
+                <canvas id="activityChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Actividad Reciente -->
+        <section class="activity-section">
+            <h2>Actividad Reciente</h2>
+            <div class="activity-filters">
+                <select id="userTypeFilter">
+                    <option value="">Todos los tipos</option>
+                    <option value="client">Clientes</option>
+                    <option value="business">Negocios</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="">Todos los estados</option>
+                    <option value="active">Activos</option>
+                    <option value="pending">Pendientes</option>
+                </select>
+                <button class="btn btn-primary" onclick="refreshActivity()">
+                    Actualizar
+                </button>
+            </div>
+            <div class="activity-table-container">
+                <table class="activity-table">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Último Login</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activity-table-body">
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Gestión de Negocios Pendientes -->
+        <section class="pending-section">
+            <h2>Negocios Pendientes de Aprobación</h2>
+            <div class="pending-table-container">
+                <table class="pending-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Negocio</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Licencia</th>
+                            <th>Fecha de Registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pending-table-body">
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Confirmar Acción</h3>
+            <p id="modal-message"></p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-primary" id="modal-confirm-btn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth-manager.js"></script>
+    
+    <!-- Admin Dashboard Logic -->
+    <script>
+        let usersChart, activityChart;
+        let currentStats = {};
+        let currentActivities = [];
+
+        // Inicializar el dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si es administrador
+            checkAdminAccess();
+            
+            // Cargar datos iniciales
+            loadDashboardData();
+            
+            // Configurar filtros
+            setupFilters();
+            
+            // Configurar gráficos
+            setupCharts();
+        });
+
+        // Verificar acceso de administrador
+        function checkAdminAccess() {
+            const currentUser = window.authManager?.getCurrentUser();
+            if (!currentUser || currentUser.userType !== 'admin') {
+                alert('Acceso denegado. Solo administradores pueden acceder a este panel.');
+                window.location.href = 'login&register2.html';
+            }
+        }
+
+        // Cargar datos del dashboard
+        async function loadDashboardData() {
+            try {
+                // Cargar estadísticas
+                await loadUserStats();
+                
+                // Cargar actividad reciente
+                await loadRecentActivity();
+                
+                // Cargar negocios pendientes
+                await loadPendingBusinesses();
+                
+            } catch (error) {
+                console.error('Error cargando datos del dashboard:', error);
+                showNotification('Error cargando datos', 'error');
+            }
+        }
+
+        // Cargar estadísticas de usuarios
+        async function loadUserStats() {
+            try {
+                const result = await window.authManager.getUserStats();
+                if (result.success) {
+                    currentStats = result.stats;
+                    updateStatsDisplay();
+                    updateUsersChart();
+                }
+            } catch (error) {
+                console.error('Error cargando estadísticas:', error);
+            }
+        }
+
+        // Actualizar display de estadísticas
+        function updateStatsDisplay() {
+            document.getElementById('total-users').textContent = currentStats.total || 0;
+            document.getElementById('total-clients').textContent = currentStats.clients || 0;
+            document.getElementById('total-businesses').textContent = currentStats.businesses || 0;
+            document.getElementById('pending-approvals').textContent = currentStats.pending || 0;
+        }
+
+        // Cargar actividad reciente
+        async function loadRecentActivity() {
+            try {
+                const result = await window.authManager.getRecentActivity(50);
+                if (result.success) {
+                    currentActivities = result.activities;
+                    updateActivityTable();
+                    updateActivityChart();
+                }
+            } catch (error) {
+                console.error('Error cargando actividad:', error);
+            }
+        }
+
+        // Cargar negocios pendientes
+        async function loadPendingBusinesses() {
+            try {
+                const pendingSnapshot = await window.authManager.db
+                    .collection('users')
+                    .where('userType', '==', 'business')
+                    .where('status', '==', 'pending')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                
+                const pendingBusinesses = [];
+                pendingSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    pendingBusinesses.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+                
+                updatePendingTable(pendingBusinesses);
+            } catch (error) {
+                console.error('Error cargando negocios pendientes:', error);
+            }
+        }
+
+        // Configurar filtros
+        function setupFilters() {
+            document.getElementById('userTypeFilter').addEventListener('change', filterActivity);
+            document.getElementById('statusFilter').addEventListener('change', filterActivity);
+        }
+
+        // Filtrar actividad
+        function filterActivity() {
+            const userTypeFilter = document.getElementById('userTypeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            let filteredActivities = currentActivities;
+            
+            if (userTypeFilter) {
+                filteredActivities = filteredActivities.filter(activity => 
+                    activity.userType === userTypeFilter
+                );
+            }
+            
+            if (statusFilter) {
+                filteredActivities = filteredActivities.filter(activity => 
+                    activity.status === statusFilter
+                );
+            }
+            
+            updateActivityTable(filteredActivities);
+        }
+
+        // Actualizar tabla de actividad
+        function updateActivityTable(activities = currentActivities) {
+            const tbody = document.getElementById('activity-table-body');
+            tbody.innerHTML = '';
+            
+            activities.forEach(activity => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activity.email}</td>
+                    <td>
+                        <span class="badge badge-${activity.userType === 'client' ? 'primary' : 'secondary'}">
+                            ${activity.userType === 'client' ? 'Cliente' : 'Negocio'}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-${activity.status === 'active' ? 'success' : 'warning'}">
+                            ${activity.status === 'active' ? 'Activo' : 'Pendiente'}
+                        </span>
+                    </td>
+                    <td>${formatTimestamp(activity.lastLogin)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline" onclick="viewUserDetails('${activity.uid}')">
+                            Ver
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Actualizar tabla de pendientes
+        function updatePendingTable(pendingBusinesses) {
+            const tbody = document.getElementById('pending-table-body');
+            tbody.innerHTML = '';
+            
+            pendingBusinesses.forEach(business => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${business.businessName || 'N/A'}</td>
+                    <td>${business.email}</td>
+                    <td>${business.phone || 'N/A'}</td>
+                    <td>${business.address || 'N/A'}</td>
+                    <td>${business.license || 'N/A'}</td>
+                    <td>${formatTimestamp(business.createdAt)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success" onclick="approveBusiness('${business.id}')">
+                            Aprobar
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="rejectBusiness('${business.id}')">
+                            Rechazar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Configurar gráficos
+        function setupCharts() {
+            // Gráfico de distribución de usuarios
+            const usersCtx = document.getElementById('usersChart').getContext('2d');
+            usersChart = new Chart(usersCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Clientes', 'Negocios'],
+                    datasets: [{
+                        data: [0, 0],
+                        backgroundColor: ['#D8AF53', '#D3B76D'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de actividad
+            const activityCtx = document.getElementById('activityChart').getContext('2d');
+            activityChart = new Chart(activityCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Logins por día',
+                        data: [],
+                        borderColor: '#D8AF53',
+                        backgroundColor: 'rgba(216, 175, 83, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Actualizar gráfico de usuarios
+        function updateUsersChart() {
+            if (usersChart) {
+                usersChart.data.datasets[0].data = [
+                    currentStats.clients || 0,
+                    currentStats.businesses || 0
+                ];
+                usersChart.update();
+            }
+        }
+
+        // Actualizar gráfico de actividad
+        function updateActivityChart() {
+            if (activityChart) {
+                // Agrupar actividad por día
+                const activityByDay = {};
+                currentActivities.forEach(activity => {
+                    if (activity.lastLogin) {
+                        const date = new Date(activity.lastLogin.toDate()).toLocaleDateString();
+                        activityByDay[date] = (activityByDay[date] || 0) + 1;
+                    }
+                });
+                
+                const labels = Object.keys(activityByDay).slice(-7); // Últimos 7 días
+                const data = labels.map(date => activityByDay[date]);
+                
+                activityChart.data.labels = labels;
+                activityChart.data.datasets[0].data = data;
+                activityChart.update();
+            }
+        }
+
+        // Aprobar negocio
+        async function approveBusiness(businessId) {
+            showConfirmationModal(
+                '¿Estás seguro de que quieres aprobar este negocio?',
+                async () => {
+                    try {
+                        await window.authManager.db.collection('users').doc(businessId).update({
+                            status: 'active',
+                            approvedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            approvedBy: window.authManager.getCurrentUser().uid
+                        });
+                        
+                        showNotification('Negocio aprobado exitosamente', 'success');
+                        loadDashboardData(); // Recargar datos
+                    } catch (error) {
+                        console.error('Error aprobando negocio:', error);
+                        showNotification('Error aprobando negocio', 'error');
+                    }
+                }
+            );
+        }
+
+        // Rechazar negocio
+        async function rejectBusiness(businessId) {
+            showConfirmationModal(
+                '¿Estás seguro de que quieres rechazar este negocio?',
+                async () => {
+                    try {
+                        await window.authManager.db.collection('users').doc(businessId).update({
+                            status: 'rejected',
+                            rejectedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            rejectedBy: window.authManager.getCurrentUser().uid
+                        });
+                        
+                        showNotification('Negocio rechazado', 'success');
+                        loadDashboardData(); // Recargar datos
+                    } catch (error) {
+                        console.error('Error rechazando negocio:', error);
+                        showNotification('Error rechazando negocio', 'error');
+                    }
+                }
+            );
+        }
+
+        // Mostrar modal de confirmación
+        function showConfirmationModal(message, onConfirm) {
+            const modal = document.getElementById('confirmationModal');
+            const modalMessage = document.getElementById('modal-message');
+            const confirmBtn = document.getElementById('modal-confirm-btn');
+            
+            modalMessage.textContent = message;
+            confirmBtn.onclick = () => {
+                onConfirm();
+                closeModal();
+            };
+            
+            modal.style.display = 'block';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        // Refrescar actividad
+        function refreshActivity() {
+            loadDashboardData();
+        }
+
+        // Ver detalles del usuario
+        function viewUserDetails(userId) {
+            // Implementar vista de detalles del usuario
+            alert('Función de detalles del usuario en desarrollo');
+        }
+
+        // Cerrar sesión
+        async function logout() {
+            try {
+                await window.authManager.logout();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error cerrando sesión:', error);
+            }
+        }
+
+        // Mostrar notificación
+        function showNotification(message, type = 'info') {
+            // Implementar sistema de notificaciones
+            console.log(`${type.toUpperCase()}: ${message}`);
+        }
+
+        // Formatear timestamp
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return 'N/A';
+            
+            try {
+                const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+                return date.toLocaleString('es-ES');
+            } catch (error) {
+                return 'N/A';
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmationModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos específicos del panel de administración */
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .admin-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .stats-section {
+            margin-bottom: 40px;
+        }
+
+        .stats-section h2 {
+            color: var(--black-text);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 5px;
+        }
+
+        .stat-content p {
+            color: var(--gray-text);
+            font-weight: 500;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container h3 {
+            color: var(--black-text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container canvas {
+            max-height: 300px;
+        }
+
+        .activity-section, .pending-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .activity-section h2, .pending-section h2 {
+            color: var(--black-text);
+            margin-bottom: 20px;
+        }
+
+        .activity-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .activity-filters select {
+            padding: 10px 15px;
+            border: 2px solid var(--gray-border);
+            border-radius: 8px;
+            background: var(--light-bg);
+            color: var(--black-text);
+            font-weight: 500;
+        }
+
+        .activity-table-container, .pending-table-container {
+            overflow-x: auto;
+        }
+
+        .activity-table, .pending-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .activity-table th, .activity-table td,
+        .pending-table th, .pending-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .activity-table th, .pending-table th {
+            background: var(--light-bg);
+            font-weight: 600;
+            color: var(--black-text);
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-primary {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        .badge-secondary {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .badge-success {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .badge-warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            color: var(--black-text);
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            color: var(--gray-text);
+            margin-bottom: 25px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-filters {
+                flex-direction: column;
+            }
+
+            .activity-filters select {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
+</html>
