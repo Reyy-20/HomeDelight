@@ -24,7 +24,7 @@
                 <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
                 <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                <li><a href="login&register2.html" class="nav-link">LogIn/register</a></li>
+                <li><a href="login&register2.html" class="nav-link" id="dashboard">LogIn/register</a></li>
             </ul>
         </div>
     </nav>
@@ -399,7 +399,19 @@
             });
         });
         
+const MyLog = document.getElementById('dashboard');
 
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                // Usuario está logueado, cambiar el enlace a "Dashboard"
+                MyLog.textContent = 'Dashboard';
+                MyLog.href = 'gptdashboard.html';
+            } else {
+                // Usuario no está logueado, mostrar "LogIn/register"
+                MyLog.textContent = 'LogIn/register';
+                MyLog.href = 'login&register2.html';
+            }
+        });
 
     </script>
 </body>

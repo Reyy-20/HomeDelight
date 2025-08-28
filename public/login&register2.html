@@ -186,8 +186,8 @@
 
         // Inicializar Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth(); 
-        
+        const auth = firebase.auth();
+
         // Funcionalidad mejorada para navegación por secciones
         document.addEventListener('DOMContentLoaded', function () {
             const mainTabs = document.querySelectorAll('.tab-btn');
@@ -426,15 +426,6 @@
                     const userData = userDoc.data();
                     console.log('Datos del usuario:', userData); // Debug
 
-                    // Guardar información del usuario en localStorage
-                    localStorage.setItem('userType', 'client');
-                    localStorage.setItem('userEmail', user.email);
-                    localStorage.setItem('userId', user.uid);
-                    localStorage.setItem('isAuthenticated', 'true');
-                    localStorage.setItem('userName', userData.name || 'Usuario');
-
-                    showMessage('client-login', '¡Inicio de sesión exitoso! Redirigiendo...', false);
-
                     // Redirigir después de 2 segundos
                     setTimeout(() => {
                         window.location.href = 'gptdashboard.html';
@@ -524,15 +515,6 @@
                 await db.collection('users').doc(user.uid).set(userData);
 
                 console.log('Usuario guardado exitosamente en Firestore'); // Debug
-
-                // Guardar información del usuario en localStorage
-                localStorage.setItem('userType', 'client');
-                localStorage.setItem('userEmail', user.email);
-                localStorage.setItem('userId', user.uid);
-                localStorage.setItem('isAuthenticated', 'true');
-                localStorage.setItem('userName', name);
-
-                showMessage('client-register', '¡Registro exitoso! Tu cuenta ha sido creada. Redirigiendo...', false);
 
                 // Limpiar formulario
                 document.getElementById('client-register-form').reset();
