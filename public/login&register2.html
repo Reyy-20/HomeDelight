@@ -186,7 +186,8 @@
 
         // Inicializar Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth(); // El servicio de autenticación
+        const auth = firebase.auth(); 
+        
         // Funcionalidad mejorada para navegación por secciones
         document.addEventListener('DOMContentLoaded', function () {
             const mainTabs = document.querySelectorAll('.tab-btn');
@@ -436,7 +437,7 @@
 
                     // Redirigir después de 2 segundos
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        window.location.href = 'gptdashboard.html';
                     }, 2000);
                 } else {
                     throw new Error('Esta cuenta no está registrada como cliente');
@@ -538,7 +539,7 @@
 
                 // Redirigir después de 3 segundos
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'gptdashboard.html';
                 }, 3000);
 
             } catch (error) {
@@ -599,7 +600,7 @@
 
                     // Redirigir después de 2 segundos
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        window.location.href = 'gptdashboard.html';
                     }, 2000);
                 } else {
                     throw new Error('Esta cuenta no está registrada como negocio');
@@ -707,7 +708,7 @@
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 // Usuario ya está logueado, redirigir
-                window.location.href = 'index.html';
+                window.location.href = 'gptdashboard.html';
             }
         });
     </script>
