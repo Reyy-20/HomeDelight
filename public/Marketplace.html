@@ -34,15 +34,14 @@
                     <label for="filtroUbicacion">Ubicación</label>
                     <select id="filtroUbicacion">
                         <option value="">Todas</option>
-                        <option>San Francisco</option>
-                        <option>Tumba Muerto</option>
-                        <option>Avenida Balboa</option>
-                        <option>Costa del Este</option>
-                        <option>Brisas del Golf</option>
-                        <option>12 de Octubre</option>
-                        <option>Albrook</option>
-                        <option>Costa Sur</option>
-                        <option>Punta Barco</option>
+                        <option value="Albrook">Albrook</option>
+                        <option value="Costa Sur">Costa Sur</option>
+                        <option value="Punta Barco">Punta Barco</option>
+                        <option value="San Francisco">San Francisco</option>
+                        <option value="Costa del Este">Costa del Este</option>
+                        <option value="Tumba Muerto">Tumba Muerto</option>
+                        <option value="Brisas del Golf">Brisas del Golf</option>
+                        <option value="Avenida Balboa">Avenida Balboa</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -512,6 +511,146 @@
 <!-- Scripts -->
 <script src="js/config.js"></script>
 <script src="js/chatbot.js"></script>
+
+<script>
+    let isFixed = false;
+    
+    window.addEventListener('scroll', function() {
+        const filters = document.querySelector('.filters');
+        const cardsContainer = document.querySelector('.cards-container');
+        const scrollTop = window.scrollY;
+        
+        if (scrollTop > 200 && !isFixed) {
+            filters.style.position = 'fixed';
+            filters.style.top = '80px'; // Ajusta según altura de tu navbar
+            filters.style.left = '0';
+            filters.style.right = '0';
+            filters.style.zIndex = '999';
+            filters.style.backgroundColor = 'white';
+            filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+            cardsContainer.style.marginTop = '120px';
+            isFixed = true;
+        } else if (scrollTop <= 200 && isFixed) {
+            filters.style.position = '';
+            filters.style.top = '';
+            filters.style.left = '';
+            filters.style.right = '';
+            filters.style.zIndex = '';
+            filters.style.backgroundColor = '';
+            filters.style.boxShadow = '';
+            cardsContainer.style.marginTop = '';
+            isFixed = false;
+        }
+    });
+    </script>
+
+<script>
+    let todasLasCards = [];
+    
+    // Función para hacer sticky (igual que antes)
+    function hacerSticky() {
+        const filters = document.querySelector('.filters');
+        const cardsContainer = document.querySelector('.cards-container');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                filters.style.position = 'fixed';
+                filters.style.top = '80px';
+                filters.style.left = '0';
+                filters.style.right = '0';
+                filters.style.zIndex = '999';
+                filters.style.backgroundColor = 'white';
+                filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                cardsContainer.style.marginTop = '120px';
+            } else {
+                filters.style.position = '';
+                filters.style.top = '';
+                filters.style.left = '';
+                filters.style.right = '';
+                filters.style.zIndex = '';
+                filters.style.backgroundColor = '';
+                filters.style.boxShadow = '';
+                cardsContainer.style.marginTop = '';
+            }
+        });
+    }
+    
+    // Función mejorada para filtrar
+    function filtrar() {
+        const ubicacion = document.getElementById('filtroUbicacion').value;
+        const precioMin = document.getElementById('filtroPrecioMin').value;
+        const precioMax = document.getElementById('filtroPrecioMax').value;
+        const tipo = document.getElementById('filtroTipo').value;
+        
+        console.log('Filtrando:', { ubicacion, precioMin, precioMax, tipo });
+        
+        let resultados = 0;
+        
+        todasLasCards.forEach(card => {
+            let mostrar = true;
+            
+            // Filtro ubicación (más flexible)
+            if (ubicacion) {
+                const ubicacionCard = card.getAttribute('data-ubicacion');
+                if (!ubicacionCard || !ubicacionCard.toLowerCase().includes(ubicacion.toLowerCase())) {
+                    mostrar = false;
+                }
+            }
+            
+            // Filtro precio
+            if (precioMin || precioMax) {
+                const precioCard = parseInt(card.getAttribute('data-precio'));
+                if (precioMin && precioCard < parseInt(precioMin)) mostrar = false;
+                if (precioMax && precioCard > parseInt(precioMax)) mostrar = false;
+            }
+            
+            // Filtro tipo (detectar automáticamente del título)
+            if (tipo) {
+                const titulo = card.querySelector('.property-title')?.textContent.toLowerCase() || '';
+                let tipoCard = '';
+                
+                if (titulo.includes('casa') || titulo.includes('villa') || titulo.includes('mansión')) {
+                    tipoCard = 'Casa';
+                } else if (titulo.includes('apartamento')) {
+                    tipoCard = 'Departamento';
+                } else if (titulo.includes('ph')) {
+                    tipoCard = 'PH';
+                }
+                
+                if (tipoCard !== tipo) {
+                    mostrar = false;
+                }
+            }
+            
+            // Mostrar u ocultar
+            card.style.display = mostrar ? 'flex' : 'none';
+            if (mostrar) resultados++;
+        });
+        
+        console.log('Resultados encontrados:', resultados);
+    }
+    
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', function() {
+        // Capturar todas las cards
+        todasLasCards = Array.from(document.querySelectorAll('.property-card'));
+        console.log('Cards encontradas:', todasLasCards.length);
+        
+        // Debug: mostrar todas las ubicaciones
+        todasLasCards.forEach(card => {
+            console.log('Ubicación:', card.getAttribute('data-ubicacion'));
+        });
+        
+        // Hacer sticky
+        hacerSticky();
+        
+        // Agregar eventos a filtros
+        document.getElementById('filtroUbicacion').addEventListener('change', filtrar);
+        document.getElementById('filtroPrecioMin').addEventListener('input', filtrar);
+        document.getElementById('filtroPrecioMax').addEventListener('input', filtrar);
+        document.getElementById('filtroTipo').addEventListener('change', filtrar);
+    });
+    </script>
 </body>
 
 </html>
