@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Delight</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/Style.css">
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/chatbot.css">
@@ -192,13 +194,13 @@
             </div>
         </div>
     </section>
-   <!-- Footer -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <span>Home Delight</span>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
@@ -206,7 +208,7 @@
                 <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
                 <a href="Pricing.html" aria-label="Precios">Precios</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Servicios</h3>
                 <a href="Marketplace.html" aria-label="Comprar">Comprar</a>
@@ -214,7 +216,7 @@
                 <a href="Marketplace.html" aria-label="Vender">Vender</a>
                 <a href="ContactUs.html" aria-label="Contacto">Contacto</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Lugares</h3>
                 <a href="/panama" aria-label="Panamá">Panamá</a>
@@ -223,7 +225,7 @@
                 <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="policy-links">
                 <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
@@ -231,7 +233,7 @@
                 <a href="/cookies" aria-label="Política de cookies">Cookies</a>
                 <a href="/legal" aria-label="Aviso legal">Legal</a>
             </div>
-            
+
             <div class="copyright">
                 © 2025 Home Delight. Todos los derechos reservados.
             </div>
@@ -367,7 +369,39 @@
     </style>
 
     <!-- Scripts -->
-    <script src="js/config.js"></script>
+
     <script src="js/chatbot.js"></script>
+
+    <script>
+               // Tu archivo de JavaScript (ej. script.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+            authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+            databaseURL: "https://expo-project-senior-6bfea-default-rtdb.firebaseio.com",
+            projectId: "expo-project-senior-6bfea",
+            storageBucket: "expo-project-senior-6bfea.firebasestorage.app",
+            messagingSenderId: "188431803500",
+            appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
+            measurementId: "G-5Q8NB4WFK6"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth(); 
+        
+        // Verificar estado al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Página principal cargada');
+            console.log('Estado del usuario:', {
+                isAuthenticated: localStorage.getItem('isAuthenticated'),
+                userType: localStorage.getItem('userType'),
+                userEmail: localStorage.getItem('userEmail')
+            });
+        });
+        
+
+
+    </script>
 </body>
+
 </html>
