@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>header</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/Marketplace.css">
+    <link rel="stylesheet" href="css/Header.css">
+    <link rel="stylesheet" href="css/ContactUs.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Home Delight</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
+                <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
+                <li><a href="login&register2.html" id="dashboard" class="nav-link">LogIn/register</a></li>
+            </ul>
+        </div>
+    </nav>
+<script>
+    <!-- Auth Logic -->
+        // Tu archivo de JavaScript (ej. script.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+            authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+            databaseURL: "https://expo-project-senior-6bfea-default-rtdb.firebaseio.com",
+            projectId: "expo-project-senior-6bfea",
+            storageBucket: "expo-project-senior-6bfea.firebasestorage.app",
+            messagingSenderId: "188431803500",
+            appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
+            measurementId: "G-5Q8NB4WFK6"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth(); 
+        
+        // Funcionalidad mejorada para navegación por secciones
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainTabs = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.auth-section');
+            const sectionTabs = document.querySelectorAll('.section-tab-btn');
+            const forms = document.querySelectorAll('.auth-form');
+        });
+
+const MyLog = document.getElementById('dashboard');
+
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                // Usuario está logueado, cambiar el enlace a "Dashboard"
+                MyLog.textContent = 'Dashboard';
+                MyLog.href = 'gptdashboard.html';
+            } else {
+                // Usuario no está logueado, mostrar "LogIn/register"
+                MyLog.textContent = 'LogIn/register';
+                MyLog.href = 'login&register2.html';
+            }
+        });
+</script>
