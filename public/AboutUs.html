@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,33 +10,477 @@
     <link rel="stylesheet" href="css/Marketplace.css">
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/loginandregister.css">
-    <link rel="stylesheet" href="css/chatbot.css">
+    <style>
+        .about-content {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .meet-section {
+            background-image: url('background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 120px 60px;
+            margin: 0;
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .meet-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .meet-section * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .main-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: white;
+            margin-bottom: 25px;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .divider {
+            width: 100%;
+            height: 60px;
+            margin: 40px 0;
+        }
+
+        .story-box {
+            background: linear-gradient(135deg,#ecc75a 20%,#e5af52 100% );
+            border-radius: 15px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .story-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .story-text {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: white;
+            text-align: center;
+        }
+
+        .highlight {
+            color: #e5af52;
+            font-weight: 600;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+            margin: 40px 0;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .testimonials-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .testimonial-card {
+            min-width: 100%;
+            padding: 60px 40px;
+            background: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .testimonial-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .testimonial-author {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ecc75a 0%, #e5af52 100%);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid white;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-nav.prev {
+            left: 20px;
+        }
+
+        .carousel-nav.next {
+            right: 20px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #e5af52;
+            transform: scale(1.2);
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            background: linear-gradient(135deg, #ecc75a 0%, #e5af52 100%);
+            padding: 100px 60px;
+            margin: 60px 0 0 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-description {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #e5af52;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 3px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
+
 <body>
     <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="index.html" class="logo">Home Delight</a>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
-                    <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
-                    <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                    <li><a href="login&register.html" class="nav-link">LogIn/register</a></li>
-                </ul>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Home Delight</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
+                <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
+                <li><a href="login&register2.html" class="nav-link">LogIn/register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Us Content -->
+    <div class="about-content">
+        <div class="meet-section">
+            <h1 class="main-title">Meet Home Delight</h1>
+
+            <p class="main-description">
+                Home Delight makes finding a home simple, secure, and personal. With expert guidance and 24/7 support
+                from our virtual assistant Stella, we help you move from searching to living—smoothly and confidently.
+            </p>
+
+            <p class="main-description">
+                Because a home is more than a place—it's where your story begins.
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="story-box">
+            <h2 class="story-title">Our story</h2>
+            <p class="story-text">
+                Home Delight was born from the vision of students who believed homes deserve more than just walls and
+                roofs. Since 2024, we've been transforming house hunting into a simple, personalized
+                experience—combining smart technology with expert guidance. Our purpose is to give every home that
+                "something special" that makes it unique: comfort, personality, and joy.
+            </p>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-section">
+            <div class="testimonials-container">
+                <h2 class="testimonials-title">What Our Users Say</h2>
+
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">
+                                "Home Delight made the whole process stress-free. I felt supported from the first search
+                                to the day I moved in."
+                            </p>
+                            <div class="testimonial-author">María González</div>
+                            <div class="profile-picture">MG</div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">
+                                "The app is super easy to use, and Stella answered all my questions instantly. It saved
+                                me so much time!"
+                            </p>
+                            <div class="testimonial-author">James Miller</div>
+                            <div class="profile-picture">JM</div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">
+                                "Thanks to Home Delight, I found a home that truly matches my lifestyle. They really
+                                care about details."
+                            </p>
+                            <div class="testimonial-author">Laura Chen</div>
+                            <div class="profile-picture">LC</div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">
+                                "Professional, reliable, and personal. Home Delight turned what felt overwhelming into a
+                                smooth journey."
+                            </p>
+                            <div class="testimonial-author">Carlos Ramírez</div>
+                            <div class="profile-picture">CR</div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">
+                                "I love how simple they make everything. It's more than finding a house—it's finding the
+                                right home."
+                            </p>
+                            <div class="testimonial-author">Sophie Turner</div>
+                            <div class="profile-picture">ST</div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-nav prev" onclick="moveCarousel(-1)">‹</button>
+                    <button class="carousel-nav next" onclick="moveCarousel(1)">›</button>
+                </div>
+
+                <div class="carousel-dots">
+                    <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(1)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(3)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(4)"></div>
+                </div>
             </div>
-        </nav>
+        </div>
 
-        </body>
-        </html>
+        <!-- Call to Action Section -->
+        <div class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-title">Every dream home begins with a first step.</h2>
+                <p class="cta-description">
+                    Discover how Home Delight can help you find not just a house, but a place filled with comfort,
+                    trust, and joy.
+                </p>
+                <a href="Marketplace.html" class="cta-button">Start Your Journey</a>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const track = document.querySelector('.carousel-track');
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function moveCarousel(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        // Auto-play carousel
+        function autoPlay() {
+            moveCarousel(1);
+        }
+
+        // Start auto-play every 5 seconds
+        setInterval(autoPlay, 5000);
+
+        // Pause auto-play on hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        let autoPlayInterval;
+
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(autoPlay, 5000);
+        });
+    </script>
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <span>Home Delight</span>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
@@ -43,7 +488,7 @@
                 <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
                 <a href="Pricing.html" aria-label="Precios">Precios</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Servicios</h3>
                 <a href="/buy" aria-label="Comprar">Comprar</a>
@@ -51,7 +496,7 @@
                 <a href="/sell" aria-label="Vender">Vender</a>
                 <a href="/contact" aria-label="Contacto">Contacto</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Lugares</h3>
                 <a href="/panama" aria-label="Panamá">Panamá</a>
@@ -60,7 +505,7 @@
                 <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="policy-links">
                 <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
@@ -68,7 +513,7 @@
                 <a href="/cookies" aria-label="Política de cookies">Cookies</a>
                 <a href="/legal" aria-label="Aviso legal">Legal</a>
             </div>
-            
+
             <div class="copyright">
                 © 2025 Home Delight. Todos los derechos reservados.
             </div>
@@ -202,10 +647,9 @@
             }
         }
     </style>
-    
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/chatbot.js"></script>
+
+
+
 </body>
 
 </html>

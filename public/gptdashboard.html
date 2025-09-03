@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,436 +9,566 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chatbot.css">
 
-    <!-- Estilos que aseguran apertura desde la derecha y overlay funcional -->
+    <!-- Fixed Styles for Sidebar -->
     <style>
-        /* Forzar que el sidebar se abra desde la derecha */
-        .sidebar {
+        :root {
+            --primary-gold: #B9A160;
+            --color-gold-2: #B9A160;
+            --color-cream: #ECE8E2;
+            --white: #ffffff;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
+            left: 0;
             right: 0;
-            height: 100%;
-            width: 340px;             /* ancho del dashboard */
-            max-width: 92%;
-            background: #ffffff;
-            transform: translateX(100%); /* oculto fuera de pantalla a la derecha */
-            transition: transform .32s cubic-bezier(.2,.9,.2,1);
-            box-shadow: -8px 0 30px rgba(0,0,0,0.12);
-            z-index: 1002;
-            overflow-y: auto;
-            will-change: transform;
+            z-index: 100;
         }
 
-        /* Clase que activa la apertura */
-        .sidebar.open {
-            transform: translateX(0);
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* Overlay (capa oscura) */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-gold);
+            margin: 0;
+        }
+
+        /* User Info Styles */
+        .user-info {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .user-info:hover {
+            background: rgba(185, 161, 96, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--primary-gold);
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Overlay */
         .overlay {
             position: fixed;
-            inset: 0; /* top:0; right:0; bottom:0; left:0 */
-            background: rgba(0,0,0,0.42);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
             opacity: 0;
-            pointer-events: none;
-            transition: opacity .2s ease;
+            visibility: hidden;
+            transition: all 0.3s ease;
             z-index: 1000;
         }
 
         .overlay.show {
             opacity: 1;
-            pointer-events: auto;
+            visibility: visible;
         }
 
-        /* Hacer el avatar clicable */
-        .user-info {
-            display:flex;
-            gap:8px;
-            align-items:center;
-            cursor: pointer; /* indica que se puede tocar */
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 340px;
+            max-width: 90%;
+            background: #ffffff;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+            box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
+            z-index: 1001;
+            overflow-y: auto;
         }
 
-        /* Ajustes pequeños para el botón cerrar */
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        /* Sidebar Header */
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-header h2 {
+            margin: 0;
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+        }
+
         .close-btn {
             background: transparent;
             border: none;
-            font-size: 18px;
+            font-size: 1.5rem;
             cursor: pointer;
+            color: var(--primary-gold);
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
         }
 
-        /* Accesibilidad: ocultar el sidebar si no está abierto */
-        .sidebar[aria-hidden="true"] {
-            visibility: visible; /* transform maneja visibilidad */
-        }
-    </style>
-</head>
-<body>
-    <!-- Header con menú hamburguesa -->
-    <header class="header">
-        <div class="header-content">
-            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <h1 class="logo">HomeDelight</h1>
-
-            <!-- Perfil del usuario: ahora actúa como disparador para abrir el dashboard -->
-            <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true" aria-controls="sidebar" aria-expanded="false">
-                <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" />
-                <span class="user-name">Usuario</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- Overlay único para cerrar sidebar -->
-    <div class="overlay" id="overlay" aria-hidden="true"></div>
-
-    <!-- Sidebar Navigation (ahora a la derecha) -->
-    <nav class="sidebar" id="sidebar" aria-hidden="true">
-        <div class="sidebar-header">
-            <h2>Dashboard</h2>
-            <button class="close-btn" id="closeBtn" aria-label="Cerrar dashboard">
-                <i class="fas fa-times" aria-hidden="true"></i>
-            </button>
-        </div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#profile" class="nav-link active" data-section="profile">
-                    <i class="fas fa-user"></i>
-                    <span>Perfil</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#settings" class="nav-link" data-section="settings">
-                    <i class="fas fa-cog"></i>
-                    <span>Configuración</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#upload-property" class="nav-link" data-section="upload-property">
-                    <i class="fas fa-home"></i>
-                    <span>Subir Propiedades</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#my-properties" class="nav-link" data-section="my-properties">
-                    <i class="fas fa-building"></i>
-                    <span>Mis Propiedades</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Main Content (sin cambios) -->
-    <main class="main-content">
-        <!-- ... (mantuve el contenido original tal cual) ... -->
-        <!-- Sección Perfil -->
-        <section id="profile" class="content-section active">
-            <div class="section-header">
-                <h2><i class="fas fa-user"></i> Mi Perfil</h2>
-            </div>
-            <div class="profile-container">
-                <div class="profile-card">
-                    <div class="profile-avatar">
-                        <img src="https://via.placeholder.com/120" alt="Avatar" id="profileImage">
-                        <button class="change-avatar-btn">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                    <div class="profile-info">
-                        <div class="form-group">
-                            <label for="fullName">Nombre Completo</label>
-                            <input type="text" id="fullName" placeholder="Ingresa tu nombre completo">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo Electrónico</label>
-                            <input type="email" id="email" placeholder="tu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Teléfono</label>
-                            <input type="tel" id="phone" placeholder="+1 234 567 8900">
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Ubicación</label>
-                            <input type="text" id="location" placeholder="Ciudad, País">
-                        </div>
-                        <div class="form-group">
-                            <label for="bio">Biografía</label>
-                            <textarea id="bio" rows="4" placeholder="Cuéntanos sobre ti..."></textarea>
-                        </div>
-                        <button class="btn-primary">Guardar Cambios</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Configuración -->
-        <section id="settings" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-cog"></i> Configuración</h2>
-            </div>
-            <div class="settings-container">
-                <div class="settings-card">
-                    <h3>Preferencias de Cuenta</h3>
-                    <div class="setting-item">
-                        <label class="switch">
-                            <input type="checkbox" id="emailNotifications">
-                            <span class="slider"></span>
-                        </label>
-                        <div class="setting-info">
-                            <h4>Notificaciones por Email</h4>
-                            <p>Recibir notificaciones sobre nuevas propiedades y mensajes</p>
-                        </div>
-                    </div>
-                    <div class="setting-item">
-                        <label class="switch">
-                            <input type="checkbox" id="smsNotifications">
-                            <span class="slider"></span>
-                        </label>
-                        <div class="setting-info">
-                            <h4>Notificaciones SMS</h4>
-                            <p>Recibir alertas importantes por mensaje de texto</p>
-                        </div>
-                    </div>
-                    <div class="setting-item">
-                        <label class="switch">
-                            <input type="checkbox" id="publicProfile" checked>
-                            <span class="slider"></span>
-                        </label>
-                        <div class="setting-info">
-                            <h4>Perfil Público</h4>
-                            <p>Permitir que otros usuarios vean tu perfil</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="settings-card">
-                    <h3>Seguridad</h3>
-                    <div class="form-group">
-                        <label for="currentPassword">Contraseña Actual</label>
-                        <input type="password" id="currentPassword" placeholder="Contraseña actual">
-                    </div>
-                    <div class="form-group">
-                        <label for="newPassword">Nueva Contraseña</label>
-                        <input type="password" id="newPassword" placeholder="Nueva contraseña">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirmar Contraseña</label>
-                        <input type="password" id="confirmPassword" placeholder="Confirmar nueva contraseña">
-                    </div>
-                    <button class="btn-secondary">Cambiar Contraseña</button>
-                </div>
-            </div>
-        </section>
- <!-- Sección Subir Propiedades -->
- <section id="upload-property" class="content-section">
-    <div class="section-header">
-        <h2><i class="fas fa-home"></i> Subir Propiedad</h2>
-    </div>
-    <div class="upload-container">
-        <form class="property-form">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="propertyType">Tipo de Propiedad</label>
-                    <select id="propertyType" required>
-                        <option value="">Seleccionar tipo</option>
-                        <option value="casa">Casa</option>
-                        <option value="apartamento">Apartamento</option>
-                        <option value="condominio">Condominio</option>
-                        <option value="villa">Villa</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="propertyPrice">Precio</label>
-                    <input type="number" id="propertyPrice" placeholder="Precio en USD" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="propertyTitle">Título de la Propiedad</label>
-                <input type="text" id="propertyTitle" placeholder="Ej: Hermosa casa con jardín" required>
-            </div>
-
-            <div class="form-group">
-                <label for="propertyDescription">Descripción</label>
-                <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..." required></textarea>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="bedrooms">Habitaciones</label>
-                    <input type="number" id="bedrooms" min="1" placeholder="Número de habitaciones">
-                </div>
-                <div class="form-group">
-                    <label for="bathrooms">Baños</label>
-                    <input type="number" id="bathrooms" min="1" placeholder="Número de baños">
-                </div>
-                <div class="form-group">
-                    <label for="area">Área (m²)</label>
-                    <input type="number" id="area" placeholder="Área en metros cuadrados">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="propertyAddress">Dirección</label>
-                <input type="text" id="propertyAddress" placeholder="Dirección completa" required>
-            </div>
-
-            <div class="form-group">
-                <label for="propertyImages">Imágenes de la Propiedad</label>
-                <div class="image-upload-area" id="imageUploadArea">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Arrastra las imágenes aquí o haz clic para seleccionar</p>
-                    <input type="file" id="propertyImages" multiple accept="image/*" hidden>
-                </div>
-                <div class="image-preview" id="imagePreview"></div>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn-secondary">Guardar Borrador</button>
-                <button type="submit" class="btn-primary">Publicar Propiedad</button>
-            </div>
-        </form>
-    </div>
-</section>
-
-<!-- Sección Mis Propiedades -->
-<section id="my-properties" class="content-section">
-    <div class="section-header">
-        <h2><i class="fas fa-building"></i> Mis Propiedades</h2>
-        <button class="btn-primary" onclick="showSection('upload-property')">
-            <i class="fas fa-plus"></i> Nueva Propiedad
-        </button>
-    </div>
-    <div class="properties-grid">
-        <!-- Ejemplo de propiedad -->
-        <div class="property-card">
-            <div class="property-image">
-                <img src="https://via.placeholder.com/300x200" alt="Propiedad">
-                <div class="property-status active">Activa</div>
-            </div>
-            <div class="property-info">
-                <h3>Casa Moderna en el Centro</h3>
-                <p class="property-price">$250,000</p>
-                <p class="property-details">
-                    <i class="fas fa-bed"></i> 3 hab
-                    <i class="fas fa-bath"></i> 2 baños
-                    <i class="fas fa-ruler-combined"></i> 120 m²
-                </p>
-                <div class="property-actions">
-                    <button class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
-                    <button class="btn-delete"><i class="fas fa-trash"></i> Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-        <!-- ... resto del contenido permanece igual ... -->
-    </main>
-
-    <!-- Scripts: lógica para abrir/cerrar el dashboard desde el perfil, cierre por X, overlay y Esc -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const profileBtn = document.getElementById('profileBtn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            const closeBtn = document.getElementById('closeBtn');
-
-            function openSidebar() {
-                sidebar.classList.add('open');
-                sidebar.setAttribute('aria-hidden', 'false');
-                profileBtn.setAttribute('aria-expanded', 'true');
-                overlay.classList.add('show');
-                overlay.setAttribute('aria-hidden', 'false');
-                // Mover foco al sidebar para accesibilidad
-                sidebar.focus?.();
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                sidebar.setAttribute('aria-hidden', 'true');
-                profileBtn.setAttribute('aria-expanded', 'false');
-                overlay.classList.remove('show');
-                overlay.setAttribute('aria-hidden', 'true');
-                // devolver foco al disparador
-                profileBtn.focus?.();
-            }
-
-            // Abrir al hacer click / Enter / Space sobre el perfil
-            profileBtn.addEventListener('click', openSidebar);
-            profileBtn.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    openSidebar();
-                }
-            });
-
-            // Cerrar con la X
-            closeBtn.addEventListener('click', closeSidebar);
-
-            // Cerrar tocando el overlay
-            overlay.addEventListener('click', closeSidebar);
-
-            // Cerrar con Esc
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closeSidebar();
-                }
-            });
-
-            hamburgerBtn.addEventListener('click', openSidebar);
-        });
-    </script>
-
-    <!-- Si existía tu js/dashboard.js, lo dejamos al final (no obligatorio) -->
-    <script src="js/dashboard.js"></script>
-
-    <!-- Footer (igual que antes) -->
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span>Home Delight</span>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
-                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
-                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
-                <a href="Pricing.html" aria-label="Precios">Precios</a>
-            </div>
-            <div class="footer-section">
-                <h3>Servicios</h3>
-                <a href="/buy" aria-label="Comprar">Comprar</a>
-                <a href="/rent" aria-label="Alquilar">Alquilar</a>
-                <a href="/sell" aria-label="Vender">Vender</a>
-                <a href="/contact" aria-label="Contacto">Contacto</a>
-            </div>
-            <div class="footer-section">
-                <h3>Lugares</h3>
-                <a href="/panama" aria-label="Panamá">Panamá</a>
-                <a href="/colon" aria-label="Colón">Colón</a>
-                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
-                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="policy-links">
-                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
-                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
-                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
-                <a href="/legal" aria-label="Aviso legal">Legal</a>
-            </div>
-            <div class="copyright">
-                © 2025 Home Delight. Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
-    <style>
-        :root {
-            --color-gold-2: #B9A160;
-            --color-cream: #ECE8E2;
+        .close-btn:hover {
+            background: rgba(185, 161, 96, 0.1);
         }
 
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 1.5rem;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(185, 161, 96, 0.1);
+            color: var(--primary-gold);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            color: var(--primary-gold);
+            margin: 0;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gold);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #a08d52;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-gold);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: none;
+            /* Ya estaba así */
+            width: 100%;
+            /* Agrega esta línea */
+            margin: 0;
+            /* Agrega esta línea para eliminar márgenes */
+        }
+
+        .profile-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            /* Asegura que ocupe todo el ancho */
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-gold);
+        }
+
+        .change-avatar-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary-gold);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .change-avatar-btn:hover {
+            background: #a08d52;
+        }
+
+        /* Settings */
+        .settings-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            min-width: auto;
+        }
+
+        .settings-card h3 {
+            color: var(--primary-gold);
+            margin: 0 0 1.5rem 0;
+            font-size: 1.25rem;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Switch Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            min-width: 50px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary-gold);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .setting-info h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .setting-info p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Form Row */
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Properties Grid */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .property-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .property-status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+        }
+
+        .property-info h3 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 1.125rem;
+        }
+
+        .property-price {
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .property-details {
+            color: #666;
+            font-size: 0.875rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .property-details i {
+            margin-right: 4px;
+            margin-left: 12px;
+        }
+
+        .property-details i:first-child {
+            margin-left: 0;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #138496;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        /* Upload Area */
+        .image-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary-gold);
+            background: rgba(185, 161, 96, 0.05);
+        }
+
+        .image-upload-area i {
+            font-size: 2rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer Styles */
         .site-footer {
             background: white;
             color: var(--color-gold-2);
@@ -527,24 +658,28 @@
             opacity: 0.8;
         }
 
-        @media (max-width: 640px) {
-            .site-footer {
-                padding: 24px 20px 16px;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .form-row {
+                flex-direction: column;
             }
 
             .footer-content {
                 flex-direction: column;
                 gap: 24px;
                 margin-bottom: 20px;
-            }
-
-            .footer-brand {
-                justify-content: center;
-                margin-bottom: 16px;
-            }
-
-            .footer-section {
-                text-align: center;
             }
 
             .footer-bottom {
@@ -558,11 +693,645 @@
                 gap: 16px;
             }
         }
+
+        /* Notification Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            max-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification-success {
+            background: #28a745;
+        }
+
+        .notification-error {
+            background: #dc3545;
+        }
+
+        .notification-info {
+            background: #17a2b8;
+        }
     </style>
-    
-    <!-- Scripts del Chatbot -->
-    <script src="js/config.js"></script>
-    <script src="js/chatbot.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">HomeDelight</h1>
+            <div class="back-button-container">
+                <button class="back-btn" onclick="window.location.href='index.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Volver al Inicio
+                </button>
+            </div>
+            <div>
+                <!-- User Profile Button -->
+                <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true"
+                    aria-controls="sidebar" aria-expanded="false">
+                    <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" />
+                    <span class="user-name">Usuario</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Dashboard</h2>
+            <button class="close-btn" id="closeBtn" aria-label="Cerrar dashboard">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#profile" class="nav-link active" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings" class="nav-link" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#upload-property" class="nav-link" data-section="upload-property">
+                    <i class="fas fa-home"></i>
+                    <span>Subir Propiedades</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#my-properties" class="nav-link" data-section="my-properties">
+                    <i class="fas fa-building"></i>
+                    <span>Mis Propiedades</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Profile Section -->
+        <section id="profile" class="content-section active">
+            <div class="section-header">
+                <h2><i class="fas fa-user"></i> Mi Perfil</h2>
+            </div>
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <img src="https://via.placeholder.com/120" alt="Avatar" id="profileImage">
+                        <button class="change-avatar-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <div class="form-group">
+                            <label for="fullName">Nombre Completo</label>
+                            <input type="text" id="fullName" placeholder="Ingresa tu nombre completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" placeholder="+1 234 567 8900">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Ubicación</label>
+                            <input type="text" id="location" placeholder="Ciudad, País">
+                        </div>
+                        <div class="form-group">
+                            <label for="bio">Biografía</label>
+                            <textarea id="bio" rows="4" placeholder="Cuéntanos sobre ti..."></textarea>
+                        </div>
+                        <button class="btn-primary" onclick="saveProfile()">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cog"></i> Configuración</h2>
+            </div>
+            <div class="settings-container">
+                <div class="settings-card">
+                    <h3>Preferencias de Cuenta</h3>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" id="emailNotifications">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <h4>Notificaciones por Email</h4>
+                            <p>Recibir notificaciones sobre nuevas propiedades y mensajes</p>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" id="smsNotifications">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <h4>Notificaciones SMS</h4>
+                            <p>Recibir alertas importantes por mensaje de texto</p>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" id="publicProfile" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <h4>Perfil Público</h4>
+                            <p>Permitir que otros usuarios vean tu perfil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Seguridad</h3>
+                    <div class="form-group">
+                        <label for="currentPassword">Contraseña Actual</label>
+                        <input type="password" id="currentPassword" placeholder="Contraseña actual">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Nueva Contraseña</label>
+                        <input type="password" id="newPassword" placeholder="Nueva contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar Contraseña</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirmar nueva contraseña">
+                    </div>
+                    <button class="btn-secondary" onclick="changePassword()">Cambiar Contraseña</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Property Section -->
+        <section id="upload-property" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-home"></i> Subir Propiedad</h2>
+            </div>
+            <div class="upload-container">
+                <form class="property-form" onsubmit="handlePropertySubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyType">Tipo de Propiedad</label>
+                            <select id="propertyType" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="casa">Casa</option>
+                                <option value="apartamento">Apartamento</option>
+                                <option value="condominio">Condominio</option>
+                                <option value="villa">Villa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="propertyPrice">Precio</label>
+                            <input type="number" id="propertyPrice" placeholder="Precio en USD" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propertyTitle">Título de la Propiedad</label>
+                        <input type="text" id="propertyTitle" placeholder="Ej: Hermosa casa con jardín" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propertyDescription">Descripción</label>
+                        <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bedrooms">Habitaciones</label>
+                            <input type="number" id="bedrooms" min="1" placeholder="Número de habitaciones">
+                        </div>
+                        <div class="form-group">
+                            <label for="bathrooms">Baños</label>
+                            <input type="number" id="bathrooms" min="1" placeholder="Número de baños">
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Área (m²)</label>
+                            <input type="number" id="area" placeholder="Área en metros cuadrados">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propertyAddress">Dirección</label>
+                        <input type="text" id="propertyAddress" placeholder="Dirección completa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propertyImages">Imágenes de la Propiedad</label>
+                        <div class="image-upload-area" onclick="document.getElementById('propertyImages').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Arrastra las imágenes aquí o haz clic para seleccionar</p>
+                            <input type="file" id="propertyImages" multiple accept="image/*" hidden>
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+
+                    <div class="form-actions" style="display: flex; gap: 1rem; justify-content: flex-end;">
+                        <button type="button" class="btn-secondary">Guardar Borrador</button>
+                        <button type="submit" class="btn-primary">Publicar Propiedad</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- My Properties Section -->
+        <section id="my-properties" class="content-section">
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2><i class="fas fa-building"></i> Mis Propiedades</h2>
+                <button class="btn-primary" onclick="showSection('upload-property')">
+                    <i class="fas fa-plus"></i> Nueva Propiedad
+                </button>
+            </div>
+            <div class="properties-grid">
+                <!-- Example Property -->
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://via.placeholder.com/300x200" alt="Propiedad">
+                        <div class="property-status active">Activa</div>
+                    </div>
+                    <div class="property-info">
+                        <h3>Casa Moderna en el Centro</h3>
+                        <p class="property-price">$250,000</p>
+                        <p class="property-details">
+                            <i class="fas fa-bed"></i> 3 hab
+                            <i class="fas fa-bath"></i> 2 baños
+                            <i class="fas fa-ruler-combined"></i> 120 m²
+                        </p>
+                        <div class="property-actions">
+                            <button class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-delete"><i class="fas fa-trash"></i> Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Home Delight</span>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
+                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
+                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
+                <a href="Pricing.html" aria-label="Precios">Precios</a>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="/buy" aria-label="Comprar">Comprar</a>
+                <a href="/rent" aria-label="Alquilar">Alquilar</a>
+                <a href="/sell" aria-label="Vender">Vender</a>
+                <a href="/contact" aria-label="Contacto">Contacto</a>
+            </div>
+            <div class="footer-section">
+                <h3>Lugares</h3>
+                <a href="/panama" aria-label="Panamá">Panamá</a>
+                <a href="/colon" aria-label="Colón">Colón</a>
+                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
+                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="policy-links">
+                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
+                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
+                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
+                <a href="/legal" aria-label="Aviso legal">Legal</a>
+            </div>
+            <div class="copyright">
+                © 2025 Home Delight. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('DOM loaded, initializing dashboard...');
+
+            // Get elements
+            const profileBtn = document.getElementById('profileBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const closeBtn = document.getElementById('closeBtn');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Check if elements exist
+            if (!profileBtn || !sidebar || !overlay || !closeBtn) {
+                console.error('Required elements not found');
+                return;
+            }
+
+            console.log('All elements found, setting up event listeners...');
+
+            // Function to open sidebar
+            function openSidebar() {
+                console.log('Opening sidebar...');
+                sidebar.classList.add('open');
+                overlay.classList.add('show');
+                profileBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            // Function to close sidebar
+            function closeSidebar() {
+                console.log('Closing sidebar...');
+                sidebar.classList.remove('open');
+                overlay.classList.remove('show');
+                profileBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+
+            // Event listeners
+            profileBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                console.log('Profile button clicked');
+                openSidebar();
+            });
+
+            profileBtn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openSidebar();
+                }
+            });
+
+            closeBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                console.log('Close button clicked');
+                closeSidebar();
+            });
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) {
+                    console.log('Overlay clicked');
+                    closeSidebar();
+                }
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+
+            // Navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    if (section) {
+                        showSection(section);
+                        closeSidebar(); // Close sidebar on mobile after navigation
+                    }
+                });
+            });
+
+            // Initialize user data
+            loadUserData();
+        });
+
+        // Function to show sections
+        function showSection(sectionName) {
+            console.log('Showing section:', sectionName);
+
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show target section
+            const targetSection = document.getElementById(sectionName);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update active navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLink = document.querySelector(`[data-section="${sectionName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Mock authentication check (replace with real implementation)
+        function checkAuthentication() {
+            // For demo purposes, always return true
+            // In real implementation, check with your authentication system
+            return true;
+        }
+
+        // Load user data
+        function loadUserData() {
+            const userName = localStorage.getItem('userName') || 'Usuario Demo';
+            const userEmail = localStorage.getItem('userEmail') || 'demo@homedelight.com';
+
+            // Update form fields
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+
+            if (fullNameInput) fullNameInput.value = userName;
+            if (emailInput) emailInput.value = userEmail;
+
+            // Update header user name
+            const userNameSpan = document.querySelector('.user-name');
+            if (userNameSpan) {
+                userNameSpan.textContent = userName;
+            }
+        }
+
+        // Save profile function
+        function saveProfile() {
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const location = document.getElementById('location').value;
+            const bio = document.getElementById('bio').value;
+
+            if (!name || !email) {
+                showNotification('Nombre y email son obligatorios', 'error');
+                return;
+            }
+
+            // Save to localStorage (replace with real API call)
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userPhone', phone);
+            localStorage.setItem('userLocation', location);
+            localStorage.setItem('userBio', bio);
+
+            // Update header
+            const userNameSpan = document.querySelector('.user-name');
+            if (userNameSpan) {
+                userNameSpan.textContent = name;
+            }
+
+            showNotification('Perfil actualizado correctamente', 'success');
+        }
+
+        // Change password function
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                showNotification('Por favor completa todos los campos', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showNotification('Las contraseñas no coinciden', 'error');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showNotification('La nueva contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            // Here you would implement actual password change logic
+            showNotification('Contraseña cambiada correctamente', 'success');
+
+            // Clear fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        // Handle property form submission
+        function handlePropertySubmit(e) {
+            e.preventDefault();
+
+            const propertyType = document.getElementById('propertyType').value;
+            const propertyPrice = document.getElementById('propertyPrice').value;
+            const propertyTitle = document.getElementById('propertyTitle').value;
+            const propertyDescription = document.getElementById('propertyDescription').value;
+            const propertyAddress = document.getElementById('propertyAddress').value;
+
+            if (!propertyType || !propertyPrice || !propertyTitle || !propertyDescription || !propertyAddress) {
+                showNotification('Por favor completa todos los campos obligatorios', 'error');
+                return;
+            }
+
+            // Here you would implement property saving logic
+            showNotification('Propiedad publicada correctamente', 'success');
+
+            // Reset form
+            e.target.reset();
+
+            // Switch to my properties section
+            showSection('my-properties');
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // File upload handling
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.getElementById('propertyImages');
+            const imagePreview = document.getElementById('imagePreview');
+
+            if (fileInput && imagePreview) {
+                fileInput.addEventListener('change', function (e) {
+                    imagePreview.innerHTML = '';
+
+                    Array.from(e.target.files).forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                const img = document.createElement('img');
+                                img.src = e.target.result;
+                                img.style.cssText = 'width: 100px; height: 100px; object-fit: cover; margin: 5px; border-radius: 8px;';
+                                imagePreview.appendChild(img);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                });
+            }
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 
 </html>
