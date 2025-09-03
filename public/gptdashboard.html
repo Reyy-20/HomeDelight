@@ -338,6 +338,9 @@
     <!-- Scripts: lógica para abrir/cerrar el dashboard desde el perfil, cierre por X, overlay y Esc -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Verificar autenticación
+            checkAuthentication();
+            
             const profileBtn = document.getElementById('profileBtn');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -385,7 +388,7 @@
                 }
             });
 
-           hamburgerBtn.addEventListener('click', openSidebar);
+            hamburgerBtn.addEventListener('click', openSidebar);
         });
     </script>
 
