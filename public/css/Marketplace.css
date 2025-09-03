@@ -74,10 +74,14 @@ section{
      overflow: hidden;
      position: relative;
      transition: transform 0.15s;
+     text-decoration: none;
+     color: inherit;
  }
 
  .property-card:hover {
      transform: translateY(-4px) scale(1.01);
+     text-decoration: none;
+     color: inherit;
  }
 
  .property-image {

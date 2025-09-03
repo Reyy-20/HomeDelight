@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Delight - Propiedades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #d4af37;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #d4af37;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            border-color: #d4af37;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card-specs {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .discount {
+            background: #e74c3c;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+
+
+        .property-detail {
+            display: none;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .property-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .property-specs {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .spec {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .property-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #666;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #d4af37;
+        }
+
+        .property-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .detail-item h4 {
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-section {
+            background: #d4af37;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            text-align: center;
+            color: white;
+        }
+
+        .contact-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .property-header {
+                text-align: center;
+            }
+            
+            .property-specs {
+                justify-content: center;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer Styles */
+        :root {
+            --color-gold-2: #B9A160;
+            --color-cream: #ECE8E2;
+        }
+
+        .site-footer {
+            background: white;
+            color: var(--color-gold-2);
+            padding: 40px 24px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: flex-start;
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-section h3 {
+            font-size: calc(14px * 1.15);
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-gold-2);
+        }
+
+        .footer-section a {
+            color: var(--color-gold-2);
+            text-decoration: none;
+            font-size: calc(14px * 1.15);
+            transition: text-decoration 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--color-gold-2);
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(185, 161, 96, 0.2);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .policy-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .policy-links a {
+            color: var(--color-gold-2);
+            text-decoration: none;
+            font-size: calc(14px * 1.15);
+            transition: text-decoration 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .policy-links a:hover,
+        .policy-links a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--color-gold-2);
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: calc(12px * 1.15);
+            color: var(--color-gold-2);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .site-footer {
+                padding: 24px 20px 16px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                margin-bottom: 20px;
+            }
+
+            .footer-brand {
+                justify-content: center;
+                margin-bottom: 16px;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .policy-links {
+                justify-content: center;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Vista del Marketplace -->
+    <div id="marketplace">
+        <header class="header">
+            <nav class="nav">
+                <a href="index.html" class="logo">Home Delight</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="Marketplace.html">Marketplace</a></li>
+                    <li><a href="ContactUs.html">Contact Us</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                    <li><a href="login&register2.html">Login/register</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="container">
+            <h2 class="page-title">Nuestras Propiedades</h2>
+            <div class="property-grid">
+                <!-- Casa El Roble -->
+                <div class="property-card" onclick="showProperty('casa-el-roble')">
+                    <img src="https://i.pinimg.com/originals/95/4b/fc/954bfce34fb3b0ae957d87eec22b0843.jpg" alt="Casa El Roble" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 395,000 <span class="discount">Rebajado 3%</span></div>
+                        <div class="card-title">Casa El Roble</div>
+                        <div class="card-specs">
+                            <span>🏠 3</span>
+                            <span>🚿 2</span>
+                            <span>📐 306 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Villa Serena -->
+                <div class="property-card" onclick="showProperty('villa-serena')">
+                    <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80" alt="Villa Serena" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 520,000 <span class="discount">Rebajado 6%</span></div>
+                        <div class="card-title">Villa Serena</div>
+                        <div class="card-specs">
+                            <span>🏠 4</span>
+                            <span>🚿 4</span>
+                            <span>📐 350 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Villa Sol y Mar -->
+                <div class="property-card" onclick="showProperty('villa-sol-y-mar')">
+                    <img src="https://armoniapanama.com/wp-content/uploads/2025/05/armonia-2-848x450.webp" alt="Villa Sol y Mar" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 420,000 <span class="discount">Rebajado 3%</span></div>
+                        <div class="card-title">Villa Sol y Mar</div>
+                        <div class="card-specs">
+                            <span>🏠 4</span>
+                            <span>🚿 5</span>
+                            <span>📐 380 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Casa Moderna -->
+                <div class="property-card" onclick="showProperty('casa-moderna')">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80" alt="Casa Moderna" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 280,000</div>
+                        <div class="card-title">Casa Moderna</div>
+                        <div class="card-specs">
+                            <span>🏠 3</span>
+                            <span>🚿 3</span>
+                            <span>📐 250 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mansión Costa del Este -->
+                <div class="property-card" onclick="showProperty('mansion-costa-del-este')">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80" alt="Mansión Costa del Este" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 750,000 <span class="discount">Rebajado 8%</span></div>
+                        <div class="card-title">Mansión Costa del Este</div>
+                        <div class="card-specs">
+                            <span>🏠 6</span>
+                            <span>🚿 7</span>
+                            <span>📐 580 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Casa Familiar -->
+                <div class="property-card" onclick="showProperty('casa-familiar')">
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80" alt="Casa Familiar" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 180,000</div>
+                        <div class="card-title">Casa Familiar</div>
+                        <div class="card-specs">
+                            <span>🏠 3</span>
+                            <span>🚿 2</span>
+                            <span>📐 200 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartamento Luz -->
+                <div class="property-card" onclick="showProperty('apartamento-luz')">
+                    <img src="https://cdn2.hubspot.net/hubfs/5264199/BLOG%202019/Apartamentos%20en%20Santa%20Maria/por%20que%20vivir%20en%20santa%20maria%20panama.jpg" alt="Apartamento Luz" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 560,900 <span class="discount">Rebajado 5%</span></div>
+                        <div class="card-title">Apartamento Luz</div>
+                        <div class="card-specs">
+                            <span>🏠 5</span>
+                            <span>🚿 4</span>
+                            <span>📐 459 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartamento Sur -->
+                <div class="property-card" onclick="showProperty('apartamento-sur')">
+                    <img src="https://pic.le-cdn.com/thumbs/520x390/190/1/properties/Property-432a94040e74dfefa114523e1e9bd005-128152370.jpg" alt="Apartamento Sur" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 456,980 <span class="discount">Rebajado 4%</span></div>
+                        <div class="card-title">Apartamento Sur</div>
+                        <div class="card-specs">
+                            <span>🏠 4</span>
+                            <span>🚿 3</span>
+                            <span>📐 320 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Propiedad Avenida Balboa -->
+                <div class="property-card" onclick="showProperty('propiedad-avenida-balboa')">
+                    <img src="https://www.activentas.com/wp-content/uploads/2024/07/photo_server-4409.jpeg" alt="Propiedad Avenida Balboa" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 568,990 <span class="discount">Rebajado 7%</span></div>
+                        <div class="card-title">Propiedad Avenida Balboa</div>
+                        <div class="card-specs">
+                            <span>🏠 3</span>
+                            <span>🚿 2</span>
+                            <span>📐 340 m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartamento Albrook -->
+                <div class="property-card" onclick="showProperty('apartamento-albrook')">
+                    <img src="https://forestgate.procasapanama.com/wp-content/uploads/comprar-apartamento-en-Panama-1-1-1024x768.jpeg" alt="Apartamento Albrook" class="card-image">
+                    <div class="card-content">
+                        <div class="card-price">B/. 795,490 <span class="discount">Rebajado 5%</span></div>
+                        <div class="card-title">Apartamento en Albrook</div>
+                        <div class="card-specs">
+                            <span>🏠 4</span>
+                            <span>🚿 5</span>
+                            <span>📐 458 m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vista de Propiedad Individual -->
+    <div id="property-detail" class="property-detail">
+        <header class="header">
+            <nav class="nav">
+                <a href="index.html" class="logo">Home Delight</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="Marketplace.html">Marketplace</a></li>
+                    <li><a href="ContactUs.html">Contact Us</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                    <li><a href="login&register2.html">Login/register</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+        <div class="container" id="property-content">
+            <!-- El contenido se cargará aquí -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Home Delight</span>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
+                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
+                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
+                <a href="Pricing.html" aria-label="Precios">Precios</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="Marketplace.html" aria-label="Comprar">Comprar</a>
+                <a href="Marketplace.html" aria-label="Alquilar">Alquilar</a>
+                <a href="Marketplace.html" aria-label="Vender">Vender</a>
+                <a href="ContactUs.html" aria-label="Contacto">Contacto</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Lugares</h3>
+                <a href="/panama" aria-label="Panamá">Panamá</a>
+                <a href="/colon" aria-label="Colón">Colón</a>
+                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
+                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="policy-links">
+                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
+                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
+                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
+                <a href="/legal" aria-label="Aviso legal">Legal</a>
+            </div>
+            
+            <div class="copyright">
+                © 2025 Home Delight. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de las propiedades
+        const properties = {
+            'casa-el-roble': {
+                title: 'Casa El Roble',
+                price: 'B/. 395,000',
+                discount: 'Rebajado 3%',
+                image: 'https://i.pinimg.com/originals/95/4b/fc/954bfce34fb3b0ae957d87eec22b0843.jpg',
+                description: 'Casa familiar con amplio jardín y árboles centenarios. Esta hermosa propiedad ofrece un ambiente tranquilo y natural, perfecta para familias que buscan comodidad y contacto con la naturaleza.',
+                rooms: 3,
+                bathrooms: 2,
+                area: '306 m²',
+                location: 'Albrook',
+                year: 2018,
+                likes: 27,
+                features: [
+                    'Jardín amplio con árboles centenarios',
+                    'Diseño moderno y funcional',
+                    'Cocina completamente equipada',
+                    'Estacionamiento para 2 vehículos',
+                    'Sistema de seguridad 24/7',
+                    'Área de lavandería independiente'
+                ]
+            },
+            'villa-serena': {
+                title: 'Villa Serena',
+                price: 'B/. 520,000',
+                discount: 'Rebajado 6%',
+                image: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80',
+                description: 'Ambientes abiertos, piscina privada y zona de BBQ. Esta lujosa villa ofrece el estilo de vida perfecto para quienes disfrutan del entretenimiento y la relajación.',
+                rooms: 4,
+                bathrooms: 4,
+                area: '350 m²',
+                location: 'Costa Sur',
+                year: 2019,
+                likes: 21,
+                features: [
+                    'Piscina privada con sistema de filtrado',
+                    'Zona de BBQ completamente equipada',
+                    'Ambientes abiertos con concepto moderno',
+                    'Master suite con jacuzzi',
+                    'Terraza con vista panorámica',
+                    'Bodega climatizada'
+                ]
+            },
+            'villa-sol-y-mar': {
+                title: 'Villa Sol y Mar',
+                price: 'B/. 420,000',
+                discount: 'Rebajado 3%',
+                image: 'https://armoniapanama.com/wp-content/uploads/2025/05/armonia-2-848x450.webp',
+                description: 'Residencia frente al mar con piscina y terraza panorámica. Una oportunidad única de vivir con vista al océano en una de las zonas más exclusivas de la ciudad.',
+                rooms: 4,
+                bathrooms: 5,
+                area: '380 m²',
+                location: 'Punta Barco',
+                year: 2020,
+                likes: 34,
+                features: [
+                    'Vista panorámica al mar',
+                    'Piscina infinita con sistema de calefacción',
+                    'Terraza amplia con jacuzzi',
+                    'Diseño arquitectónico único',
+                    'Acceso directo a playa privada',
+                    'Sistema domótico completo'
+                ]
+            },
+            'casa-moderna': {
+                title: 'Casa Moderna',
+                price: 'B/. 280,000',
+                discount: '',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80',
+                description: 'Diseño contemporáneo con acabados de lujo y tecnología smart home. Esta propiedad combina elegancia y funcionalidad, ideal para profesionales que buscan comodidad.',
+                rooms: 3,
+                bathrooms: 3,
+                area: '250 m²',
+                location: 'San Francisco',
+                year: 2021,
+                likes: 18,
+                features: [
+                    'Sistema smart home integrado',
+                    'Acabados de lujo en toda la casa',
+                    'Eficiencia energética A+',
+                    'Cocina gourmet con isla central',
+                    'Closets empotrados en todas las habitaciones',
+                    'Terraza con jardín vertical'
+                ]
+            },
+            'mansion-costa-del-este': {
+                title: 'Mansión Costa del Este',
+                price: 'B/. 750,000',
+                discount: 'Rebajado 8%',
+                image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80',
+                description: 'Lujosa mansión con vista al mar, piscina infinita y garaje para 4 autos. La máxima expresión de lujo y comodidad en una de las zonas más exclusivas.',
+                rooms: 6,
+                bathrooms: 7,
+                area: '580 m²',
+                location: 'Costa del Este',
+                year: 2019,
+                likes: 42,
+                features: [
+                    'Vista panorámica al mar',
+                    'Piscina infinita con iluminación LED',
+                    'Garaje para 4 vehículos',
+                    'Sala de cine privada',
+                    'Bodega de vinos climatizada',
+                    'Ascensor privado'
+                ]
+            },
+            'casa-familiar': {
+                title: 'Casa Familiar',
+                price: 'B/. 180,000',
+                discount: '',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80',
+                description: 'Casa ideal para familias, con jardín amplio y zona de juegos. Una propiedad acogedora que ofrece el espacio perfecto para el crecimiento familiar.',
+                rooms: 3,
+                bathrooms: 2,
+                area: '200 m²',
+                location: 'Tumba Muerto',
+                year: 2017,
+                likes: 15,
+                features: [
+                    'Jardín amplio con zona de juegos',
+                    'Cocina familiar con comedor integrado',
+                    'Estacionamiento cubierto',
+                    'Área de lavandería exterior',
+                    'Seguridad perimetral',
+                    'Cerca de colegios y parques'
+                ]
+            },
+            'apartamento-luz': {
+                title: 'Apartamento Luz',
+                price: 'B/. 560,900',
+                discount: 'Rebajado 5%',
+                image: 'https://cdn2.hubspot.net/hubfs/5264199/BLOG%202019/Apartamentos%20en%20Santa%20Maria/por%20que%20vivir%20en%20santa%20maria%20panama.jpg',
+                description: 'Apartamento de lujo con acabados premium y vistas panorámicas. Ubicado en un edificio de alta gama con servicios de primera clase.',
+                rooms: 5,
+                bathrooms: 4,
+                area: '459 m²',
+                location: 'Brisas del Golf',
+                year: 2018,
+                likes: 50,
+                features: [
+                    'Vistas panorámicas de la ciudad',
+                    'Acabados premium en toda la unidad',
+                    'Balcón privado con jacuzzi',
+                    'Cocina gourmet con electrodomésticos de lujo',
+                    'Sistema de climatización central',
+                    'Acceso a gimnasio y piscina del edificio'
+                ]
+            },
+            'apartamento-sur': {
+                title: 'Apartamento Sur',
+                price: 'B/. 456,980',
+                discount: 'Rebajado 4%',
+                image: 'https://pic.le-cdn.com/thumbs/520x390/190/1/properties/Property-432a94040e74dfefa114523e1e9bd005-128152370.jpg',
+                description: 'Apartamento con bonita vista al mar. Una oportunidad de vivir frente al océano con todas las comodidades modernas y acceso directo a la playa.',
+                rooms: 4,
+                bathrooms: 3,
+                area: '320 m²',
+                location: 'Costa Sur',
+                year: 2021,
+                likes: 68,
+                features: [
+                    'Vista directa al mar',
+                    'Balcón amplio con vista panorámica',
+                    'Diseño moderno y funcional',
+                    'Cocina abierta con isla central',
+                    'Closets empotrados en todas las habitaciones',
+                    'Acceso a playa privada del edificio'
+                ]
+            },
+            'propiedad-avenida-balboa': {
+                title: 'Propiedad Avenida Balboa',
+                price: 'B/. 568,990',
+                discount: 'Rebajado 7%',
+                image: 'https://www.activentas.com/wp-content/uploads/2024/07/photo_server-4409.jpeg',
+                description: 'Propiedad moderna con excelente ubicación y acabados de calidad. Ubicada en una de las avenidas más importantes de la ciudad.',
+                rooms: 3,
+                bathrooms: 2,
+                area: '340 m²',
+                location: 'Avenida Balboa',
+                year: 2019,
+                likes: 30,
+                features: [
+                    'Ubicación estratégica en avenida principal',
+                    'Acabados de calidad superior',
+                    'Diseño contemporáneo',
+                    'Estacionamiento para 2 vehículos',
+                    'Terraza con vista a la ciudad',
+                    'Cerca de centros comerciales y bancos'
+                ]
+            },
+            'apartamento-albrook': {
+                title: 'Apartamento en Albrook',
+                price: 'B/. 795,490',
+                discount: 'Rebajado 5%',
+                image: 'https://forestgate.procasapanama.com/wp-content/uploads/comprar-apartamento-en-Panama-1-1-1024x768.jpeg',
+                description: 'Apartamento moderno con excelente vista y acabados de lujo. Una propiedad de alta gama en una zona en constante desarrollo.',
+                rooms: 4,
+                bathrooms: 5,
+                area: '458 m²',
+                location: 'Albrook',
+                year: 2020,
+                likes: 58,
+                features: [
+                    'Vista panorámica de la ciudad',
+                    'Acabados de lujo en toda la unidad',
+                    'Terraza privada con jacuzzi',
+                    'Cocina gourmet con electrodomésticos premium',
+                    'Sistema de climatización inteligente',
+                    'Acceso a amenities del edificio'
+                ]
+            }
+        };
+
+        // Función para mostrar el marketplace
+        function showMarketplace() {
+            document.getElementById('marketplace').style.display = 'block';
+            document.getElementById('property-detail').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Función para mostrar una propiedad específica
+        function showProperty(propertyId) {
+            const property = properties[propertyId];
+            if (!property) return;
+
+            // Cambiar vista
+            document.getElementById('marketplace').style.display = 'none';
+            document.getElementById('property-detail').style.display = 'block';
+
+            // Cargar contenido de la propiedad
+            const propertyContent = document.getElementById('property-content');
+            propertyContent.innerHTML = `
+                <img src="${property.image}" alt="${property.title}" class="property-image">
+                
+                <div class="property-header">
+                    <div>
+                        <h1 class="property-title">${property.title}</h1>
+                        <p style="font-size: 1.2rem; color: #666; margin-bottom: 1rem;">${property.description.split('.')[0]}.</p>
+                    </div>
+                    <div>
+                        <span class="property-price">${property.price}</span>
+                        ${property.discount ? `<span class="discount">${property.discount}</span>` : ''}
+                    </div>
+                </div>
+
+                <div class="property-specs">
+                    <div class="spec">🏠 ${property.rooms} Habitaciones</div>
+                    <div class="spec">🚿 ${property.bathrooms} Baños</div>
+                    <div class="spec">📐 ${property.area}</div>
+                    <div class="spec">📍 ${property.location}</div>
+                    <div class="spec">📅 ${property.year}</div>
+                    <div class="spec">❤️ ${property.likes} Me gusta</div>
+                </div>
+
+                <div class="property-description">
+                    ${property.description}
+                </div>
+
+                <div class="property-details">
+                    ${property.features.map(feature => `
+                        <div class="detail-item">
+                            <h4>✓</h4>
+                            <p>${feature}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="contact-section">
+                    <h3>¿Interesado en esta propiedad?</h3>
+                    <p>Contáctanos para más información y agendar una visita</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <strong>📞 Teléfono</strong><br>
+                            +507 6666-7777
+                        </div>
+                        <div class="contact-item">
+                            <strong>📧 Email</strong><br>
+                            info@homedelight.com
+                        </div>
+                        <div class="contact-item">
+                            <strong>💬 WhatsApp</strong><br>
+                            +507 6666-7777
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Función para obtener el parámetro de la URL
+        function getPropertyFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('property');
+        }
+
+        // Cargar la página cuando se carga
+        window.onload = function() {
+            const propertyId = getPropertyFromURL();
+            if (propertyId && properties[propertyId]) {
+                // Si hay un parámetro de propiedad, mostrar esa propiedad
+                showProperty(propertyId);
+            } else {
+                // Si no hay parámetro, mostrar el marketplace
+                loadMarketplace();
+            }
+        };
+    </script>
+</body>
+</html>
