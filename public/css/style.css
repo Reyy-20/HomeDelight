@@ -4,8 +4,9 @@ body {
 
 /* Hero Section */
 .hero {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), 
+                url('https://images4.alphacoders.com/134/1346985.png') center/cover;
     height: 100vh;
-    background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
     display: flex;
     align-items: center;
     justify-content: center;
