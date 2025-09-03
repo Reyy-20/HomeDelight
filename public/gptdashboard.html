@@ -22,7 +22,7 @@
         .header {
             background: white;
             padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             left: 0;
@@ -290,7 +290,7 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             max-width: 600px;
         }
 
@@ -332,8 +332,9 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
+            min-width: auto;
         }
 
         .settings-card h3 {
@@ -393,11 +394,11 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: var(--primary-gold);
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(26px);
         }
 
@@ -434,7 +435,7 @@
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease;
         }
 
@@ -685,17 +686,19 @@
                 transform: translateX(100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
             }
         }
-        
+
         @keyframes slideOut {
             from {
                 transform: translateX(0);
                 opacity: 1;
             }
+
             to {
                 transform: translateX(100%);
                 opacity: 0;
@@ -738,14 +741,15 @@
             <div class="back-button-container">
                 <button class="back-btn" onclick="window.location.href='index.html'">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
                     </svg>
                     Volver al Inicio
                 </button>
             </div>
             <div>
                 <!-- User Profile Button -->
-                <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true" aria-controls="sidebar" aria-expanded="false">
+                <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true"
+                    aria-controls="sidebar" aria-expanded="false">
                     <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" />
                     <span class="user-name">Usuario</span>
                 </div>
@@ -924,7 +928,8 @@
 
                     <div class="form-group">
                         <label for="propertyDescription">Descripción</label>
-                        <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..." required></textarea>
+                        <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..."
+                            required></textarea>
                     </div>
 
                     <div class="form-row">
@@ -1043,7 +1048,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             console.log('DOM loaded, initializing dashboard...');
-            
+
             // Get elements
             const profileBtn = document.getElementById('profileBtn');
             const sidebar = document.getElementById('sidebar');
@@ -1078,7 +1083,7 @@
             }
 
             // Event listeners
-            profileBtn.addEventListener('click', function(e) {
+            profileBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 console.log('Profile button clicked');
                 openSidebar();
@@ -1091,13 +1096,13 @@
                 }
             });
 
-            closeBtn.addEventListener('click', function(e) {
+            closeBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 console.log('Close button clicked');
                 closeSidebar();
             });
 
-            overlay.addEventListener('click', function(e) {
+            overlay.addEventListener('click', function (e) {
                 if (e.target === overlay) {
                     console.log('Overlay clicked');
                     closeSidebar();
@@ -1113,7 +1118,7 @@
 
             // Navigation links
             navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
                     const section = this.getAttribute('data-section');
                     if (section) {
@@ -1130,7 +1135,7 @@
         // Function to show sections
         function showSection(sectionName) {
             console.log('Showing section:', sectionName);
-            
+
             // Hide all sections
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
@@ -1168,7 +1173,7 @@
             // Update form fields
             const fullNameInput = document.getElementById('fullName');
             const emailInput = document.getElementById('email');
-            
+
             if (fullNameInput) fullNameInput.value = userName;
             if (emailInput) emailInput.value = userEmail;
 
@@ -1258,7 +1263,7 @@
 
             // Reset form
             e.target.reset();
-            
+
             // Switch to my properties section
             showSection('my-properties');
         }
@@ -1283,18 +1288,18 @@
         }
 
         // File upload handling
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const fileInput = document.getElementById('propertyImages');
             const imagePreview = document.getElementById('imagePreview');
-            
+
             if (fileInput && imagePreview) {
-                fileInput.addEventListener('change', function(e) {
+                fileInput.addEventListener('change', function (e) {
                     imagePreview.innerHTML = '';
-                    
+
                     Array.from(e.target.files).forEach(file => {
                         if (file.type.startsWith('image/')) {
                             const reader = new FileReader();
-                            reader.onload = function(e) {
+                            reader.onload = function (e) {
                                 const img = document.createElement('img');
                                 img.src = e.target.result;
                                 img.style.cssText = 'width: 100px; height: 100px; object-fit: cover; margin: 5px; border-radius: 8px;';
@@ -1314,4 +1319,5 @@
         }
     </script>
 </body>
+
 </html>
