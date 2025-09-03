@@ -9,105 +9,759 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chatbot.css">
 
-    <!-- Estilos que aseguran apertura desde la derecha y overlay funcional -->
+    <!-- Fixed Styles for Sidebar -->
     <style>
-        /* Forzar que el sidebar se abra desde la derecha */
+        :root {
+            --primary-gold: #B9A160;
+            --color-gold-2: #B9A160;
+            --color-cream: #ECE8E2;
+            --white: #ffffff;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-gold);
+            margin: 0;
+        }
+
+        /* User Info Styles */
+        .user-info {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .user-info:hover {
+            background: rgba(185, 161, 96, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--primary-gold);
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
             right: 0;
             height: 100%;
             width: 340px;
-            /* ancho del dashboard */
-            max-width: 92%;
+            max-width: 90%;
             background: #ffffff;
             transform: translateX(100%);
-            /* oculto fuera de pantalla a la derecha */
-            transition: transform .32s cubic-bezier(.2, .9, .2, 1);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
             box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
-            z-index: 1002;
+            z-index: 1001;
             overflow-y: auto;
-            will-change: transform;
         }
 
-        /* Clase que activa la apertura */
         .sidebar.open {
             transform: translateX(0);
         }
 
-        /* Overlay (capa oscura) */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            /* top:0; right:0; bottom:0; left:0 */
-            background: rgba(0, 0, 0, 0.42);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .2s ease;
-            z-index: 1000;
-        }
-
-        .overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Hacer el avatar clicable */
-        .user-info {
+        /* Sidebar Header */
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
             display: flex;
-            gap: 8px;
+            justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-            /* indica que se puede tocar */
         }
 
-        /* Ajustes pequeños para el botón cerrar */
+        .sidebar-header h2 {
+            margin: 0;
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+        }
+
         .close-btn {
             background: transparent;
             border: none;
-            font-size: 18px;
+            font-size: 1.5rem;
             cursor: pointer;
+            color: var(--primary-gold);
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
         }
 
-        /* Accesibilidad: ocultar el sidebar si no está abierto */
-        .sidebar[aria-hidden="true"] {
-            visibility: visible;
-            /* transform maneja visibilidad */
+        .close-btn:hover {
+            background: rgba(185, 161, 96, 0.1);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 1.5rem;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(185, 161, 96, 0.1);
+            color: var(--primary-gold);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            color: var(--primary-gold);
+            margin: 0;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gold);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #a08d52;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-gold);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-gold);
+        }
+
+        .change-avatar-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary-gold);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .change-avatar-btn:hover {
+            background: #a08d52;
+        }
+
+        /* Settings */
+        .settings-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .settings-card h3 {
+            color: var(--primary-gold);
+            margin: 0 0 1.5rem 0;
+            font-size: 1.25rem;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Switch Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            min-width: 50px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-gold);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .setting-info h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .setting-info p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Form Row */
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Properties Grid */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .property-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .property-status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+        }
+
+        .property-info h3 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 1.125rem;
+        }
+
+        .property-price {
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .property-details {
+            color: #666;
+            font-size: 0.875rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .property-details i {
+            margin-right: 4px;
+            margin-left: 12px;
+        }
+
+        .property-details i:first-child {
+            margin-left: 0;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #138496;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        /* Upload Area */
+        .image-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary-gold);
+            background: rgba(185, 161, 96, 0.05);
+        }
+
+        .image-upload-area i {
+            font-size: 2rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer Styles */
+        .site-footer {
+            background: white;
+            color: var(--color-gold-2);
+            padding: 40px 24px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: flex-start;
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-section h3 {
+            font-size: calc(14px * 1.15);
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-gold-2);
+        }
+
+        .footer-section a {
+            color: var(--color-gold-2);
+            text-decoration: none;
+            font-size: calc(14px * 1.15);
+            transition: text-decoration 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--color-gold-2);
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(185, 161, 96, 0.2);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .policy-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .policy-links a {
+            color: var(--color-gold-2);
+            text-decoration: none;
+            font-size: calc(14px * 1.15);
+            transition: text-decoration 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .policy-links a:hover,
+        .policy-links a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--color-gold-2);
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: calc(12px * 1.15);
+            color: var(--color-gold-2);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .policy-links {
+                justify-content: center;
+                gap: 16px;
+            }
+        }
+
+        /* Notification Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            max-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification-success {
+            background: #28a745;
+        }
+
+        .notification-error {
+            background: #dc3545;
+        }
+
+        .notification-info {
+            background: #17a2b8;
         }
     </style>
 </head>
 
 <body>
-    <!-- Header con menú hamburguesa -->
+    <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <h1 class="logo" href="index.html">HomeDelight</h1>
-             <div class="back-button-container">
-        <button class="back-btn" onclick="window.location.href='index.html'">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            </svg>
-            Volver al Inicio
-        </button>
-    </div>
-
-            <!-- Perfil del usuario: ahora actúa como disparador para abrir el dashboard -->
-            <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true"
-                aria-controls="sidebar" aria-expanded="false" >
-                <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" />
-                <span class="user-name">Usuario</span>
+            <h1 class="logo">HomeDelight</h1>
+            <div class="back-button-container">
+                <button class="back-btn" onclick="window.location.href='index.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Volver al Inicio
+                </button>
+            </div>
+            <div>
+                <!-- User Profile Button -->
+                <div class="user-info" id="profileBtn" role="button" tabindex="0" aria-haspopup="true" aria-controls="sidebar" aria-expanded="false">
+                    <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" />
+                    <span class="user-name">Usuario</span>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Overlay único para cerrar sidebar -->
-    <div class="overlay" id="overlay" aria-hidden="true">
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
 
-    <!-- Sidebar Navigation (ahora a la derecha) -->
-    <nav class="sidebar" id="sidebar" aria-hidden="true">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>Dashboard</h2>
             <button class="close-btn" id="closeBtn" aria-label="Cerrar dashboard">
-                <i class="fas fa-times" aria-hidden="true"></i>
+                <i class="fas fa-times"></i>
             </button>
         </div>
         <ul class="nav-menu">
@@ -137,12 +791,10 @@
             </li>
         </ul>
     </nav>
-</div>
 
-    <!-- Main Content (sin cambios) -->
+    <!-- Main Content -->
     <main class="main-content">
-        <!-- ... (mantuve el contenido original tal cual) ... -->
-        <!-- Sección Perfil -->
+        <!-- Profile Section -->
         <section id="profile" class="content-section active">
             <div class="section-header">
                 <h2><i class="fas fa-user"></i> Mi Perfil</h2>
@@ -176,13 +828,13 @@
                             <label for="bio">Biografía</label>
                             <textarea id="bio" rows="4" placeholder="Cuéntanos sobre ti..."></textarea>
                         </div>
-                        <button class="btn-primary">Guardar Cambios</button>
+                        <button class="btn-primary" onclick="saveProfile()">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Sección Configuración -->
+        <!-- Settings Section -->
         <section id="settings" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-cog"></i> Configuración</h2>
@@ -236,17 +888,18 @@
                         <label for="confirmPassword">Confirmar Contraseña</label>
                         <input type="password" id="confirmPassword" placeholder="Confirmar nueva contraseña">
                     </div>
-                    <button class="btn-secondary">Cambiar Contraseña</button>
+                    <button class="btn-secondary" onclick="changePassword()">Cambiar Contraseña</button>
                 </div>
             </div>
         </section>
-        <!-- Sección Subir Propiedades -->
+
+        <!-- Upload Property Section -->
         <section id="upload-property" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-home"></i> Subir Propiedad</h2>
             </div>
             <div class="upload-container">
-                <form class="property-form">
+                <form class="property-form" onsubmit="handlePropertySubmit(event)">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="propertyType">Tipo de Propiedad</label>
@@ -271,8 +924,7 @@
 
                     <div class="form-group">
                         <label for="propertyDescription">Descripción</label>
-                        <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..."
-                            required></textarea>
+                        <textarea id="propertyDescription" rows="4" placeholder="Describe tu propiedad..." required></textarea>
                     </div>
 
                     <div class="form-row">
@@ -297,7 +949,7 @@
 
                     <div class="form-group">
                         <label for="propertyImages">Imágenes de la Propiedad</label>
-                        <div class="image-upload-area" id="imageUploadArea">
+                        <div class="image-upload-area" onclick="document.getElementById('propertyImages').click()">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p>Arrastra las imágenes aquí o haz clic para seleccionar</p>
                             <input type="file" id="propertyImages" multiple accept="image/*" hidden>
@@ -305,7 +957,7 @@
                         <div class="image-preview" id="imagePreview"></div>
                     </div>
 
-                    <div class="form-actions">
+                    <div class="form-actions" style="display: flex; gap: 1rem; justify-content: flex-end;">
                         <button type="button" class="btn-secondary">Guardar Borrador</button>
                         <button type="submit" class="btn-primary">Publicar Propiedad</button>
                     </div>
@@ -313,16 +965,16 @@
             </div>
         </section>
 
-        <!-- Sección Mis Propiedades -->
+        <!-- My Properties Section -->
         <section id="my-properties" class="content-section">
-            <div class="section-header">
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2><i class="fas fa-building"></i> Mis Propiedades</h2>
                 <button class="btn-primary" onclick="showSection('upload-property')">
                     <i class="fas fa-plus"></i> Nueva Propiedad
                 </button>
             </div>
             <div class="properties-grid">
-                <!-- Ejemplo de propiedad -->
+                <!-- Example Property -->
                 <div class="property-card">
                     <div class="property-image">
                         <img src="https://via.placeholder.com/300x200" alt="Propiedad">
@@ -344,389 +996,9 @@
                 </div>
             </div>
         </section>
-        <!-- ... resto del contenido permanece igual ... -->
     </main>
 
-    <!-- Scripts: lógica para abrir/cerrar el dashboard desde el perfil, cierre por X, overlay y Esc -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Verificar autenticación
-            checkAuthentication();
-
-            const profileBtn = document.getElementById('profileBtn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            const closeBtn = document.getElementById('closeBtn');
-
-            function openSidebar() {
-                sidebar.classList.add('open');
-                sidebar.setAttribute('aria-hidden', 'false');
-                profileBtn.setAttribute('aria-expanded', 'true');
-                overlay.classList.add('show');
-                overlay.setAttribute('aria-hidden', 'false');
-                // Mover foco al sidebar para accesibilidad
-                sidebar.focus?.();
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                sidebar.setAttribute('aria-hidden', 'true');
-                profileBtn.setAttribute('aria-expanded', 'false');
-                overlay.classList.remove('show');
-                overlay.setAttribute('aria-hidden', 'true');
-                // devolver foco al disparador
-                profileBtn.focus?.();
-            }
-
-            // Abrir al hacer click / Enter / Space sobre el perfil
-            profileBtn.addEventListener('click', openSidebar);
-            profileBtn.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    openSidebar();
-                }
-            });
-
-            // Cerrar con la X
-            closeBtn.addEventListener('click', closeSidebar);
-
-            // Cerrar tocando el overlay
-            overlay.addEventListener('click', closeSidebar);
-
-            // Cerrar con Esc
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closeSidebar();
-                }
-            });
-
-            // Cargar datos del usuario
-            loadUserData();
-
-            // Configurar formularios
-            setupForms();
-        });
-
-        // Verificar autenticación
-        async function checkAuthenticationSilent() {
-            try {
-                if (typeof firebase === 'undefined' || !firebase.auth) {
-                    console.error('Firebase no está inicializado');
-                    return false;
-                }
-
-                // Wait for Firebase Auth state
-                const user = await new Promise((resolve) => {
-                    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-                        unsubscribe();
-                        resolve(user);
-                    });
-                });
-
-                if (!user) {
-                    return false;
-                }
-
-                // Verify user data in Firestore
-                const db = firebase.firestore();
-                const userDoc = await db.collection('users').doc(user.uid).get();
-
-                if (!userDoc.exists) {
-                    return false;
-                }
-
-                const userData = userDoc.data();
-                const userType = userData.userType;
-
-                if (!userType || (userType !== 'client' && userType !== 'business')) {
-                    return false;
-                }
-
-                if (userType === 'business' && userData.status === 'pending') {
-                    return false;
-                }
-
-                // Update localStorage
-                localStorage.setItem('isAuthenticated', 'true');
-                localStorage.setItem('userType', userType);
-                localStorage.setItem('userEmail', user.email);
-                localStorage.setItem('userId', user.uid);
-                localStorage.setItem('userName', userData.name || userData.businessName || 'Usuario');
-
-                return true;
-
-            } catch (error) {
-                console.error('Error en verificación de autenticación:', error);
-                return false;
-            }
-        }
-
-        // Usage example for dashboard pages
-        document.addEventListener('DOMContentLoaded', async function () {
-            console.log('Verificando autenticación...');
-
-            const isAuthenticated = await checkAuthentication();
-
-            if (isAuthenticated) {
-                console.log('Usuario autenticado, cargando dashboard...');
-                // Continue with dashboard initialization
-                initializeDashboard();
-            }
-            // If not authenticated, user will be redirected by checkAuthentication()
-        });
-
-        // Function to initialize dashboard (placeholder)
-        function initializeDashboard() {
-            // Your dashboard initialization code here
-            console.log('Dashboard inicializado para:', localStorage.getItem('userType'));
-        }
-
-        // Cargar datos del usuario
-        function loadUserData() {
-            const userName = localStorage.getItem('userName') || 'Usuario';
-            const userEmail = localStorage.getItem('userEmail') || 'email@ejemplo.com';
-            const userType = localStorage.getItem('userType') || 'Usuario';
-
-            // Actualizar información del perfil
-            document.getElementById('fullName').value = userName;
-            document.getElementById('email').value = userEmail;
-
-            // Actualizar avatar y nombre en el header
-            const userAvatar = document.querySelector('.user-avatar img');
-            const userNameSpan = document.querySelector('.user-name');
-
-            if (userAvatar) {
-                userAvatar.alt = userName;
-            }
-
-            if (userNameSpan) {
-                userNameSpan.textContent = userName;
-            }
-
-            // Mostrar tipo de usuario en el dashboard
-            const userTypeElement = document.querySelector('.user-type');
-            if (userTypeElement) {
-                userTypeElement.textContent = userType === 'client' ? 'Cliente' : 'Negocio';
-            }
-        }
-
-        // Configurar formularios
-        function setupForms() {
-            // Formulario de perfil
-            const profileForm = document.querySelector('.profile-info');
-            if (profileForm) {
-                const saveBtn = profileForm.querySelector('.btn-primary');
-                if (saveBtn) {
-                    saveBtn.addEventListener('click', saveProfile);
-                }
-            }
-
-            // Formulario de contraseña
-            const passwordForm = document.querySelector('.settings-card:last-child');
-            if (passwordForm) {
-                const changePasswordBtn = passwordForm.querySelector('.btn-secondary');
-                if (changePasswordBtn) {
-                    changePasswordBtn.addEventListener('click', changePassword);
-                }
-            }
-
-            // Formulario de propiedades
-            const propertyForm = document.querySelector('.property-form');
-            if (propertyForm) {
-                propertyForm.addEventListener('submit', handlePropertySubmit);
-            }
-        }
-
-        // Guardar perfil
-        function saveProfile() {
-            const name = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const location = document.getElementById('location').value;
-            const bio = document.getElementById('bio').value;
-
-            // Actualizar localStorage
-            localStorage.setItem('userName', name);
-            localStorage.setItem('userEmail', email);
-
-            // Mostrar mensaje de éxito
-            showNotification('Perfil actualizado correctamente', 'success');
-
-            // Actualizar nombre en el header
-            const userNameSpan = document.querySelector('.user-name');
-            if (userNameSpan) {
-                userNameSpan.textContent = name;
-            }
-        }
-
-        // Cambiar contraseña
-        function changePassword() {
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (!currentPassword || !newPassword || !confirmPassword) {
-                showNotification('Por favor completa todos los campos', 'error');
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                showNotification('Las contraseñas no coinciden', 'error');
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                showNotification('La nueva contraseña debe tener al menos 6 caracteres', 'error');
-                return;
-            }
-
-            // Aquí se implementaría la lógica para cambiar contraseña en Firebase
-            showNotification('Contraseña cambiada correctamente', 'success');
-
-            // Limpiar campos
-            document.getElementById('currentPassword').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
-        }
-
-        // Manejar envío de propiedad
-        function handlePropertySubmit(e) {
-            e.preventDefault();
-
-            const propertyType = document.getElementById('propertyType').value;
-            const propertyPrice = document.getElementById('propertyPrice').value;
-            const propertyTitle = document.getElementById('propertyTitle').value;
-            const propertyDescription = document.getElementById('propertyDescription').value;
-            const bedrooms = document.getElementById('bedrooms').value;
-            const bathrooms = document.getElementById('bathrooms').value;
-            const area = document.getElementById('area').value;
-            const propertyAddress = document.getElementById('propertyAddress').value;
-
-            if (!propertyType || !propertyPrice || !propertyTitle || !propertyDescription || !propertyAddress) {
-                showNotification('Por favor completa todos los campos obligatorios', 'error');
-                return;
-            }
-
-            // Aquí se implementaría la lógica para guardar la propiedad en Firebase
-            showNotification('Propiedad publicada correctamente', 'success');
-
-            // Limpiar formulario
-            e.target.reset();
-        }
-
-        // Mostrar notificaciones
-        function showNotification(message, type = 'info') {
-            // Crear elemento de notificación
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.textContent = message;
-
-            // Agregar estilos
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: 8px;
-                color: white;
-                font-weight: 500;
-                z-index: 10000;
-                animation: slideIn 0.3s ease-out;
-                max-width: 300px;
-            `;
-
-            // Colores según tipo
-            if (type === 'success') {
-                notification.style.background = '#28a745';
-            } else if (type === 'error') {
-                notification.style.background = '#dc3545';
-            } else {
-                notification.style.background = '#17a2b8';
-            }
-
-            // Agregar a la página
-            document.body.appendChild(notification);
-
-            // Remover después de 3 segundos
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-in';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
-
-        // Función para cerrar sesión
-        function logout() {
-            // Limpiar localStorage
-            localStorage.removeItem('userType');
-            localStorage.removeItem('userEmail');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('isAuthenticated');
-            localStorage.removeItem('userName');
-
-            // Redirigir a la página principal
-            window.location.href = 'index.html';
-        }
-
-        // Función para mostrar secciones
-        function showSection(sectionName) {
-            // Ocultar todas las secciones
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Mostrar la sección seleccionada
-            const targetSection = document.getElementById(sectionName);
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-
-            // Actualizar navegación activa
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            const activeLink = document.querySelector(`[data-section="${sectionName}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-        }
-
-        // Agregar estilos para notificaciones
-        const notificationStyles = document.createElement('style');
-        notificationStyles.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(notificationStyles);
-    </script>
-
-    <!-- Si existía tu js/dashboard.js, lo dejamos al final (no obligatorio) -->
-    <script src="js/dashboard.js"></script>
-
-    <!-- Footer (igual que antes) -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
@@ -766,158 +1038,280 @@
             </div>
         </div>
     </footer>
-    <style>
-        :root {
-            --color-gold-2: #B9A160;
-            --color-cream: #ECE8E2;
-        }
 
-        .site-footer {
-            background: white;
-            color: var(--color-gold-2);
-            padding: 40px 24px 20px;
-            margin-top: 40px;
-        }
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('DOM loaded, initializing dashboard...');
+            
+            // Get elements
+            const profileBtn = document.getElementById('profileBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const closeBtn = document.getElementById('closeBtn');
+            const navLinks = document.querySelectorAll('.nav-link');
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: flex-start;
-            font-weight: 600;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .footer-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .footer-section h3 {
-            font-size: calc(14px * 1.15);
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--color-gold-2);
-        }
-
-        .footer-section a {
-            color: var(--color-gold-2);
-            text-decoration: none;
-            font-size: calc(14px * 1.15);
-            transition: text-decoration 0.2s ease;
-            opacity: 0.8;
-        }
-
-        .footer-section a:hover,
-        .footer-section a:focus {
-            text-decoration: underline;
-            outline: 2px solid var(--color-gold-2);
-            outline-offset: 2px;
-            opacity: 1;
-        }
-                .back-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--primary-gold);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .back-btn:hover {
-            background: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(185, 161, 96, 0.2);
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .policy-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .policy-links a {
-            color: var(--color-gold-2);
-            text-decoration: none;
-            font-size: calc(14px * 1.15);
-            transition: text-decoration 0.2s ease;
-            opacity: 0.8;
-        }
-
-        .policy-links a:hover,
-        .policy-links a:focus {
-            text-decoration: underline;
-            outline: 2px solid var(--color-gold-2);
-            outline-offset: 2px;
-            opacity: 1;
-        }
-
-        .copyright {
-            font-size: calc(12px * 1.15);
-            color: var(--color-gold-2);
-            opacity: 0.8;
-        }
-
-        @media (max-width: 640px) {
-            .site-footer {
-                padding: 24px 20px 16px;
+            // Check if elements exist
+            if (!profileBtn || !sidebar || !overlay || !closeBtn) {
+                console.error('Required elements not found');
+                return;
             }
 
-            .footer-content {
-                flex-direction: column;
-                gap: 24px;
-                margin-bottom: 20px;
+            console.log('All elements found, setting up event listeners...');
+
+            // Function to open sidebar
+            function openSidebar() {
+                console.log('Opening sidebar...');
+                sidebar.classList.add('open');
+                overlay.classList.add('show');
+                profileBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
             }
 
-            .footer-brand {
-                justify-content: center;
-                margin-bottom: 16px;
+            // Function to close sidebar
+            function closeSidebar() {
+                console.log('Closing sidebar...');
+                sidebar.classList.remove('open');
+                overlay.classList.remove('show');
+                profileBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = ''; // Restore scrolling
             }
 
-            .footer-section {
-                text-align: center;
+            // Event listeners
+            profileBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Profile button clicked');
+                openSidebar();
+            });
+
+            profileBtn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openSidebar();
+                }
+            });
+
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Close button clicked');
+                closeSidebar();
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    console.log('Overlay clicked');
+                    closeSidebar();
+                }
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+
+            // Navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    if (section) {
+                        showSection(section);
+                        closeSidebar(); // Close sidebar on mobile after navigation
+                    }
+                });
+            });
+
+            // Initialize user data
+            loadUserData();
+        });
+
+        // Function to show sections
+        function showSection(sectionName) {
+            console.log('Showing section:', sectionName);
+            
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show target section
+            const targetSection = document.getElementById(sectionName);
+            if (targetSection) {
+                targetSection.classList.add('active');
             }
 
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
-            }
+            // Update active navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
 
-            .policy-links {
-                justify-content: center;
-                gap: 16px;
+            const activeLink = document.querySelector(`[data-section="${sectionName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
             }
         }
-    </style>
 
-    <!-- Scripts del Chatbot -->
-    <script src="js/config.js"></script>
-    <script src="js/chatbot.js"></script>
+        // Mock authentication check (replace with real implementation)
+        function checkAuthentication() {
+            // For demo purposes, always return true
+            // In real implementation, check with your authentication system
+            return true;
+        }
+
+        // Load user data
+        function loadUserData() {
+            const userName = localStorage.getItem('userName') || 'Usuario Demo';
+            const userEmail = localStorage.getItem('userEmail') || 'demo@homedelight.com';
+
+            // Update form fields
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            
+            if (fullNameInput) fullNameInput.value = userName;
+            if (emailInput) emailInput.value = userEmail;
+
+            // Update header user name
+            const userNameSpan = document.querySelector('.user-name');
+            if (userNameSpan) {
+                userNameSpan.textContent = userName;
+            }
+        }
+
+        // Save profile function
+        function saveProfile() {
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const location = document.getElementById('location').value;
+            const bio = document.getElementById('bio').value;
+
+            if (!name || !email) {
+                showNotification('Nombre y email son obligatorios', 'error');
+                return;
+            }
+
+            // Save to localStorage (replace with real API call)
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userPhone', phone);
+            localStorage.setItem('userLocation', location);
+            localStorage.setItem('userBio', bio);
+
+            // Update header
+            const userNameSpan = document.querySelector('.user-name');
+            if (userNameSpan) {
+                userNameSpan.textContent = name;
+            }
+
+            showNotification('Perfil actualizado correctamente', 'success');
+        }
+
+        // Change password function
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                showNotification('Por favor completa todos los campos', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showNotification('Las contraseñas no coinciden', 'error');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showNotification('La nueva contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            // Here you would implement actual password change logic
+            showNotification('Contraseña cambiada correctamente', 'success');
+
+            // Clear fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        // Handle property form submission
+        function handlePropertySubmit(e) {
+            e.preventDefault();
+
+            const propertyType = document.getElementById('propertyType').value;
+            const propertyPrice = document.getElementById('propertyPrice').value;
+            const propertyTitle = document.getElementById('propertyTitle').value;
+            const propertyDescription = document.getElementById('propertyDescription').value;
+            const propertyAddress = document.getElementById('propertyAddress').value;
+
+            if (!propertyType || !propertyPrice || !propertyTitle || !propertyDescription || !propertyAddress) {
+                showNotification('Por favor completa todos los campos obligatorios', 'error');
+                return;
+            }
+
+            // Here you would implement property saving logic
+            showNotification('Propiedad publicada correctamente', 'success');
+
+            // Reset form
+            e.target.reset();
+            
+            // Switch to my properties section
+            showSection('my-properties');
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // File upload handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('propertyImages');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            if (fileInput && imagePreview) {
+                fileInput.addEventListener('change', function(e) {
+                    imagePreview.innerHTML = '';
+                    
+                    Array.from(e.target.files).forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const img = document.createElement('img');
+                                img.src = e.target.result;
+                                img.style.cssText = 'width: 100px; height: 100px; object-fit: cover; margin: 5px; border-radius: 8px;';
+                                imagePreview.appendChild(img);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                });
+            }
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
-
 </html>
