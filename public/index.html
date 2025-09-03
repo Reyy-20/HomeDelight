@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
                 <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
                 <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                <li><a href="login&register2.html" class="nav-link">LogIn/register</a></li>
+                <li><a href="login&register2.html" class="nav-link" id="dashboard">LogIn/register</a></li>
             </ul>
         </div>
     </nav>
@@ -193,13 +194,13 @@
             </div>
         </div>
     </section>
-   <!-- Footer -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <span>Home Delight</span>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
@@ -207,7 +208,7 @@
                 <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
                 <a href="Pricing.html" aria-label="Precios">Precios</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Servicios</h3>
                 <a href="Marketplace.html" aria-label="Comprar">Comprar</a>
@@ -215,7 +216,7 @@
                 <a href="Marketplace.html" aria-label="Vender">Vender</a>
                 <a href="ContactUs.html" aria-label="Contacto">Contacto</a>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Lugares</h3>
                 <a href="/panama" aria-label="Panamá">Panamá</a>
@@ -224,7 +225,7 @@
                 <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="policy-links">
                 <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
@@ -232,7 +233,7 @@
                 <a href="/cookies" aria-label="Política de cookies">Cookies</a>
                 <a href="/legal" aria-label="Aviso legal">Legal</a>
             </div>
-            
+
             <div class="copyright">
                 © 2025 Home Delight. Todos los derechos reservados.
             </div>
@@ -368,13 +369,28 @@
     </style>
 
     <!-- Scripts -->
-    <script src="js/config.js"></script>
+
     <script src="js/chatbot.js"></script>
-    <script src="js/user-status.js"></script>
-    
+
     <script>
+               // Tu archivo de JavaScript (ej. script.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+            authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+            databaseURL: "https://expo-project-senior-6bfea-default-rtdb.firebaseio.com",
+            projectId: "expo-project-senior-6bfea",
+            storageBucket: "expo-project-senior-6bfea.firebasestorage.app",
+            messagingSenderId: "188431803500",
+            appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
+            measurementId: "G-5Q8NB4WFK6"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth(); 
+        
         // Verificar estado al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('Página principal cargada');
             console.log('Estado del usuario:', {
                 isAuthenticated: localStorage.getItem('isAuthenticated'),
@@ -382,6 +398,22 @@
                 userEmail: localStorage.getItem('userEmail')
             });
         });
+        
+const MyLog = document.getElementById('dashboard');
+
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                // Usuario está logueado, cambiar el enlace a "Dashboard"
+                MyLog.textContent = 'Dashboard';
+                MyLog.href = 'gptdashboard.html';
+            } else {
+                // Usuario no está logueado, mostrar "LogIn/register"
+                MyLog.textContent = 'LogIn/register';
+                MyLog.href = 'login&register2.html';
+            }
+        });
+
     </script>
 </body>
+
 </html>

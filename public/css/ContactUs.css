@@ -127,32 +127,10 @@
         .info-item p {
             color: #929191;
             font-size: 1rem;
-        }
-
-        .map-container {
-            background: linear-gradient(135deg, #D3b76d 0%, #d8af53 100%);
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 10px 30px rgba(211, 183, 109, 0.2);
-        }
-
-        .map-container h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .map-placeholder {
-            background: rgba(255, 255, 255, 0.1);
-            height: 200px;
-            border-radius: 10px;
-            display: flex;
+            min-width: 200px;
+            max-width: 400px;
             align-items: center;
             justify-content: center;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            margin-top: 20px;
         }
 
         .cta-section {
