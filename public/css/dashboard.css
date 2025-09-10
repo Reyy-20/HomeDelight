@@ -6,17 +6,20 @@
 }
 
 :root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --secondary-color: #64748b;
+    --primary-gold: #D8AF53;
+    --secondary-gold: #D3B76D;
+    --light-bg: #ECE8E2;
+    --gray-text: #929191;
+    --gray-border: #E3E3E3;
+    --black-text: #000000;
     --success-color: #10b981;
     --danger-color: #ef4444;
     --warning-color: #f59e0b;
-    --background-color: #f8fafc;
+    --background-color: #ECE8E2;
     --card-background: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #e2e8f0;
+    --text-primary: #000000;
+    --text-secondary: #929191;
+    --border-color: #E3E3E3;
     --sidebar-width: 280px;
     --header-height: 70px;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -92,7 +95,7 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--primary-gold);
 }
 
 .user-info {
@@ -114,23 +117,42 @@ body {
     color: var(--text-primary);
 }
 
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -var(--sidebar-width);
+    right: -var(--sidebar-width);
     width: var(--sidebar-width);
     height: 100vh;
     background: var(--card-background);
-    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
     box-shadow: var(--shadow-lg);
-    transition: left 0.3s ease;
+    transition: right 0.3s ease;
     z-index: 1001;
     overflow-y: auto;
 }
 
 .sidebar.active {
-    left: 0;
+    right: 0;
 }
 
 .sidebar-header {
@@ -154,12 +176,12 @@ body {
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .close-btn:hover {
-    background-color: var(--background-color);
-    color: var(--text-primary);
+    background: var(--light-bg);
+    color: var(--primary-gold);
 }
 
 .nav-menu {
@@ -183,9 +205,8 @@ body {
 }
 
 .nav-link:hover {
-    background-color: var(--background-color);
-    color: var(--text-primary);
-    border-left-color: var(--primary-color);
+    background: var(--light-bg);
+    color: var(--primary-gold);
 }
 
 .nav-link.active {
@@ -350,7 +371,7 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: var(--primary-gold);
     color: white;
 }
 
