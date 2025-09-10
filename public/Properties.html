@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/Properties.css">
     <style>
-        
+
     </style>
 </head>
 
@@ -18,8 +18,8 @@
     <div id="marketplace">
         <header class="header">
             <nav class="nav">
-                <a href="index.html" class="logo">
-                </a>
+                <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png"
+                        alt="thumbnail-Home-Deligth-removebg"></a>
                 <ul class="nav-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="Marketplace.html">Marketplace</a></li>
@@ -188,20 +188,21 @@
 
     <!-- Vista de Propiedad Individual -->
     <div id="property-detail" class="property-detail">
-            <!-- Inicio del codigo del header-->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="#" class="logo">Home Delight</a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="inicio">Inicio</a></li>
-                <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
-                <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
-                <li><a href="AboutUs.html" class="about">About Us</a></li>
-                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
-            </ul>
-        </nav>
-    </header>
-    <!-- final del codigo del header-->
+        <!-- Inicio del codigo del header-->
+        <header class="header">
+            <nav class="nav-container">
+                <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png"
+                        alt="thumbnail-Home-Deligth-removebg"></a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="inicio">Inicio</a></li>
+                    <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
+                    <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
+                    <li><a href="AboutUs.html" class="about">About Us</a></li>
+                    <li><a href="login&register2.html" class="login">LogIn/register</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- final del codigo del header-->
 
 
 
@@ -618,7 +619,7 @@
         // Función para enviar el formulario de interés
         function submitInterestForm(event) {
             event.preventDefault();
-            
+
             const formData = new FormData(event.target);
             const data = {
                 property: formData.get('property') || 'Propiedad actual',
@@ -633,7 +634,7 @@
 
             console.log('Datos del formulario:', data);
             alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.');
-            
+
             // Limpiar formulario
             event.target.reset();
         }
