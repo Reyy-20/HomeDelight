@@ -18,7 +18,7 @@
     <header class="header">
         <nav class="nav-container">
             <a href="#" class="logo">
-              <!--<img id="image" src="https://i.ibb.co/j9hjBYNX/thumbnail-Home-Deligth-removebg.png" alt="thumbnail-Home-Deligth-removebg">-->
+                <!--<img id="image" src="https://i.ibb.co/j9hjBYNX/thumbnail-Home-Deligth-removebg.png" alt="thumbnail-Home-Deligth-removebg">-->
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="inicio">Inicio</a></li>
@@ -405,7 +405,7 @@
 
                 if (scrollTop > 200 && !isFixed) {
                     filters.style.position = 'fixed';
-                    filters.style.top = '0'; // Ajusta según altura de tu navbar
+                    filters.style.top = '40px'; // Ajusta según altura de tu navbar
                     filters.style.left = '0';
                     filters.style.right = '0';
                     filters.style.zIndex = '999';
@@ -433,18 +433,20 @@
             // Función para hacer sticky (igual que antes)
             function hacerSticky() {
                 const filters = document.querySelector('.filters');
+                const header = document.querySelector('.header');
                 const cardsContainer = document.querySelector('.cards-container');
 
                 window.addEventListener('scroll', function () {
                     if (window.scrollY > 200) {
                         filters.style.position = 'fixed';
-                        filters.style.top = '80px';
+                        filters.style.top = '10px'; // Ajusta según altura de tu navbar
                         filters.style.left = '0';
                         filters.style.right = '0';
                         filters.style.zIndex = '999';
                         filters.style.backgroundColor = 'white';
                         filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
                         cardsContainer.style.marginTop = '120px';
+
                     } else {
                         filters.style.position = '';
                         filters.style.top = '';
