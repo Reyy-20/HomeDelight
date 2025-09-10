@@ -10,22 +10,24 @@
     <link rel="stylesheet" href="css/Marketplace.css">
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">Home Delight</a>
+    <!-- Inicio del codigo del header-->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">Home Delight</a>
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
-                <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
-                <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                <li><a href="login&register2.html" class="nav-link">LogIn/register</a></li>
+                <li><a href="index.html" class="inicio">Inicio</a></li>
+                <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
+                <li><a href="AboutUs.html" class="about">About Us</a></li>
+                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
+    </header>
+    <!-- final del codigo del header-->
     <!-- Filtros -->
     <section>
         <form class="filters" id="filtersForm" autocomplete="off" onsubmit="return false;">
@@ -67,7 +69,8 @@
     <!-- Cards -->
     <div class="cards-container" id="cardsContainer">
         <!-- Card 1 -->
-        <a href="Properties.html?property=casa-el-roble" class="property-card" data-ubicacion="Albrook" data-precio="395000">
+        <a href="Properties.html?property=casa-el-roble" class="property-card" data-ubicacion="Albrook"
+            data-precio="395000">
             <img src="https://i.pinimg.com/originals/95/4b/fc/954bfce34fb3b0ae957d87eec22b0843.jpg"
                 class="property-image" alt="Casa El Roble">
             <div class="options"><i class="bi bi-three-dots"></i></div>
@@ -93,7 +96,8 @@
             </div>
         </a>
         <!-- Card 2 -->
-        <a href="Properties.html?property=villa-serena" class="property-card" data-ubicacion="Costa Sur" data-precio="520000">
+        <a href="Properties.html?property=villa-serena" class="property-card" data-ubicacion="Costa Sur"
+            data-precio="520000">
             <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80"
                 class="property-image" alt="Villa Serena">
             <div class="options"><i class="bi bi-three-dots"></i></div>
@@ -119,7 +123,8 @@
             </div>
         </a>
         <!-- Card 3 -->
-        <a href="Properties.html?property=villa-sol-y-mar" class="property-card" data-ubicacion="Punta Barco" data-precio="420000">
+        <a href="Properties.html?property=villa-sol-y-mar" class="property-card" data-ubicacion="Punta Barco"
+            data-precio="420000">
             <img src="https://armoniapanama.com/wp-content/uploads/2025/05/armonia-2-848x450.webp"
                 class="property-image" alt="Villa Sol y Mar">
             <div class="options"><i class="bi bi-three-dots"></i></div>
@@ -145,7 +150,8 @@
             </div>
         </a>
         <!-- Card 4 -->
-        <a href="Properties.html?property=casa-moderna" class="property-card" data-ubicacion="San Francisco" data-precio="280000">
+        <a href="Properties.html?property=casa-moderna" class="property-card" data-ubicacion="San Francisco"
+            data-precio="280000">
             <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80"
                 class="property-image" alt="Casa Moderna">
             <div class="options"><i class="bi bi-three-dots"></i></div>
@@ -170,7 +176,8 @@
             </div>
         </a>
         <!-- Card 5 -->
-        <a href="Properties.html?property=mansion-costa-del-este" class="property-card" data-ubicacion="Costa del Este" data-precio="750000">
+        <a href="Properties.html?property=mansion-costa-del-este" class="property-card" data-ubicacion="Costa del Este"
+            data-precio="750000">
             <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
                 class="property-image" alt="Mansión Costa del Este">
             <div class="options"><i class="bi bi-three-dots"></i></div>
@@ -197,7 +204,8 @@
             </div>
         </a>
         <!-- Card 6 -->
-        <a href="Properties.html?property=casa-familiar" class="property-card" data-ubicacion="Tumba Muerto" data-precio="180000">
+        <a href="Properties.html?property=casa-familiar" class="property-card" data-ubicacion="Tumba Muerto"
+            data-precio="180000">
             <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80"
                 class="property-image" alt="Casa Familiar">
             <div class="options"><i class="bi bi-three-dots"></i></div>
@@ -220,7 +228,7 @@
                     <span class="interested"><i class="bi bi-heart-fill"></i> 15</span>
                 </div>
             </div>
-            </a>
+        </a>
         <!-- Card 7 -->
         <div class="property-card" data-ubicacion="Brisas Del Golf" data-precio="560900">
             <img src="https://cdn2.hubspot.net/hubfs/5264199/BLOG%202019/Apartamentos%20en%20Santa%20Maria/por%20que%20vivir%20en%20santa%20maria%20panama.jpg"
@@ -324,327 +332,206 @@
                     <span class="interested"><i class="bi bi-heart-fill"></i> 58</span>
                 </div>
             </div>
-        </a>
-     </div>
-   
-
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="footer-content">
-        <div class="footer-brand">
-            <span>Home Delight</span>
+            </a>
         </div>
 
-        <div class="footer-section">
-            <h3>Enlaces Rápidos</h3>
-            <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
-            <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
-            <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
-            <a href="Pricing.html" aria-label="Precios">Precios</a>
-        </div>
 
-        <div class="footer-section">
-            <h3>Servicios</h3>
-            <a href="Marketplace.html" aria-label="Comprar">Comprar</a>
-            <a href="Marketplace.html" aria-label="Alquilar">Alquilar</a>
-            <a href="Marketplace.html" aria-label="Vender">Vender</a>
-            <a href="ContactUs.html" aria-label="Contacto">Contacto</a>
-        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>Home Delight</h3>
+                    </div>
 
-        <div class="footer-section">
-            <h3>Lugares</h3>
-            <a href="/panama" aria-label="Panamá">Panamá</a>
-            <a href="/colon" aria-label="Colón">Colón</a>
-            <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
-            <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
-        </div>
-    </div>
+                    <div class="footer-column">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
+                            <li><a href="#marketplace">Marketplace</a></li>
+                            <li><a href="#prices">Precios</a></li>
+                        </ul>
+                    </div>
 
-    <div class="footer-bottom">
-        <div class="policy-links">
-            <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
-            <a href="/terms" aria-label="Términos y condiciones">Términos</a>
-            <a href="/cookies" aria-label="Política de cookies">Cookies</a>
-            <a href="/legal" aria-label="Aviso legal">Legal</a>
-        </div>
+                    <div class="footer-column">
+                        <h3>Servicios</h3>
+                        <ul>
+                            <li><a href="#buy">Comprar</a></li>
+                            <li><a href="#rent">Alquilar</a></li>
+                            <li><a href="#sell">Vender</a></li>
+                            <li><a href="#contact-service">Contacto</a></li>
+                        </ul>
+                    </div>
 
-        <div class="copyright">
-            © 2025 Home Delight. Todos los derechos reservados.
-        </div>
-    </div>
-</footer>
+                    <div class="footer-column">
+                        <h3>Lugares</h3>
+                        <ul>
+                            <li><a href="#panama">Panama</a></li>
+                            <li><a href="#colon">Colón</a></li>
+                            <li><a href="#panama-oeste">Panama Oeste</a></li>
+                            <li><a href="#other-locations">Otras Ubicaciones</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-<style>
-    :root {
-        --color-gold-2: #B9A160;
-        --color-cream: #ECE8E2;
-    }
+                <div class="footer-bottom">
+                    <div class="footer-links">
+                        <a href="#privacy">Privacidad</a>
+                        <a href="#terms">Términos</a>
+                        <a href="#cookies">Cookies</a>
+                        <a href="#legal">Legal</a>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 Home Delight. Todos los derechos reservados.
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-    .site-footer {
-        background: white;
-        color: var(--color-gold-2);
-        padding: 40px 24px 20px;
-        margin-top: 40px;
-    }
+        <!-- Scripts -->
+        <script src="js/config.js"></script>
+        <script src="js/chatbot.js"></script>
 
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        gap: 40px;
-        margin-bottom: 30px;
-    }
+        <script>
+            let isFixed = false;
 
-    .footer-brand {
-        display: flex;
-        align-items: flex-start;
-        font-weight: 600;
-        font-size: 20px;
-        margin-bottom: 20px;
-    }
+            window.addEventListener('scroll', function () {
+                const filters = document.querySelector('.filters');
+                const cardsContainer = document.querySelector('.cards-container');
+                const scrollTop = window.scrollY;
 
-    .footer-section {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .footer-section h3 {
-        font-size: calc(14px * 1.15);
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: var(--color-gold-2);
-    }
-
-    .footer-section a {
-        color: var(--color-gold-2);
-        text-decoration: none;
-        font-size: calc(14px * 1.15);
-        transition: text-decoration 0.2s ease;
-        opacity: 0.8;
-    }
-
-    .footer-section a:hover,
-    .footer-section a:focus {
-        text-decoration: underline;
-        outline: 2px solid var(--color-gold-2);
-        outline-offset: 2px;
-        opacity: 1;
-    }
-
-    .footer-bottom {
-        border-top: 1px solid rgba(185, 161, 96, 0.2);
-        padding-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    .policy-links {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .policy-links a {
-        color: var(--color-gold-2);
-        text-decoration: none;
-        font-size: calc(14px * 1.15);
-        transition: text-decoration 0.2s ease;
-        opacity: 0.8;
-    }
-
-    .policy-links a:hover,
-    .policy-links a:focus {
-        text-decoration: underline;
-        outline: 2px solid var(--color-gold-2);
-        outline-offset: 2px;
-        opacity: 1;
-    }
-
-    .copyright {
-        font-size: calc(12px * 1.15);
-        color: var(--color-gold-2);
-        opacity: 0.8;
-    }
-
-    @media (max-width: 640px) {
-        .site-footer {
-            padding: 24px 20px 16px;
-        }
-
-        .footer-content {
-            flex-direction: column;
-            gap: 24px;
-            margin-bottom: 20px;
-        }
-
-        .footer-brand {
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .footer-section {
-            text-align: center;
-        }
-
-        .footer-bottom {
-            flex-direction: column;
-            text-align: center;
-            gap: 12px;
-        }
-
-        .policy-links {
-            justify-content: center;
-            gap: 16px;
-        }
-    }
-</style>
-
-<!-- Scripts -->
-<script src="js/config.js"></script>
-<script src="js/chatbot.js"></script>
-
-<script>
-    let isFixed = false;
-    
-    window.addEventListener('scroll', function() {
-        const filters = document.querySelector('.filters');
-        const cardsContainer = document.querySelector('.cards-container');
-        const scrollTop = window.scrollY;
-        
-        if (scrollTop > 200 && !isFixed) {
-            filters.style.position = 'fixed';
-            filters.style.top = '80px'; // Ajusta según altura de tu navbar
-            filters.style.left = '0';
-            filters.style.right = '0';
-            filters.style.zIndex = '999';
-            filters.style.backgroundColor = 'white';
-            filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-            cardsContainer.style.marginTop = '120px';
-            isFixed = true;
-        } else if (scrollTop <= 200 && isFixed) {
-            filters.style.position = '';
-            filters.style.top = '';
-            filters.style.left = '';
-            filters.style.right = '';
-            filters.style.zIndex = '';
-            filters.style.backgroundColor = '';
-            filters.style.boxShadow = '';
-            cardsContainer.style.marginTop = '';
-            isFixed = false;
-        }
-    });
-    </script>
-
-<script>
-    let todasLasCards = [];
-    
-    // Función para hacer sticky (igual que antes)
-    function hacerSticky() {
-        const filters = document.querySelector('.filters');
-        const cardsContainer = document.querySelector('.cards-container');
-        
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 200) {
-                filters.style.position = 'fixed';
-                filters.style.top = '80px';
-                filters.style.left = '0';
-                filters.style.right = '0';
-                filters.style.zIndex = '999';
-                filters.style.backgroundColor = 'white';
-                filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                cardsContainer.style.marginTop = '120px';
-            } else {
-                filters.style.position = '';
-                filters.style.top = '';
-                filters.style.left = '';
-                filters.style.right = '';
-                filters.style.zIndex = '';
-                filters.style.backgroundColor = '';
-                filters.style.boxShadow = '';
-                cardsContainer.style.marginTop = '';
-            }
-        });
-    }
-    
-    // Función mejorada para filtrar
-    function filtrar() {
-        const ubicacion = document.getElementById('filtroUbicacion').value;
-        const precioMin = document.getElementById('filtroPrecioMin').value;
-        const precioMax = document.getElementById('filtroPrecioMax').value;
-        const tipo = document.getElementById('filtroTipo').value;
-        
-        console.log('Filtrando:', { ubicacion, precioMin, precioMax, tipo });
-        
-        let resultados = 0;
-        
-        todasLasCards.forEach(card => {
-            let mostrar = true;
-            
-            // Filtro ubicación (más flexible)
-            if (ubicacion) {
-                const ubicacionCard = card.getAttribute('data-ubicacion');
-                if (!ubicacionCard || !ubicacionCard.toLowerCase().includes(ubicacion.toLowerCase())) {
-                    mostrar = false;
+                if (scrollTop > 200 && !isFixed) {
+                    filters.style.position = 'fixed';
+                    filters.style.top = '80px'; // Ajusta según altura de tu navbar
+                    filters.style.left = '0';
+                    filters.style.right = '0';
+                    filters.style.zIndex = '999';
+                    filters.style.backgroundColor = 'white';
+                    filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                    cardsContainer.style.marginTop = '120px';
+                    isFixed = true;
+                } else if (scrollTop <= 200 && isFixed) {
+                    filters.style.position = '';
+                    filters.style.top = '';
+                    filters.style.left = '';
+                    filters.style.right = '';
+                    filters.style.zIndex = '';
+                    filters.style.backgroundColor = '';
+                    filters.style.boxShadow = '';
+                    cardsContainer.style.marginTop = '';
+                    isFixed = false;
                 }
+            });
+        </script>
+
+        <script>
+            let todasLasCards = [];
+
+            // Función para hacer sticky (igual que antes)
+            function hacerSticky() {
+                const filters = document.querySelector('.filters');
+                const cardsContainer = document.querySelector('.cards-container');
+
+                window.addEventListener('scroll', function () {
+                    if (window.scrollY > 200) {
+                        filters.style.position = 'fixed';
+                        filters.style.top = '80px';
+                        filters.style.left = '0';
+                        filters.style.right = '0';
+                        filters.style.zIndex = '999';
+                        filters.style.backgroundColor = 'white';
+                        filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                        cardsContainer.style.marginTop = '120px';
+                    } else {
+                        filters.style.position = '';
+                        filters.style.top = '';
+                        filters.style.left = '';
+                        filters.style.right = '';
+                        filters.style.zIndex = '';
+                        filters.style.backgroundColor = '';
+                        filters.style.boxShadow = '';
+                        cardsContainer.style.marginTop = '';
+                    }
+                });
             }
-            
-            // Filtro precio
-            if (precioMin || precioMax) {
-                const precioCard = parseInt(card.getAttribute('data-precio'));
-                if (precioMin && precioCard < parseInt(precioMin)) mostrar = false;
-                if (precioMax && precioCard > parseInt(precioMax)) mostrar = false;
+
+            // Función mejorada para filtrar
+            function filtrar() {
+                const ubicacion = document.getElementById('filtroUbicacion').value;
+                const precioMin = document.getElementById('filtroPrecioMin').value;
+                const precioMax = document.getElementById('filtroPrecioMax').value;
+                const tipo = document.getElementById('filtroTipo').value;
+
+                console.log('Filtrando:', { ubicacion, precioMin, precioMax, tipo });
+
+                let resultados = 0;
+
+                todasLasCards.forEach(card => {
+                    let mostrar = true;
+
+                    // Filtro ubicación (más flexible)
+                    if (ubicacion) {
+                        const ubicacionCard = card.getAttribute('data-ubicacion');
+                        if (!ubicacionCard || !ubicacionCard.toLowerCase().includes(ubicacion.toLowerCase())) {
+                            mostrar = false;
+                        }
+                    }
+
+                    // Filtro precio
+                    if (precioMin || precioMax) {
+                        const precioCard = parseInt(card.getAttribute('data-precio'));
+                        if (precioMin && precioCard < parseInt(precioMin)) mostrar = false;
+                        if (precioMax && precioCard > parseInt(precioMax)) mostrar = false;
+                    }
+
+                    // Filtro tipo (detectar automáticamente del título)
+                    if (tipo) {
+                        const titulo = card.querySelector('.property-title')?.textContent.toLowerCase() || '';
+                        let tipoCard = '';
+
+                        if (titulo.includes('casa') || titulo.includes('villa') || titulo.includes('mansión')) {
+                            tipoCard = 'Casa';
+                        } else if (titulo.includes('apartamento')) {
+                            tipoCard = 'Departamento';
+                        } else if (titulo.includes('ph')) {
+                            tipoCard = 'PH';
+                        }
+
+                        if (tipoCard !== tipo) {
+                            mostrar = false;
+                        }
+                    }
+
+                    // Mostrar u ocultar
+                    card.style.display = mostrar ? 'flex' : 'none';
+                    if (mostrar) resultados++;
+                });
+
+                console.log('Resultados encontrados:', resultados);
             }
-            
-            // Filtro tipo (detectar automáticamente del título)
-            if (tipo) {
-                const titulo = card.querySelector('.property-title')?.textContent.toLowerCase() || '';
-                let tipoCard = '';
-                
-                if (titulo.includes('casa') || titulo.includes('villa') || titulo.includes('mansión')) {
-                    tipoCard = 'Casa';
-                } else if (titulo.includes('apartamento')) {
-                    tipoCard = 'Departamento';
-                } else if (titulo.includes('ph')) {
-                    tipoCard = 'PH';
-                }
-                
-                if (tipoCard !== tipo) {
-                    mostrar = false;
-                }
-            }
-            
-            // Mostrar u ocultar
-            card.style.display = mostrar ? 'flex' : 'none';
-            if (mostrar) resultados++;
-        });
-        
-        console.log('Resultados encontrados:', resultados);
-    }
-    
-    // Inicializar
-    document.addEventListener('DOMContentLoaded', function() {
-        // Capturar todas las cards
-        todasLasCards = Array.from(document.querySelectorAll('.property-card'));
-        console.log('Cards encontradas:', todasLasCards.length);
-        
-        // Debug: mostrar todas las ubicaciones
-        todasLasCards.forEach(card => {
-            console.log('Ubicación:', card.getAttribute('data-ubicacion'));
-        });
-        
-        // Hacer sticky
-        hacerSticky();
-        
-        // Agregar eventos a filtros
-        document.getElementById('filtroUbicacion').addEventListener('change', filtrar);
-        document.getElementById('filtroPrecioMin').addEventListener('input', filtrar);
-        document.getElementById('filtroPrecioMax').addEventListener('input', filtrar);
-        document.getElementById('filtroTipo').addEventListener('change', filtrar);
-    });
-    </script>
+
+            // Inicializar
+            document.addEventListener('DOMContentLoaded', function () {
+                // Capturar todas las cards
+                todasLasCards = Array.from(document.querySelectorAll('.property-card'));
+                console.log('Cards encontradas:', todasLasCards.length);
+
+                // Debug: mostrar todas las ubicaciones
+                todasLasCards.forEach(card => {
+                    console.log('Ubicación:', card.getAttribute('data-ubicacion'));
+                });
+
+                // Hacer sticky
+                hacerSticky();
+
+                // Agregar eventos a filtros
+                document.getElementById('filtroUbicacion').addEventListener('change', filtrar);
+                document.getElementById('filtroPrecioMin').addEventListener('input', filtrar);
+                document.getElementById('filtroPrecioMax').addEventListener('input', filtrar);
+                document.getElementById('filtroTipo').addEventListener('change', filtrar);
+            });
+        </script>
 </body>
 
 </html>

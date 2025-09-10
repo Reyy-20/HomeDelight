@@ -11,22 +11,24 @@
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/ContactUs.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">Home Delight</a>
+        <!-- Inicio del codigo del header-->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">Home Delight</a>
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                <li><a href="Marketplace.html" class="nav-link">Marketplace</a></li>
-                <li><a href="ContactUs.html" class="nav-link">ContactUs</a></li>
-                <li><a href="AboutUs.html" class="nav-link">AboutUs</a></li>
-                <li><a href="login&register2.html" class="nav-link">LogIn/register</a></li>
+                <li><a href="index.html" class="inicio">Inicio</a></li>
+                <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
+                <li><a href="AboutUs.html" class="about">About Us</a></li>
+                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
+    </header>
+    <!-- final del codigo del header-->
 
 
     <div class="contact-section">
@@ -88,178 +90,58 @@
     </div>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span>Home Delight</span>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Home Delight</h3>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="#prices">Precios</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#buy">Comprar</a></li>
+                        <li><a href="#rent">Alquilar</a></li>
+                        <li><a href="#sell">Vender</a></li>
+                        <li><a href="#contact-service">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Lugares</h3>
+                    <ul>
+                        <li><a href="#panama">Panama</a></li>
+                        <li><a href="#colon">Colón</a></li>
+                        <li><a href="#panama-oeste">Panama Oeste</a></li>
+                        <li><a href="#other-locations">Otras Ubicaciones</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
-                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
-                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
-                <a href="Pricing.html" aria-label="Precios">Precios</a>
-            </div>
-
-            <div class="footer-section">
-                <h3>Servicios</h3>
-                <a href="/buy" aria-label="Comprar">Comprar</a>
-                <a href="/rent" aria-label="Alquilar">Alquilar</a>
-                <a href="/sell" aria-label="Vender">Vender</a>
-                <a href="/contact" aria-label="Contacto">Contacto</a>
-            </div>
-
-            <div class="footer-section">
-                <h3>Lugares</h3>
-                <a href="/panama" aria-label="Panamá">Panamá</a>
-                <a href="/colon" aria-label="Colón">Colón</a>
-                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
-                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="policy-links">
-                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
-                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
-                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
-                <a href="/legal" aria-label="Aviso legal">Legal</a>
-            </div>
-
-            <div class="copyright">
-                © 2025 Home Delight. Todos los derechos reservados.
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#privacy">Privacidad</a>
+                    <a href="#terms">Términos</a>
+                    <a href="#cookies">Cookies</a>
+                    <a href="#legal">Legal</a>
+                </div>
+                <div class="footer-copyright">
+                    © 2025 Home Delight. Todos los derechos reservados.
+                </div>
             </div>
         </div>
     </footer>
 
-    <style>
-        :root {
-            --color-gold-2: #B9A160;
-            --color-cream: #ECE8E2;
-        }
-
-        .site-footer {
-            background: white;
-            color: var(--color-gold-2);
-            padding: 40px 24px 20px;
-            margin-top: 40px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: flex-start;
-            font-weight: 600;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .footer-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .footer-section h3 {
-            font-size: calc(14px * 1.15);
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--color-gold-2);
-        }
-
-        .footer-section a {
-            color: var(--color-gold-2);
-            text-decoration: none;
-            font-size: calc(14px * 1.15);
-            transition: text-decoration 0.2s ease;
-            opacity: 0.8;
-        }
-
-        .footer-section a:hover,
-        .footer-section a:focus {
-            text-decoration: underline;
-            outline: 2px solid var(--color-gold-2);
-            outline-offset: 2px;
-            opacity: 1;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(185, 161, 96, 0.2);
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .policy-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .policy-links a {
-            color: var(--color-gold-2);
-            text-decoration: none;
-            font-size: calc(14px * 1.15);
-            transition: text-decoration 0.2s ease;
-            opacity: 0.8;
-        }
-
-        .policy-links a:hover,
-        .policy-links a:focus {
-            text-decoration: underline;
-            outline: 2px solid var(--color-gold-2);
-            outline-offset: 2px;
-            opacity: 1;
-        }
-
-        .copyright {
-            font-size: calc(12px * 1.15);
-            color: var(--color-gold-2);
-            opacity: 0.8;
-        }
-
-        @media (max-width: 640px) {
-            .site-footer {
-                padding: 24px 20px 16px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: 24px;
-                margin-bottom: 20px;
-            }
-
-            .footer-brand {
-                justify-content: center;
-                margin-bottom: 16px;
-            }
-
-            .footer-section {
-                text-align: center;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
-            }
-
-            .policy-links {
-                justify-content: center;
-                gap: 16px;
-            }
-        }
-    </style>
 
     <!-- Scripts -->
     <script src="js/config.js"></script>
