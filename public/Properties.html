@@ -1,277 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Delight - Propiedades</title>
     <link rel="stylesheet" href="css/footer.css">
-
+    <link rel="stylesheet" href="css/Header.css">
+    <link rel="stylesheet" href="css/Properties.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
-
-        .header {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #d4af37;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            background: #d4af37;
-            color: white;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-        }
-
-        .page-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #d4af37;
-        }
-
-        .property-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .property-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .property-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            border-color: #d4af37;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 1.5rem;
-        }
-
-        .card-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #d4af37;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .card-specs {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .discount {
-            background: #e74c3c;
-            color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-        }
-
-
-
-        .property-detail {
-            display: none;
-        }
-
-        .property-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-        }
-
-        .property-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .property-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .property-price {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #d4af37;
-        }
-
-        .property-specs {
-            display: flex;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .spec {
-            background: #f8f9fa;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .property-description {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #666;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: #f8f9fa;
-            border-radius: 15px;
-            border-left: 5px solid #d4af37;
-        }
-
-        .property-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .detail-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .detail-item h4 {
-            color: #d4af37;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-section {
-            background: #d4af37;
-            padding: 2rem;
-            border-radius: 20px;
-            margin-top: 3rem;
-            text-align: center;
-            color: white;
-        }
-
-        .contact-section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .contact-item {
-            background: rgba(255,255,255,0.2);
-            padding: 1rem 2rem;
-            border-radius: 15px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .property-header {
-                text-align: center;
-            }
-            
-            .property-specs {
-                justify-content: center;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .property-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        
     </style>
 </head>
+
 <body>
     <!-- Vista del Marketplace -->
     <div id="marketplace">
@@ -293,7 +34,8 @@
             <div class="property-grid">
                 <!-- Casa El Roble -->
                 <div class="property-card" onclick="showProperty('casa-el-roble')">
-                    <img src="https://i.pinimg.com/originals/95/4b/fc/954bfce34fb3b0ae957d87eec22b0843.jpg" alt="Casa El Roble" class="card-image">
+                    <img src="https://i.pinimg.com/originals/95/4b/fc/954bfce34fb3b0ae957d87eec22b0843.jpg"
+                        alt="Casa El Roble" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 395,000 <span class="discount">Rebajado 3%</span></div>
                         <div class="card-title">Casa El Roble</div>
@@ -307,7 +49,8 @@
 
                 <!-- Villa Serena -->
                 <div class="property-card" onclick="showProperty('villa-serena')">
-                    <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80" alt="Villa Serena" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80"
+                        alt="Villa Serena" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 520,000 <span class="discount">Rebajado 6%</span></div>
                         <div class="card-title">Villa Serena</div>
@@ -321,7 +64,8 @@
 
                 <!-- Villa Sol y Mar -->
                 <div class="property-card" onclick="showProperty('villa-sol-y-mar')">
-                    <img src="https://armoniapanama.com/wp-content/uploads/2025/05/armonia-2-848x450.webp" alt="Villa Sol y Mar" class="card-image">
+                    <img src="https://armoniapanama.com/wp-content/uploads/2025/05/armonia-2-848x450.webp"
+                        alt="Villa Sol y Mar" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 420,000 <span class="discount">Rebajado 3%</span></div>
                         <div class="card-title">Villa Sol y Mar</div>
@@ -335,7 +79,8 @@
 
                 <!-- Casa Moderna -->
                 <div class="property-card" onclick="showProperty('casa-moderna')">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80" alt="Casa Moderna" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80"
+                        alt="Casa Moderna" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 280,000</div>
                         <div class="card-title">Casa Moderna</div>
@@ -349,7 +94,8 @@
 
                 <!-- Mansión Costa del Este -->
                 <div class="property-card" onclick="showProperty('mansion-costa-del-este')">
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80" alt="Mansión Costa del Este" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
+                        alt="Mansión Costa del Este" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 750,000 <span class="discount">Rebajado 8%</span></div>
                         <div class="card-title">Mansión Costa del Este</div>
@@ -363,7 +109,8 @@
 
                 <!-- Casa Familiar -->
                 <div class="property-card" onclick="showProperty('casa-familiar')">
-                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80" alt="Casa Familiar" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80"
+                        alt="Casa Familiar" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 180,000</div>
                         <div class="card-title">Casa Familiar</div>
@@ -377,7 +124,8 @@
 
                 <!-- Apartamento Luz -->
                 <div class="property-card" onclick="showProperty('apartamento-luz')">
-                    <img src="https://cdn2.hubspot.net/hubfs/5264199/BLOG%202019/Apartamentos%20en%20Santa%20Maria/por%20que%20vivir%20en%20santa%20maria%20panama.jpg" alt="Apartamento Luz" class="card-image">
+                    <img src="https://cdn2.hubspot.net/hubfs/5264199/BLOG%202019/Apartamentos%20en%20Santa%20Maria/por%20que%20vivir%20en%20santa%20maria%20panama.jpg"
+                        alt="Apartamento Luz" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 560,900 <span class="discount">Rebajado 5%</span></div>
                         <div class="card-title">Apartamento Luz</div>
@@ -391,7 +139,8 @@
 
                 <!-- Apartamento Sur -->
                 <div class="property-card" onclick="showProperty('apartamento-sur')">
-                    <img src="https://pic.le-cdn.com/thumbs/520x390/190/1/properties/Property-432a94040e74dfefa114523e1e9bd005-128152370.jpg" alt="Apartamento Sur" class="card-image">
+                    <img src="https://pic.le-cdn.com/thumbs/520x390/190/1/properties/Property-432a94040e74dfefa114523e1e9bd005-128152370.jpg"
+                        alt="Apartamento Sur" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 456,980 <span class="discount">Rebajado 4%</span></div>
                         <div class="card-title">Apartamento Sur</div>
@@ -405,7 +154,8 @@
 
                 <!-- Propiedad Avenida Balboa -->
                 <div class="property-card" onclick="showProperty('propiedad-avenida-balboa')">
-                    <img src="https://www.activentas.com/wp-content/uploads/2024/07/photo_server-4409.jpeg" alt="Propiedad Avenida Balboa" class="card-image">
+                    <img src="https://www.activentas.com/wp-content/uploads/2024/07/photo_server-4409.jpeg"
+                        alt="Propiedad Avenida Balboa" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 568,990 <span class="discount">Rebajado 7%</span></div>
                         <div class="card-title">Propiedad Avenida Balboa</div>
@@ -419,7 +169,8 @@
 
                 <!-- Apartamento Albrook -->
                 <div class="property-card" onclick="showProperty('apartamento-albrook')">
-                    <img src="https://forestgate.procasapanama.com/wp-content/uploads/comprar-apartamento-en-Panama-1-1-1024x768.jpeg" alt="Apartamento Albrook" class="card-image">
+                    <img src="https://forestgate.procasapanama.com/wp-content/uploads/comprar-apartamento-en-Panama-1-1-1024x768.jpeg"
+                        alt="Apartamento Albrook" class="card-image">
                     <div class="card-content">
                         <div class="card-price">B/. 795,490 <span class="discount">Rebajado 5%</span></div>
                         <div class="card-title">Apartamento en Albrook</div>
@@ -436,18 +187,20 @@
 
     <!-- Vista de Propiedad Individual -->
     <div id="property-detail" class="property-detail">
-        <header class="header">
-            <nav class="nav">
-                <a href="index.html" class="logo">Home Delight</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="Marketplace.html">Marketplace</a></li>
-                    <li><a href="ContactUs.html">Contact Us</a></li>
-                    <li><a href="AboutUs.html">About Us</a></li>
-                    <li><a href="login&register2.html">Login/register</a></li>
-                </ul>
-            </nav>
-        </header>
+            <!-- Inicio del codigo del header-->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">Home Delight</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="inicio">Inicio</a></li>
+                <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
+                <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
+                <li><a href="AboutUs.html" class="about">About Us</a></li>
+                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- final del codigo del header-->
 
 
 
@@ -457,47 +210,54 @@
     </div>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span>Home Delight</span>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Home Delight</h3>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="#prices">Precios</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#buy">Comprar</a></li>
+                        <li><a href="#rent">Alquilar</a></li>
+                        <li><a href="#sell">Vender</a></li>
+                        <li><a href="#contact-service">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Lugares</h3>
+                    <ul>
+                        <li><a href="#panama">Panama</a></li>
+                        <li><a href="#colon">Colón</a></li>
+                        <li><a href="#panama-oeste">Panama Oeste</a></li>
+                        <li><a href="#other-locations">Otras Ubicaciones</a></li>
+                    </ul>
+                </div>
             </div>
-            
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
-                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
-                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
-                <a href="Pricing.html" aria-label="Precios">Precios</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Servicios</h3>
-                <a href="Marketplace.html" aria-label="Comprar">Comprar</a>
-                <a href="Marketplace.html" aria-label="Alquilar">Alquilar</a>
-                <a href="Marketplace.html" aria-label="Vender">Vender</a>
-                <a href="ContactUs.html" aria-label="Contacto">Contacto</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Lugares</h3>
-                <a href="/panama" aria-label="Panamá">Panamá</a>
-                <a href="/colon" aria-label="Colón">Colón</a>
-                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
-                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div class="policy-links">
-                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
-                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
-                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
-                <a href="/legal" aria-label="Aviso legal">Legal</a>
-            </div>
-            
-            <div class="copyright">
-                © 2025 Home Delight. Todos los derechos reservados.
+
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#privacy">Privacidad</a>
+                    <a href="#terms">Términos</a>
+                    <a href="#cookies">Cookies</a>
+                    <a href="#legal">Legal</a>
+                </div>
+                <div class="footer-copyright">
+                    © 2025 Home Delight. Todos los derechos reservados.
+                </div>
             </div>
         </div>
     </footer>
@@ -801,7 +561,7 @@
         }
 
         // Cargar la página cuando se carga
-        window.onload = function() {
+        window.onload = function () {
             const propertyId = getPropertyFromURL();
             if (propertyId && properties[propertyId]) {
                 // Si hay un parámetro de propiedad, mostrar esa propiedad
@@ -813,4 +573,5 @@
         };
     </script>
 </body>
+
 </html>
