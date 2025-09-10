@@ -480,18 +480,32 @@
         // Función para mostrar el marketplace
         function showMarketplace() {
             document.getElementById('marketplace').style.display = 'block';
-            document.getElementById('property-detail').style.display = 'none';
+            const propertyDetail = document.getElementById('property-detail');
+            propertyDetail.style.display = 'none';
+            propertyDetail.classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Función para cargar el marketplace (alias de showMarketplace)
+        function loadMarketplace() {
+            showMarketplace();
         }
 
         // Función para mostrar una propiedad específica
         function showProperty(propertyId) {
+            console.log('Intentando mostrar propiedad:', propertyId);
             const property = properties[propertyId];
-            if (!property) return;
+            console.log('Propiedad encontrada:', property);
+            if (!property) {
+                console.log('Propiedad no encontrada para ID:', propertyId);
+                return;
+            }
 
             // Cambiar vista
             document.getElementById('marketplace').style.display = 'none';
-            document.getElementById('property-detail').style.display = 'block';
+            const propertyDetail = document.getElementById('property-detail');
+            propertyDetail.style.display = 'flex';
+            propertyDetail.classList.add('active');
 
             // Cargar contenido de la propiedad
             const propertyContent = document.getElementById('property-content');
@@ -533,7 +547,46 @@
 
                 <div class="contact-section">
                     <h3>¿Interesado en esta propiedad?</h3>
-                    <p>Contáctanos para más información y agendar una visita</p>
+                    <p>Completa el formulario y nos pondremos en contacto contigo</p>
+                    
+                    <div class="property-info-form">
+                        <h4>${property.title}</h4>
+                        <p class="property-price-form">${property.price}</p>
+                    </div>
+                    
+                    <form id="interestForm" onsubmit="submitInterestForm(event)" class="interest-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Nombre *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Apellido *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Correo electrónico *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Cuéntanos más sobre tu interés en esta propiedad..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="bi bi-send"></i> Enviar consulta
+                        </button>
+                    </form>
+                    
                     <div class="contact-info">
                         <div class="contact-item">
                             <strong>📞 Teléfono</strong><br>
@@ -551,6 +604,7 @@
                 </div>
             `;
 
+            console.log('Contenido de la propiedad cargado exitosamente');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -558,6 +612,29 @@
         function getPropertyFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('property');
+        }
+
+        // Función para enviar el formulario de interés
+        function submitInterestForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {
+                property: formData.get('property') || 'Propiedad actual',
+                price: formData.get('price') || 'Precio no disponible',
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                message: formData.get('message'),
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Datos del formulario:', data);
+            alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.');
+            
+            // Limpiar formulario
+            event.target.reset();
         }
 
         // Cargar la página cuando se carga
