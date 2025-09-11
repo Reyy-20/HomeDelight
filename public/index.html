@@ -83,7 +83,12 @@
         <!-- Features Section -->
         <section class="features">
             <div class="container">
+<<<<<<< HEAD
                 <h2 class="section-header">¿Por qué elegir Home Delight?</h2>
+=======
+                <h2>¿Por qué elegir Home Delight?</h2>
+                <br>
+>>>>>>> ae4b54751e7850446a7a11cf3fdbd82ac43119db
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">
@@ -187,6 +192,10 @@
         </div>
     </section>
     <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Home Delight</span>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
@@ -224,25 +233,86 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="footer-bottom">
-                <div class="footer-links">
-                    <a href="#privacy">Privacidad</a>
-                    <a href="#terms">Términos</a>
-                    <a href="#cookies">Cookies</a>
-                    <a href="#legal">Legal</a>
-                </div>
-                <div class="footer-copyright">
-                    © 2025 Home Delight. Todos los derechos reservados.
-                </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
+                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
+                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
+                <a href="Pricing.html" aria-label="Precios">Precios</a>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="/buy" aria-label="Comprar">Comprar</a>
+                <a href="/rent" aria-label="Alquilar">Alquilar</a>
+                <a href="/sell" aria-label="Vender">Vender</a>
+                <a href="/contact" aria-label="Contacto">Contacto</a>
+            </div>
+            <div class="footer-section">
+                <h3>Lugares</h3>
+                <a href="/panama" aria-label="Panamá">Panamá</a>
+                <a href="/colon" aria-label="Colón">Colón</a>
+                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
+                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="policy-links">
+                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
+                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
+                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
+                <a href="/legal" aria-label="Aviso legal">Legal</a>
+            </div>
+            <div class="copyright">
+                © 2025 Home Delight. Todos los derechos reservados.
             </div>
         </div>
     </footer>
-
     <!-- Scripts -->
-
+    <script src="js/config.js"></script>
     <script src="js/chatbot.js"></script>
+    <script src="js/firebase-error-handler.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>
+        // Tu archivo de JavaScript (ej. script.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+            authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+            databaseURL: "https://expo-project-senior-6bfea-default-rtdb.firebaseio.com",
+            projectId: "expo-project-senior-6bfea",
+            storageBucket: "expo-project-senior-6bfea.firebasestorage.app",
+            messagingSenderId: "188431803500",
+            appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
+            measurementId: "G-5Q8NB4WFK6"
+        };
 
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Verificar estado al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Página principal cargada');
+            console.log('Estado del usuario:', {
+                isAuthenticated: localStorage.getItem('isAuthenticated'),
+                userType: localStorage.getItem('userType'),
+                userEmail: localStorage.getItem('userEmail')
+            });
+        });
+
+        const MyLog = document.getElementById('dashboard');
+
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                // Usuario está logueado, cambiar el enlace a "Dashboard"
+                MyLog.textContent = 'Dashboard';
+                MyLog.href = 'gptdashboard.html';
+            } else {
+                // Usuario no está logueado, mostrar "LogIn/register"
+                MyLog.textContent = 'LogIn/register';
+                MyLog.href = 'login&register2.html';
+            }
+        });
+
+    </script>
 </body>
-
 </html>
