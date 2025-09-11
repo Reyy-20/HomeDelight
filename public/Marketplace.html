@@ -17,18 +17,17 @@
     <!-- Inicio del codigo del header-->
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo">
-                <!--<img id="image" src="https://i.ibb.co/j9hjBYNX/thumbnail-Home-Deligth-removebg.png" alt="thumbnail-Home-Deligth-removebg">-->
-            </a>
+            <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png" alt="thumbnail-Home-Deligth-removebg"></a>
             <ul class="nav-links">
                 <li><a href="index.html" class="inicio">Inicio</a></li>
                 <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
                 <li><a href="AboutUs.html" class="about">About Us</a></li>
-                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
+            <a href="login&register2.html" class="Nav-btn">LogIn/Register</a>
         </nav>
     </header>
+    <script src="js/nav.js"></script>
     <!-- final del codigo del header-->
     <!-- Filtros -->
     <section>
@@ -336,7 +335,7 @@
             </div>
             </a>
         </div>
-</div>
+    </div>
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
@@ -348,9 +347,9 @@
                 <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="AboutUs.html">About Us</a></li>
+                        <li><a href="ContactUs.html">Contact Us</a></li>
+                        <li><a href="Marketplace.html">Marketplace</a></li>
                         <li><a href="#prices">Precios</a></li>
                     </ul>
                 </div>
@@ -390,31 +389,65 @@
         </div>
     </footer>
 
-    
 
-        <!-- Scripts -->
-        <script src="js/config.js"></script>
-        <script src="js/chatbot.js"></script>
 
-        <script>
-            let isFixed = false;
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/chatbot.js"></script>
+
+    <script>
+        let isFixed = false;
+
+        window.addEventListener('scroll', function () {
+            const filters = document.querySelector('.filters');
+            const cardsContainer = document.querySelector('.cards-container');
+            const scrollTop = window.scrollY;
+
+            if (scrollTop > 200 && !isFixed) {
+                filters.style.position = 'fixed';
+                filters.style.top = '40px'; // Ajusta según altura de tu navbar
+                filters.style.left = '0';
+                filters.style.right = '0';
+                filters.style.zIndex = '999';
+                filters.style.backgroundColor = 'white';
+                filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                cardsContainer.style.marginTop = '10px';
+                isFixed = true;
+            } else if (scrollTop <= 200 && isFixed) {
+                filters.style.position = '';
+                filters.style.top = '';
+                filters.style.left = '';
+                filters.style.right = '';
+                filters.style.zIndex = '';
+                filters.style.backgroundColor = '';
+                filters.style.boxShadow = '';
+                cardsContainer.style.marginTop = '';
+                isFixed = false;
+            }
+        });
+    </script>
+
+    <script>
+        let todasLasCards = [];
+
+        // Función para hacer sticky (igual que antes)
+        function hacerSticky() {
+            const filters = document.querySelector('.filters');
+            const header = document.querySelector('.header');
+            const cardsContainer = document.querySelector('.cards-container');
 
             window.addEventListener('scroll', function () {
-                const filters = document.querySelector('.filters');
-                const cardsContainer = document.querySelector('.cards-container');
-                const scrollTop = window.scrollY;
-
-                if (scrollTop > 200 && !isFixed) {
+                if (window.scrollY > 200) {
                     filters.style.position = 'fixed';
-                    filters.style.top = '40px'; // Ajusta según altura de tu navbar
+                    filters.style.top = '10px'; // Ajusta según altura de tu navbar
                     filters.style.left = '0';
                     filters.style.right = '0';
                     filters.style.zIndex = '999';
                     filters.style.backgroundColor = 'white';
                     filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                    cardsContainer.style.marginTop = '10px';
-                    isFixed = true;
-                } else if (scrollTop <= 200 && isFixed) {
+                    cardsContainer.style.marginTop = '120px';
+
+                } else {
                     filters.style.position = '';
                     filters.style.top = '';
                     filters.style.left = '';
@@ -423,120 +456,86 @@
                     filters.style.backgroundColor = '';
                     filters.style.boxShadow = '';
                     cardsContainer.style.marginTop = '';
-                    isFixed = false;
                 }
             });
-        </script>
+        }
 
-        <script>
-            let todasLasCards = [];
+        // Función mejorada para filtrar
+        function filtrar() {
+            const ubicacion = document.getElementById('filtroUbicacion').value;
+            const precioMin = document.getElementById('filtroPrecioMin').value;
+            const precioMax = document.getElementById('filtroPrecioMax').value;
+            const tipo = document.getElementById('filtroTipo').value;
 
-            // Función para hacer sticky (igual que antes)
-            function hacerSticky() {
-                const filters = document.querySelector('.filters');
-                const header = document.querySelector('.header');
-                const cardsContainer = document.querySelector('.cards-container');
+            console.log('Filtrando:', { ubicacion, precioMin, precioMax, tipo });
 
-                window.addEventListener('scroll', function () {
-                    if (window.scrollY > 200) {
-                        filters.style.position = 'fixed';
-                        filters.style.top = '10px'; // Ajusta según altura de tu navbar
-                        filters.style.left = '0';
-                        filters.style.right = '0';
-                        filters.style.zIndex = '999';
-                        filters.style.backgroundColor = 'white';
-                        filters.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                        cardsContainer.style.marginTop = '120px';
+            let resultados = 0;
 
-                    } else {
-                        filters.style.position = '';
-                        filters.style.top = '';
-                        filters.style.left = '';
-                        filters.style.right = '';
-                        filters.style.zIndex = '';
-                        filters.style.backgroundColor = '';
-                        filters.style.boxShadow = '';
-                        cardsContainer.style.marginTop = '';
+            todasLasCards.forEach(card => {
+                let mostrar = true;
+
+                // Filtro ubicación (más flexible)
+                if (ubicacion) {
+                    const ubicacionCard = card.getAttribute('data-ubicacion');
+                    if (!ubicacionCard || !ubicacionCard.toLowerCase().includes(ubicacion.toLowerCase())) {
+                        mostrar = false;
                     }
-                });
-            }
+                }
 
-            // Función mejorada para filtrar
-            function filtrar() {
-                const ubicacion = document.getElementById('filtroUbicacion').value;
-                const precioMin = document.getElementById('filtroPrecioMin').value;
-                const precioMax = document.getElementById('filtroPrecioMax').value;
-                const tipo = document.getElementById('filtroTipo').value;
+                // Filtro precio
+                if (precioMin || precioMax) {
+                    const precioCard = parseInt(card.getAttribute('data-precio'));
+                    if (precioMin && precioCard < parseInt(precioMin)) mostrar = false;
+                    if (precioMax && precioCard > parseInt(precioMax)) mostrar = false;
+                }
 
-                console.log('Filtrando:', { ubicacion, precioMin, precioMax, tipo });
+                // Filtro tipo (detectar automáticamente del título)
+                if (tipo) {
+                    const titulo = card.querySelector('.property-title')?.textContent.toLowerCase() || '';
+                    let tipoCard = '';
 
-                let resultados = 0;
-
-                todasLasCards.forEach(card => {
-                    let mostrar = true;
-
-                    // Filtro ubicación (más flexible)
-                    if (ubicacion) {
-                        const ubicacionCard = card.getAttribute('data-ubicacion');
-                        if (!ubicacionCard || !ubicacionCard.toLowerCase().includes(ubicacion.toLowerCase())) {
-                            mostrar = false;
-                        }
+                    if (titulo.includes('casa') || titulo.includes('villa') || titulo.includes('mansión')) {
+                        tipoCard = 'Casa';
+                    } else if (titulo.includes('apartamento')) {
+                        tipoCard = 'Departamento';
+                    } else if (titulo.includes('ph')) {
+                        tipoCard = 'PH';
                     }
 
-                    // Filtro precio
-                    if (precioMin || precioMax) {
-                        const precioCard = parseInt(card.getAttribute('data-precio'));
-                        if (precioMin && precioCard < parseInt(precioMin)) mostrar = false;
-                        if (precioMax && precioCard > parseInt(precioMax)) mostrar = false;
+                    if (tipoCard !== tipo) {
+                        mostrar = false;
                     }
+                }
 
-                    // Filtro tipo (detectar automáticamente del título)
-                    if (tipo) {
-                        const titulo = card.querySelector('.property-title')?.textContent.toLowerCase() || '';
-                        let tipoCard = '';
-
-                        if (titulo.includes('casa') || titulo.includes('villa') || titulo.includes('mansión')) {
-                            tipoCard = 'Casa';
-                        } else if (titulo.includes('apartamento')) {
-                            tipoCard = 'Departamento';
-                        } else if (titulo.includes('ph')) {
-                            tipoCard = 'PH';
-                        }
-
-                        if (tipoCard !== tipo) {
-                            mostrar = false;
-                        }
-                    }
-
-                    // Mostrar u ocultar
-                    card.style.display = mostrar ? 'flex' : 'none';
-                    if (mostrar) resultados++;
-                });
-
-                console.log('Resultados encontrados:', resultados);
-            }
-
-            // Inicializar
-            document.addEventListener('DOMContentLoaded', function () {
-                // Capturar todas las cards
-                todasLasCards = Array.from(document.querySelectorAll('.property-card'));
-                console.log('Cards encontradas:', todasLasCards.length);
-
-                // Debug: mostrar todas las ubicaciones
-                todasLasCards.forEach(card => {
-                    console.log('Ubicación:', card.getAttribute('data-ubicacion'));
-                });
-
-                // Hacer sticky
-                hacerSticky();
-
-                // Agregar eventos a filtros
-                document.getElementById('filtroUbicacion').addEventListener('change', filtrar);
-                document.getElementById('filtroPrecioMin').addEventListener('input', filtrar);
-                document.getElementById('filtroPrecioMax').addEventListener('input', filtrar);
-                document.getElementById('filtroTipo').addEventListener('change', filtrar);
+                // Mostrar u ocultar
+                card.style.display = mostrar ? 'flex' : 'none';
+                if (mostrar) resultados++;
             });
-        </script>
+
+            console.log('Resultados encontrados:', resultados);
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function () {
+            // Capturar todas las cards
+            todasLasCards = Array.from(document.querySelectorAll('.property-card'));
+            console.log('Cards encontradas:', todasLasCards.length);
+
+            // Debug: mostrar todas las ubicaciones
+            todasLasCards.forEach(card => {
+                console.log('Ubicación:', card.getAttribute('data-ubicacion'));
+            });
+
+            // Hacer sticky
+            hacerSticky();
+
+            // Agregar eventos a filtros
+            document.getElementById('filtroUbicacion').addEventListener('change', filtrar);
+            document.getElementById('filtroPrecioMin').addEventListener('input', filtrar);
+            document.getElementById('filtroPrecioMax').addEventListener('input', filtrar);
+            document.getElementById('filtroTipo').addEventListener('change', filtrar);
+        });
+    </script>
 </body>
 
 </html>

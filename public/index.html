@@ -18,18 +18,17 @@
     <!-- Inicio del codigo del header-->
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo">
-            
-            </a>
+            <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png" alt="thumbnail-Home-Deligth-removebg"></a>
             <ul class="nav-links">
                 <li><a href="index.html" class="inicio">Inicio</a></li>
                 <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
                 <li><a href="AboutUs.html" class="about">About Us</a></li>
-                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
+            <a href="login&register2.html" class="Nav-btn">LogIn/Register</a>
         </nav>
     </header>
+    <script src="js/nav.js"></script>
     <!-- final del codigo del header-->
 
     <!-- Home Page -->
@@ -84,7 +83,12 @@
         <!-- Features Section -->
         <section class="features">
             <div class="container">
+<<<<<<< HEAD
+                <h2 class="section-header">¿Por qué elegir Home Delight?</h2>
+=======
                 <h2>¿Por qué elegir Home Delight?</h2>
+                <br>
+>>>>>>> ae4b54751e7850446a7a11cf3fdbd82ac43119db
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">
@@ -188,6 +192,10 @@
         </div>
     </section>
     <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Home Delight</span>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
@@ -198,9 +206,9 @@
                 <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="AboutUs.html">About Us</a></li>
+                        <li><a href="ContactUs.html">Contact Us</a></li>
+                        <li><a href="Marketplace.html">Marketplace</a></li>
                         <li><a href="#prices">Precios</a></li>
                     </ul>
                 </div>
@@ -225,25 +233,45 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="footer-bottom">
-                <div class="footer-links">
-                    <a href="#privacy">Privacidad</a>
-                    <a href="#terms">Términos</a>
-                    <a href="#cookies">Cookies</a>
-                    <a href="#legal">Legal</a>
-                </div>
-                <div class="footer-copyright">
-                    © 2025 Home Delight. Todos los derechos reservados.
-                </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="AboutUs.html" aria-label="Sobre nosotros">About Us</a>
+                <a href="ContactUs.html" aria-label="Contacto">Contact Us</a>
+                <a href="Marketplace.html" aria-label="Marketplace">Marketplace</a>
+                <a href="Pricing.html" aria-label="Precios">Precios</a>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="/buy" aria-label="Comprar">Comprar</a>
+                <a href="/rent" aria-label="Alquilar">Alquilar</a>
+                <a href="/sell" aria-label="Vender">Vender</a>
+                <a href="/contact" aria-label="Contacto">Contacto</a>
+            </div>
+            <div class="footer-section">
+                <h3>Lugares</h3>
+                <a href="/panama" aria-label="Panamá">Panamá</a>
+                <a href="/colon" aria-label="Colón">Colón</a>
+                <a href="/panama-oeste" aria-label="Panamá Oeste">Panamá Oeste</a>
+                <a href="/otras-ubicaciones" aria-label="Otras ubicaciones">Otras Ubicaciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="policy-links">
+                <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
+                <a href="/terms" aria-label="Términos y condiciones">Términos</a>
+                <a href="/cookies" aria-label="Política de cookies">Cookies</a>
+                <a href="/legal" aria-label="Aviso legal">Legal</a>
+            </div>
+            <div class="copyright">
+                © 2025 Home Delight. Todos los derechos reservados.
             </div>
         </div>
     </footer>
-
     <!-- Scripts -->
-
+    <script src="js/config.js"></script>
     <script src="js/chatbot.js"></script>
-
+    <script src="js/firebase-error-handler.js"></script>
+    <script src="js/firebase-config.js"></script>
     <script>
         // Tu archivo de JavaScript (ej. script.js)
         const firebaseConfig = {
@@ -287,5 +315,4 @@
 
     </script>
 </body>
-
 </html>

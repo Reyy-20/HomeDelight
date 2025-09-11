@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/Properties.css">
     <style>
-        
+
     </style>
 </head>
 
@@ -18,8 +18,8 @@
     <div id="marketplace">
         <header class="header">
             <nav class="nav">
-                <a href="index.html" class="logo">
-                </a>
+                <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png"
+                        alt="thumbnail-Home-Deligth-removebg"></a>
                 <ul class="nav-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="Marketplace.html">Marketplace</a></li>
@@ -191,16 +191,17 @@
             <!-- Inicio del codigo del header-->
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo">Home Delight</a>
+            <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png" alt="thumbnail-Home-Deligth-removebg"></a>
             <ul class="nav-links">
                 <li><a href="index.html" class="inicio">Inicio</a></li>
                 <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
                 <li><a href="AboutUs.html" class="about">About Us</a></li>
-                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
+            <a href="login&register2.html" class="Nav-btn">LogIn/Register</a>
         </nav>
     </header>
+    <script src="js/nav.js"></script>
     <!-- final del codigo del header-->
 
 
@@ -221,9 +222,9 @@
                 <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="AboutUs.html">About Us</a></li>
+                        <li><a href="ContactUs.html">Contact Us</a></li>
+                        <li><a href="Marketplace.html">Marketplace</a></li>
                         <li><a href="#prices">Precios</a></li>
                     </ul>
                 </div>
@@ -545,7 +546,6 @@
                         </div>
                     `).join('')}
                 </div>
-
                 <div class="contact-section">
                     <h3>¿Interesado en esta propiedad?</h3>
                     <p>Completa el formulario y nos pondremos en contacto contigo</p>
@@ -591,15 +591,15 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             <strong>📞 Teléfono</strong><br>
-                            +507 6666-7777
+                            +507 6246-4959
                         </div>
                         <div class="contact-item">
                             <strong>📧 Email</strong><br>
-                            info@homedelight.com
+                            homedelight@gmail.com
                         </div>
                         <div class="contact-item">
                             <strong>💬 WhatsApp</strong><br>
-                            +507 6666-7777
+                            +507 6246-4959
                         </div>
                     </div>
                     
@@ -619,7 +619,7 @@
         // Función para enviar el formulario de interés
         function submitInterestForm(event) {
             event.preventDefault();
-            
+
             const formData = new FormData(event.target);
             const data = {
                 property: formData.get('property') || 'Propiedad actual',
@@ -634,7 +634,7 @@
 
             console.log('Datos del formulario:', data);
             alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.');
-            
+
             // Limpiar formulario
             event.target.reset();
         }

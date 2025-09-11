@@ -20,7 +20,7 @@
         }
 
         .meet-section {
-            background-image: url('background-image.jpg');
+            background-image: url('https://img.jamesedition.com/listing_images/2025/06/12/16/03/38/75e13bd1-eaef-48b9-bdf6-da30aaa6555b/je/760x470xc.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -33,6 +33,9 @@
             justify-content: center;
             align-items: center;
             width: 100%;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: high-quality;
         }
 
         .meet-section::before {
@@ -76,7 +79,7 @@
         }
 
         .story-box {
-            background: linear-gradient(135deg,#ecc75a 20%,#e5af52 100% );
+            background: linear-gradient(135deg, #f4e4a6 0%, #f7e8b8 50%, #faf0d0 100%);
             border-radius: 15px;
             padding: 60px 40px;
             margin: 40px 0;
@@ -90,7 +93,7 @@
         .story-title {
             font-size: 2.2rem;
             font-weight: bold;
-            color: white;
+            color: #333;
             margin-bottom: 30px;
             text-align: center;
         }
@@ -98,7 +101,7 @@
         .story-text {
             font-size: 1.2rem;
             line-height: 1.9;
-            color: white;
+            color: #333;
             text-align: center;
         }
 
@@ -170,12 +173,12 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ecc75a 0%, #e5af52 100%);
+            background: linear-gradient(135deg, #f4e4a6 0%, #f7e8b8 50%, #faf0d0 100%);
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #333;
             font-size: 2rem;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -235,7 +238,7 @@
 
         /* Call to Action Section */
         .cta-section {
-            background: linear-gradient(135deg, #ecc75a 0%, #e5af52 100%);
+            background: linear-gradient(135deg, #f4e4a6 0%, #f7e8b8 50%, #faf0d0 100%);
             padding: 100px 60px;
             margin: 60px 0 0 0;
             text-align: center;
@@ -264,7 +267,7 @@
         .cta-title {
             font-size: 3rem;
             font-weight: bold;
-            color: white;
+            color: #333;
             margin-bottom: 30px;
             text-align: center;
             line-height: 1.2;
@@ -274,7 +277,7 @@
         .cta-description {
             font-size: 1.4rem;
             line-height: 1.8;
-            color: rgba(255, 255, 255, 0.95);
+            color: #333;
             text-align: center;
             margin-bottom: 40px;
             max-width: 700px;
@@ -285,7 +288,7 @@
         .cta-button {
             display: inline-block;
             background: white;
-            color: #e5af52;
+            color: #d4af37;
             padding: 18px 40px;
             font-size: 1.2rem;
             font-weight: bold;
@@ -306,21 +309,21 @@
 </head>
 
 <body>
-        <!-- Inicio del codigo del header-->
+    <!-- Inicio del codigo del header-->
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo">
-                <img src="https://i.ibb.co/j9hjBYNX/thumbnail-Home-Deligth-removebg.png" alt="Logo de Home Delight" class="logo-image">
-            </a>
+            <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png"
+                    alt="thumbnail-Home-Deligth-removebg"></a>
             <ul class="nav-links">
                 <li><a href="index.html" class="inicio">Inicio</a></li>
                 <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
                 <li><a href="AboutUs.html" class="about">About Us</a></li>
-                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
+            <a href="login&register2.html" class="Nav-btn">LogIn/Register</a>
         </nav>
     </header>
+    <script src="js/nav.js"></script>
     <!-- final del codigo del header-->
 
     <!-- About Us Content -->
@@ -440,9 +443,9 @@
                 <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="AboutUs.html">About Us</a></li>
+                        <li><a href="ContactUs.html">Contact Us</a></li>
+                        <li><a href="Marketplace.html">Marketplace</a></li>
                         <li><a href="#prices">Precios</a></li>
                     </ul>
                 </div>
