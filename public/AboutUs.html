@@ -105,6 +105,16 @@
             text-align: center;
         }
 
+        .story-image {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: block;
+            object-fit: cover;
+        }
+
         .highlight {
             color: #e5af52;
             font-weight: 600;
@@ -305,6 +315,83 @@
             background: rgba(255, 255, 255, 0.95);
             border-color: rgba(255, 255, 255, 0.3);
         }
+
+        /* Grid Section Styles */
+        .grid-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 40px;
+            margin: 40px 0;
+        }
+
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .grid-box {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .grid-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .grid-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .grid-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #555;
+            text-align: center;
+        }
+
+        .values-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .values-list li {
+            font-size: 1.1rem;
+            color: #555;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .grid-section {
+                padding: 60px 20px;
+            }
+            
+            .grid-box {
+                padding: 30px 20px;
+            }
+        }
     </style>
 </head>
 
@@ -350,6 +437,39 @@
                 experience—combining smart technology with expert guidance. Our purpose is to give every home that
                 "something special" that makes it unique: comfort, personality, and joy.
             </p>
+            <img src="https://attachments.office.net/owa/sherlyne.simmons2025%40motta.superate.org.pa/service.svc/s/GetAttachmentThumbnail?id=AAkALgAAAAAAHYQDEapmEc2byACqAC%2FEWg0Acfo7ofnhvkydOmSWVAKPewACZ%2F9aXQAAARIAEAAcmgmDxK5XR6VEdPm1%2FbtR&thumbnailType=2&token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjlEZ2liUXIxT1djNGVXejI5dFhGVi9KYUFsdz0iLCJ4NXQiOiI5RGdpYlFyMU9XYzRlV3oyOXRYRlYvSmFBbHc9Iiwibm9uY2UiOiJGdUl4U0JVSmJGaDFld2NoZ0lIdnRCZ3pQWHdEZDV6ZzhQYXRWTVNoVTlnRXdXWmpBbDYydUxndzJqTmFQUjhxdHB2Q2pOXzZ0S1JrVWlyNTJJc19SZTBDYlhaUXhFeUdRcExsLUllbndncUFvbzdkYlJaU29SR0RjZ2RaY1Boam95UkJhZXVDTGtUejRPTDViNGJMQi15a2E5dW1qd1luT3pqNlFCSkxKelUiLCJpc3Nsb2MiOiJDSDNQUjA4TUI5NTIxIiwic3JzbiI6NjM4OTI5MTUzMjgyNTIyOTQ3fQ.eyJzYXAtdmVyc2lvbiI6IjMzIiwiYXBwaWQiOiJhZjNlYmJiYS1jMjNmLTQ5MmEtYWE5My04MzQyMTY5NmVjNGIiLCJpc3NyaW5nIjoiV1ciLCJhcHBpZGFjciI6IjIiLCJhcHBfZGlzcGxheW5hbWUiOiIiLCJ1dGkiOiI3M2YxNWQzMy04YjI1LTRlM2QtYTg0NC0yNTRiMjFlMjkyNmYiLCJpYXQiOjE3NTc2MjQwNzgsInZlciI6IlNUSS5Vc2VyLkNhbGxiYWNrVG9rZW4uVjEiLCJ0aWQiOiJkOGUzYmQ0NDBiYmE0MjZiOTUyZGFkYTdiYjE3MzkzYyIsInRydXN0ZWRmb3JkZWxlZ2F0aW9uIjoiZmFsc2UiLCJ0b3BvbG9neSI6IntcIlR5cGVcIjpcIk1hY2hpbmVcIixcIlZhbHVlXCI6XCJDSDNQUjA4TUI5NTIxLm5hbXByZDA4LnByb2Qub3V0bG9vay5jb21cIn0iLCJyZXF1ZXN0b3JfYXBwaWQiOiIxNTdjZGZiZi03Mzk4LTRhNTYtOTZjMy1lOTNlOWFiMzA5YjUiLCJyZXF1ZXN0b3JfYXBwX2Rpc3BsYXluYW1lIjoiT2ZmaWNlIDM2NSBFeGNoYW5nZSBNaWNyb3NlcnZpY2UiLCJzY3AiOiJPd2FBdHRhY2htZW50cy5SZWFkIiwib2lkIjoiZWM5NjM3YTEtMmQ4MC00MGU5LThiNGItYzlkYjdmN2FlMjVkIiwicHVpZCI6IjEwMDMyMDAyNzVDRDQzRjEiLCJzbXRwIjoic2hlcmx5bmUuc2ltbW9uczIwMjVAbW90dGEuc3VwZXJhdGUub3JnLnBhIiwidXBuIjoic2hlcmx5bmUuc2ltbW9uczIwMjVAbW90dGEuc3VwZXJhdGUub3JnLnBhIiwidXNlcmNhbGxiYWNrdXNlcmNvbnRleHRpZCI6IjQyMzc4MGM5YmIzZjRiM2NiYjZkMjQzNGZlODdmOTllIiwiZXBrIjoie1wia3R5XCI6XCJSU0FcIixcIm5cIjpcIngzd1l3WHVHSFdnbkNPOHh5SnItTHF0MjFlc3plU0Q0bm85TUdmeXF0UDNIamE4VWplNWRvQlBUdUc2VDdLbVluRnBoWUtxNXFNVEIzb29OR2NWWVgybVNaOUhZbjdsU3pPV0N6SnBEbzIxRURNX1VkeGhjMVhrbW9hT0h6RGJJeGNab1J0aXJxLTlsdGlrOUZFZ0JtMGNScmk2MW5UVFNHMW13RmYwOS1VUlRjbEZHaUhGbm8tMXBuYUtSbFVWVjM4MDlBZTlzSFJTU2gxVUdfQXJTVVBIM29acEtaZVNHVzJmbHBRb3NLZ2ZkX3VqXzJtd0ZpM3BQcVRoajVsOHU0eV8yNzA3NWQ3Zlppb2ZiTTRCdk8wcGdHYmpvYkxkOEJlQU56Sk5iS1RmS2hKTEZJRXl5WTFJb1NCUDQ3b0pvWTZHOHRuVnhGX3IyYXg1dTRpRWI4UVwiLFwiZVwiOlwiQVFBQlwiLFwiYWxnXCI6XCJSUzI1NlwiLFwiZXhwXCI6XCIxNzU3NzEzODU2XCIsXCJleHBfZGlmZlwiOlwiODY0MDBcIixcImtpZFwiOlwiTUZhbGZPcWhPMjg5UTZvbkNlaFVBVlE4NnE0XCJ9LllwdkZYRXZ4ZWlXdDhkbUtUTWtjTDZKckcrMDFkN1ZqZ0Z3b2xuMlBKRlAza0ZiVkRhVURncUpFSGxiQjh3dWxabFkxTGowMnpNeWlFQktqbGw4aEVRUU55SXNNL3N2SG92ckhZQnMwTE1LVVRxVnZhbmJYb3QzSkpDNG9YVVJzZ2pNdWNQMXJuSzRwQ1Q1UHd5a21WVldxQWlRcVYxN2toYXN6b3pZaFhHRGxBOC9mbEpDTHhNZCttNWJsMGthZ3poRzd6clVkOHdXWlptNVR0Y0hOVWxLZld0VHhGOThUTy9LU1c1NWhDeVl3d2oxcFoyQkIyOVg5d1VFa2N5Z0lIYWwwQ0kzbEowQ1NKbmE3WTYybGVTYXV6QXN4M3JMeHFwZmlTcFYzUHBjZnRKVXhxcGh3bkQxZTdxS3NhaUhPcG5LWmVVSzJuQ29hdCtXbEw1RExoQT09IiwibmJmIjoxNzU3NjI0MDc4LCJleHAiOjE3NTc2MjQzNzgsImlzcyI6Imh0dHBzOi8vc3Vic3RyYXRlLm9mZmljZS5jb20vc3RzLyIsImF1ZCI6Imh0dHBzOi8vb3V0bG9vay5vZmZpY2UuY29tIiwic3NlYyI6IkU3OWMwMURsU2p2REJwL3UiLCJlc3NlYyI6ImFydGlmYWN0LWF1dG8tcHJvZHxNMzY1MjAyNS0wNy0yNFQwOTo0NDo1OC4wNDYwOTg0WnxoaVJUWU9seEhENjBqbyJ9.X_P3wCWhtHsEm-1rbfNaRk5rOv1x0BdnIlleOYqPTcA4uCT_uEWmR6SKAQQ3FztOEf-Q66fZgS3OK7Xk_Oe2cNunr1oyUjAElDb8tlkku6bxGUOFmy_GyqziGxzfjmsKhzIWa-til67r1W5zZt-Juto6fdg5NLB4fbzZkv8KJJAcOR9sEuWHgFl0sHv1eMshuo7PvEe0QTMGZYkR9Ptgb8NKJ8ZPStmkNjYXV-l561ut-IebrvfJKWOaLj2r7QgEiTqcByxpByaxeiS0sMtzhmSw7bsaU-JQAwe6fJPls-uj7FXZ1ejkoXToKGIgt76DSlcxKQWYQF4CUpW3hrLwnQ&X-OWA-CANARY=X-OWA-CANARY_cookie_is_null_or_empty&owa=outlook.office.com&scriptVer=20250905004.03&clientId=D76B3FDB06D04528890A4B674C211EB2&animation=true" alt="Our Story Image" class="story-image">
+        </div>
+
+        <!-- Grid Section -->
+        <div class="grid-section">
+            <div class="grid-container">
+                <div class="grid-box">
+                    <h3 class="grid-title">Vision</h3>
+                    <p class="grid-content">
+                        We strive to be the leading home care app, connecting communities with innovation and sustainability, empowering people to find their perfect home.
+                    </p>
+                </div>
+                
+                <div class="grid-box">
+                    <h3 class="grid-title">Mission</h3>
+                    <p class="grid-content">
+                        Our mission is to guide families in finding their ideal home with personalized support, making the process simple and stress-free.
+                    </p>
+                </div>
+                
+                <div class="grid-box">
+                    <h3 class="grid-title">Our Values</h3>
+                    <ul class="values-list">
+                        <li>Commitment</li>
+                        <li>Empathy</li>
+                        <li>Accessibility</li>
+                        <li>Transparency</li>
+                    </ul>
+                    <p class="grid-content">
+                        These values will be reflected in our website while you enjoy your incredible search, offering an environment of commitment.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Testimonials Section -->
