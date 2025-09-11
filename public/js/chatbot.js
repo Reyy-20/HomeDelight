@@ -171,7 +171,8 @@ class HomeDelightChatbot {
             </button>
             <div class="chatbot-window">
                 <div class="chatbot-header">
-                    <h3>🏠 Home Delight Assistant</h3>
+                <img src="logost.png" alt="Home Delight Logo" class="chatbot-logo">
+                    <h3> Home Delight Assistant</h3>
                     <button class="chatbot-close" title="Cerrar chat">×</button>
                 </div>
                 <div class="chatbot-messages"></div>

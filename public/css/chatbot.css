@@ -1,7 +1,7 @@
 /* Chatbot Styles */
 :root {
     --primary-gold: #D8AF53;
-    --secondary-gold: #D3B76D;
+    --secondary-gold: #D8AF53;
     --light-bg: #ECE8E2;
 }
 
@@ -83,6 +83,20 @@
     margin: 0;
     font-size: 18px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.chatbot-logo {
+    width: auto;
+    height: 40px;
+    margin-right: 8px;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
 }
 
 .chatbot-close {
