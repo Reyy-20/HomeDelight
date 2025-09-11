@@ -25,7 +25,10 @@
         <div class="auth-wrapper">
             <!-- Logo y Título -->
             <div class="auth-header">
-                <h1 class="logo-text">HomeDelight</h1>
+                <div class="logo-text">
+                    <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png"
+                            alt="thumbnail-Home-Deligth-removebg"></a>
+                </div>
                 <p class="auth-subtitle">Encuentra tu hogar ideal </p>
             </div>
 
@@ -717,6 +720,23 @@
             --error-color: #dc3545;
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            /* Altura fija para la imagen */
+            width: auto;
+            /* Mantener proporción */
+            max-width: 200px;
+            /* Ancho máximo para evitar que sea muy grande */
+            object-fit: contain;
+            /* Mantener proporción sin distorsión */
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
@@ -817,22 +837,12 @@
             transform: translateY(-5px);
             box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
         }
-
-        /* Header del formulario */
+         /* Header del formulario */
         .auth-header {
             text-align: center;
+            justify-content: center;
             padding: 30px 30px 20px;
             background: linear-gradient(135deg, var(--light-bg) 0%, #f8f9fa 100%);
-        }
-
-        .logo-text {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
         }
 
         .auth-subtitle {
