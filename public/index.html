@@ -18,16 +18,17 @@
     <!-- Inicio del codigo del header-->
     <header class="header">
         <nav class="nav-container">
-           <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png" alt="thumbnail-Home-Deligth-removebg"></a>
+            <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png" alt="thumbnail-Home-Deligth-removebg"></a>
             <ul class="nav-links">
                 <li><a href="index.html" class="inicio">Inicio</a></li>
                 <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
                 <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
                 <li><a href="AboutUs.html" class="about">About Us</a></li>
-                <li><a href="login&register2.html" class="login">LogIn/register</a></li>
             </ul>
+            <a href="login&register2.html" class="Nav-btn">LogIn/Register</a>
         </nav>
     </header>
+    <script src="js/nav.js"></script>
     <!-- final del codigo del header-->
 
     <!-- Home Page -->
@@ -242,48 +243,6 @@
 
     <script src="js/chatbot.js"></script>
 
-    <script>
-        // Tu archivo de JavaScript (ej. script.js)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
-            authDomain: "expo-project-senior-6bfea.firebaseapp.com",
-            databaseURL: "https://expo-project-senior-6bfea-default-rtdb.firebaseio.com",
-            projectId: "expo-project-senior-6bfea",
-            storageBucket: "expo-project-senior-6bfea.firebasestorage.app",
-            messagingSenderId: "188431803500",
-            appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
-            measurementId: "G-5Q8NB4WFK6"
-        };
-
-        // Inicializar Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Verificar estado al cargar la página
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('Página principal cargada');
-            console.log('Estado del usuario:', {
-                isAuthenticated: localStorage.getItem('isAuthenticated'),
-                userType: localStorage.getItem('userType'),
-                userEmail: localStorage.getItem('userEmail')
-            });
-        });
-
-        const MyLog = document.getElementById('dashboard');
-
-        auth.onAuthStateChanged(function (user) {
-            if (user) {
-                // Usuario está logueado, cambiar el enlace a "Dashboard"
-                MyLog.textContent = 'Dashboard';
-                MyLog.href = 'gptdashboard.html';
-            } else {
-                // Usuario no está logueado, mostrar "LogIn/register"
-                MyLog.textContent = 'LogIn/register';
-                MyLog.href = 'login&register2.html';
-            }
-        });
-
-    </script>
 </body>
 
 </html>
