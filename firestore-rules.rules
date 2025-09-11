@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Reglas para la colección de usuarios
+    match /users/{userId} {
+      // Usuarios autenticados pueden leer/escribir su propio documento
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Administradores pueden acceder a todos los usuarios
+      allow read, write: if request.auth != null && 
+        isAdmin(request.auth.uid);
+      
+      // Validar estructura de datos para clientes
+      allow create: if request.auth != null && 
+        request.auth.uid == userId &&
+        (
+          (request.resource.data.userType == 'client' && 
+           request.resource.data.keys().hasAll(['email', 'userType', 'createdAt', 'lastLogin', 'status']) &&
+           request.resource.data.status == 'active') ||
+          (request.resource.data.userType == 'business' && 
+           request.resource.data.keys().hasAll(['email', 'userType', 'createdAt', 'lastLogin', 'status', 'businessName', 'address', 'license']) &&
+           request.resource.data.status == 'pending')
+        );
+      
+      // Validar actualizaciones
+      allow update: if request.auth != null && 
+        request.auth.uid == userId &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastLogin', 'status', 'approvedAt', 'approvedBy', 'rejectedAt', 'rejectedBy']);
+    }
+    
+    // Reglas para la colección de logs de actividad (opcional)
+    match /activity_logs/{logId} {
+      allow read: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || isAdmin(request.auth.uid));
+      allow write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+    }
+    
+    // Reglas para la colección de configuraciones del sistema
+    match /system_config/{configId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && isAdmin(request.auth.uid);
+    }
+    
+    // Función auxiliar para verificar si un usuario es administrador
+    function isAdmin(userId) {
+      return exists(/databases/$(database)/documents/users/$(userId)) &&
+             get(/databases/$(database)/documents/users/$(userId)).data.userType == 'admin';
+    }
+    
+    // Reglas para subcolecciones de usuarios (si se implementan en el futuro)
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == userId || isAdmin(request.auth.uid));
+    }
+  }
+}

@@ -1,7 +1,9 @@
 
 section{
-    padding: 100px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
 }
+
+
  .filters {
      background: #fff;
      padding: 18px 24px 12px 24px;
@@ -72,10 +74,14 @@ section{
      overflow: hidden;
      position: relative;
      transition: transform 0.15s;
+     text-decoration: none;
+     color: inherit;
  }
 
  .property-card:hover {
      transform: translateY(-4px) scale(1.01);
+     text-decoration: none;
+     color: inherit;
  }
 
  .property-image {
@@ -396,3 +402,20 @@ section{
          min-width: 100px;
      }
  }
+ .filters.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
+    margin: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    padding: 12px 24px; /* Reduce el padding cuando esté fixed */
+    background: white; /* Asegúrate que tenga fondo blanco */
+}
+
+/* Para que el contenido no se tape */
+.content-pushed {
+    margin-top: 100px; /* Ajusta este valor según la altura de tus filtros */
+}

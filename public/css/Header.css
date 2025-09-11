@@ -1,70 +1,173 @@
-   * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            background-color: #ffffff;
-        }
+/* inicio del codigo del header*/
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f8f9fa;
+}
 
-        /* Color Variables */
-        :root {
-            --primary-gold: #D8AF53;
-            --secondary-gold: #D3B76D;
-            --light-bg: #ECE8E2;
-            --gray-text: #929191;
-            --gray-border: #E3E3E3;
-            --black-text: #000000;
-        }
+.header {
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e9ecef;
+}
 
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary-gold);
-            text-decoration: none;
-        }
+.logo img {
+    height: 50px;
+    /* Altura fija para la imagen */
+    width: auto;
+    /* Mantener proporción */
+    max-width: 200px;
+    /* Ancho máximo para evitar que sea muy grande */
+    object-fit: contain;
+    /* Mantener proporción sin distorsión */
+}
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
 
-        .nav-links li {
-            margin-left: 2rem;
-        }
+.nav-links li {
+    position: relative;
+}
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--black-text);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+.nav-links a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+    position: relative;
+}
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary-gold);
-        }
+.nav-links a:hover {
+    color: #d4a574;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #d4a574;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 0.8rem;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+}
+
+/* From Uiverse.io by adamgiebl */
+.Nav-btn {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.7em 2em;
+    border: 3px solid #d4a574;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+    color: #d4a574;
+    text-decoration: none;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+.Nav-btn:before {
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: '';
+    background-color: #d4a574;
+    z-index: -1;
+}
+
+.Nav-btn:hover,
+button:focus {
+    color: white;
+}
+
+.Nav-btn:hover:before,
+button:focus:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.Nav-btn:active {
+    transform: scale(0.9);
+}
+
+/*Final del codigo del header*/

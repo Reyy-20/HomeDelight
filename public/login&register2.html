@@ -1,14 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login y Registro</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Login y Registro - HomeDelight</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
+    <!-- Botón de Regreso -->
+    <div class="back-button-container">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            </svg>
+            Volver al Inicio
+        </button>
+    </div>
+
     <div class="container">
         <div class="auth-wrapper">
+            <!-- Logo y Título -->
+            <div class="auth-header">
+                <div class="logo-text">
+                    <svg width="180" height="60" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
+                        <!-- HOME text -->
+                        <text x="0" y="35" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFD700">HOME</text>
+                        
+                        <!-- Stylized O with house roof -->
+                        <g transform="translate(60, 8)">
+                            <!-- House roof outline -->
+                            <path d="M-8,-5 L0,-12 L8,-5 L8,2 L-8,2 Z" fill="none" stroke="#666" stroke-width="1.5"/>
+                            <!-- O circle with cross pane -->
+                            <circle cx="0" cy="0" r="12" fill="none" stroke="#FFD700" stroke-width="2"/>
+                            <line x1="-8" y1="0" x2="8" y2="0" stroke="#FFD700" stroke-width="1.5"/>
+                            <line x1="0" y1="-8" x2="0" y2="8" stroke="#FFD700" stroke-width="1.5"/>
+                        </g>
+                        
+                        <!-- Key -->
+                        <g transform="translate(0, 45)">
+                            <path d="M5,8 L8,5 L12,5 L12,8 L8,8 L8,12 L5,12 Z M8,8 L8,10 L10,10 L10,8 Z" fill="#666"/>
+                            <circle cx="8" cy="8" r="2" fill="none" stroke="#666" stroke-width="1"/>
+                        </g>
+                        
+                        <!-- DELIGHT text -->
+                        <text x="20" y="55" font-family="Arial, sans-serif" font-size="16" font-weight="normal" fill="#666">DELIGHT</text>
+                        
+                        <!-- Underline for DELIGHT -->
+                        <line x1="20" y1="58" x2="120" y2="58" stroke="#666" stroke-width="1"/>
+                    </svg>
+                </div>
+                <p class="auth-subtitle">Encuentra tu hogar ideal </p>
+            </div>
+
             <!-- Navigation Tabs -->
             <div class="nav-tabs">
                 <button class="tab-btn active" data-form="client">Cliente</button>
@@ -27,39 +74,52 @@
                     <!-- Client Login Form -->
                     <form id="client-login-form" class="auth-form active">
                         <h2>Iniciar Sesión - Cliente</h2>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="client-login-email">Correo electrónico:</label>
-                            <input type="email" id="client-login-email" name="email" required>
+                            <input type="email" id="client-login-email" name="email" required
+                                placeholder="tu@email.com">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="client-login-password">Contraseña:</label>
-                            <input type="password" id="client-login-password" name="password" required>
+                            <input type="password" id="client-login-password" name="password" required
+                                placeholder="••••••••">
                         </div>
-                        <button type="submit" class="submit-btn">Iniciar Sesión</button>
+                        <button type="submit" class="submit-btn" id="client-login-submit">
+                            <span class="btn-text">Iniciar Sesión</span>
+                            <div class="loading-spinner" style="display: none;"></div>
+                        </button>
                         <div class="error-message" id="client-login-error"></div>
+                        <div class="success-message" id="client-login-success" style="display: none;"></div>
                     </form>
 
                     <!-- Client Register Form -->
                     <form id="client-register-form" class="auth-form">
                         <h2>Registro - Cliente</h2>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="client-reg-name">Nombre completo:</label>
-                            <input type="text" id="client-reg-name" name="name" required>
+                            <input type="text" id="client-reg-name" name="name" required
+                                placeholder="Tu nombre completo">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="client-reg-email">Correo electrónico:</label>
-                            <input type="email" id="client-reg-email" name="email" required>
+                            <input type="email" id="client-reg-email" name="email" required placeholder="tu@email.com">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="client-reg-password">Contraseña:</label>
-                            <input type="password" id="client-reg-password" name="password" required>
+                            <input type="password" id="client-reg-password" name="password" required
+                                placeholder="Mínimo 6 caracteres">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="client-reg-phone">Teléfono:</label>
-                            <input type="tel" id="client-reg-phone" name="phone" required>
+                            <input type="tel" id="client-reg-phone" name="phone" required
+                                placeholder="+1 (555) 123-4567">
                         </div>
-                        <button type="submit" class="submit-btn">Registrarse</button>
+                        <button type="submit" class="submit-btn" id="client-register-submit">
+                            <span class="btn-text">Registrarse</span>
+                            <div class="loading-spinner" style="display: none;"></div>
+                        </button>
                         <div class="error-message" id="client-register-error"></div>
+                        <div class="success-message" id="client-register-success" style="display: none;"></div>
                     </form>
                 </div>
 
@@ -73,75 +133,104 @@
                     <!-- Business Login Form -->
                     <form id="business-login-form" class="auth-form active">
                         <h2>Acceso - Negocio</h2>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-login-email">Email empresarial:</label>
-                            <input type="email" id="business-login-email" name="email" required>
+                            <input type="email" id="business-login-email" name="email" required
+                                placeholder="negocio@email.com">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-login-password">Contraseña:</label>
-                            <input type="password" id="business-login-password" name="password" required>
+                            <input type="password" id="business-login-password" name="password" required
+                                placeholder="••••••••">
                         </div>
-                        <div class="form-group">
-                            <label for="business-login-phone">Teléfono de contacto:</label>
-                            <input type="tel" id="business-login-phone" name="phone" required>
-                        </div>
-                        <button type="submit" class="submit-btn">Acceder</button>
+                        <button type="submit" class="submit-btn" id="business-login-submit">
+                            <span class="btn-text">Acceder</span>
+                            <div class="loading-spinner" style="display: none;"></div>
+                        </button>
                         <div class="error-message" id="business-login-error"></div>
+                        <div class="success-message" id="business-login-success" style="display: none;"></div>
                     </form>
 
                     <!-- Business Register Form -->
                     <form id="business-register-form" class="auth-form">
                         <h2>Registro - Negocio</h2>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-reg-name">Nombre del negocio:</label>
-                            <input type="text" id="business-reg-name" name="bizName" required>
+                            <input type="text" id="business-reg-name" name="bizName" required
+                                placeholder="Nombre de tu empresa">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-reg-email">Email empresarial:</label>
-                            <input type="email" id="business-reg-email" name="email" required>
+                            <input type="email" id="business-reg-email" name="email" required
+                                placeholder="negocio@email.com">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-reg-password">Contraseña:</label>
-                            <input type="password" id="business-reg-password" name="password" required>
+                            <input type="password" id="business-reg-password" name="password" required
+                                placeholder="Mínimo 6 caracteres">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-reg-phone">Teléfono empresarial:</label>
-                            <input type="tel" id="business-reg-phone" name="phone">
+                            <input type="tel" id="business-reg-phone" name="phone" required
+                                placeholder="+1 (555) 123-4567">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-reg-address">Dirección del negocio:</label>
-                            <input type="text" id="business-reg-address" name="address">
+                            <input type="text" id="business-reg-address" name="address" required
+                                placeholder="Dirección completa">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="business-reg-license">Número de licencia:</label>
-                            <input type="text" id="business-reg-license" name="license">
+                            <input type="text" id="business-reg-license" name="license" required
+                                placeholder="Número de licencia comercial">
                         </div>
-                        <button type="submit" class="submit-btn">Registrar Negocio</button>
+                        <button type="submit" class="submit-btn" id="business-register-submit">
+                            <span class="btn-text">Registrar Negocio</span>
+                            <div class="loading-spinner" style="display: none;"></div>
+                        </button>
                         <div class="error-message" id="business-register-error"></div>
+                        <div class="success-message" id="business-register-success" style="display: none;"></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- Auth Logic -->
     <script>
+        // Tu archivo de JavaScript (ej. script.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWW3XgtGG7agkUkdUiS7kU4X7ew2DjTic",
+            authDomain: "expo-project-senior-6bfea.firebaseapp.com",
+            databaseURL: "https://expo-project-senior-6bfea-default-rtdb.firebaseio.com",
+            projectId: "expo-project-senior-6bfea",
+            storageBucket: "expo-project-senior-6bfea.firebasestorage.app",
+            messagingSenderId: "188431803500",
+            appId: "1:188431803500:web:c6f64089f19ac1b64ca449",
+            measurementId: "G-5Q8NB4WFK6"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
         // Funcionalidad mejorada para navegación por secciones
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mainTabs = document.querySelectorAll('.tab-btn');
             const sections = document.querySelectorAll('.auth-section');
             const sectionTabs = document.querySelectorAll('.section-tab-btn');
             const forms = document.querySelectorAll('.auth-form');
-            const switchLinks = document.querySelectorAll('.switch-link');
 
             // Navegación principal (Cliente/Negocio)
             mainTabs.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const targetSection = this.dataset.form;
-                    
+
                     // Remover clase active de tabs principales y secciones
                     mainTabs.forEach(btn => btn.classList.remove('active'));
                     sections.forEach(section => section.classList.remove('active'));
-                    
+
                     // Activar tab y sección seleccionada
                     this.classList.add('active');
                     const targetSectionElement = document.getElementById(targetSection + '-section');
@@ -153,14 +242,14 @@
 
             // Navegación secundaria (Login/Register dentro de cada sección)
             sectionTabs.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const targetForm = this.dataset.subform;
                     const parentSection = this.closest('.auth-section');
-                    
+
                     // Remover clase active de tabs secundarios y formularios en esta sección
                     parentSection.querySelectorAll('.section-tab-btn').forEach(btn => btn.classList.remove('active'));
                     parentSection.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                    
+
                     // Activar tab y formulario seleccionado
                     this.classList.add('active');
                     const targetFormElement = document.getElementById(targetForm + '-form');
@@ -170,51 +259,468 @@
                 });
             });
 
-            // Enlaces para cambiar entre login/register
-            switchLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetForm = this.dataset.target;
-                    const parentSection = this.closest('.auth-section');
-                    
-                    // Cambiar tabs secundarios
-                    parentSection.querySelectorAll('.section-tab-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                        if (btn.dataset.subform === targetForm) {
-                            btn.classList.add('active');
+            // Configurar formularios con Firebase
+            setupFirebaseForms();
+        });
+
+        // Configuración de formularios Firebase
+        function setupFirebaseForms() {
+            // Cliente Login
+            document.getElementById('client-login-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                handleClientLogin();
+            });
+
+            // Cliente Register
+            document.getElementById('client-register-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                handleClientRegister();
+            });
+
+            // Negocio Login
+            document.getElementById('business-login-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                handleBusinessLogin();
+            });
+
+            // Negocio Register
+            document.getElementById('business-register-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                handleBusinessRegister();
+            });
+
+            // Agregar event listeners para mejorar la experiencia del usuario
+            setupFormEnhancements();
+        }
+
+        // Configurar mejoras en los formularios
+        function setupFormEnhancements() {
+            // Obtener todos los campos de input
+            const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="tel"]');
+
+            inputs.forEach(input => {
+                // Asegurar que el campo sea editable
+                input.removeAttribute('readonly');
+                input.removeAttribute('disabled');
+
+                // Evento focus para resaltar el campo
+                input.addEventListener('focus', function () {
+                    this.parentElement.classList.add('focused');
+                    this.style.cursor = 'text';
+                });
+
+                // Evento blur para quitar el resaltado
+                input.addEventListener('blur', function () {
+                    this.parentElement.classList.remove('focused');
+                });
+
+                // Evento input para validación en tiempo real
+                input.addEventListener('input', function () {
+                    validateField(this);
+                });
+
+                // Evento keypress para permitir solo números en campos de teléfono
+                if (input.type === 'tel') {
+                    input.addEventListener('keypress', function (e) {
+                        const char = String.fromCharCode(e.which);
+                        if (!/[0-9+\-\(\)\s]/.test(char)) {
+                            e.preventDefault();
                         }
                     });
-                    
-                    // Cambiar formularios
-                    parentSection.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                    const targetFormElement = document.getElementById(targetForm + '-form');
-                    if (targetFormElement) {
-                        targetFormElement.classList.add('active');
-                    }
-                });
-            });
+                }
 
-            // Manejo de envío de formularios
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(this);
-                    const formType = this.id;
-                    
-                    // Aquí puedes agregar la lógica para enviar los datos
-                    console.log(`Formulario ${formType} enviado:`, Object.fromEntries(formData));
-                    
-                    // Limpiar mensajes de error
-                    const errorElement = this.querySelector('.error-message');
-                    errorElement.textContent = '';
-                    
-                    // Simular validación exitosa
-                    alert(`${formType} procesado correctamente`);
+                // Asegurar que el campo sea clickeable
+                input.addEventListener('click', function () {
+                    this.focus();
                 });
             });
+        }
+
+        // Validar campo individual
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldType = field.type;
+            const fieldName = field.name;
+            let isValid = true;
+            let errorMessage = '';
+
+            // Validaciones específicas por tipo de campo
+            switch (fieldType) {
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (value && !emailRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Por favor ingresa un email válido';
+                    }
+                    break;
+
+                case 'password':
+                    if (value && value.length < 6) {
+                        isValid = false;
+                        errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+                    }
+                    break;
+
+                case 'tel':
+                    if (value && value.length < 10) {
+                        isValid = false;
+                        errorMessage = 'El teléfono debe tener al menos 10 dígitos';
+                    }
+                    break;
+
+                case 'text':
+                    if (fieldName.includes('name') && value && value.length < 2) {
+                        isValid = false;
+                        errorMessage = 'El nombre debe tener al menos 2 caracteres';
+                    }
+                    break;
+            }
+
+            // Mostrar/ocultar mensaje de error
+            const errorElement = field.parentElement.querySelector('.field-error');
+            if (errorElement) {
+                errorElement.remove();
+            }
+
+            if (!isValid && value) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error';
+                errorDiv.textContent = errorMessage;
+                errorDiv.style.color = 'var(--error-color)';
+                errorDiv.style.fontSize = '12px';
+                errorDiv.style.marginTop = '5px';
+                field.parentElement.appendChild(errorDiv);
+            }
+
+            // Actualizar clases CSS del campo
+            field.classList.toggle('valid', isValid && value);
+            field.classList.toggle('invalid', !isValid && value);
+        }
+
+        // Función para mostrar/ocultar loading
+        function setLoading(buttonId, isLoading) {
+            const button = document.getElementById(buttonId);
+            const btnText = button.querySelector('.btn-text');
+            const spinner = button.querySelector('.loading-spinner');
+
+            if (isLoading) {
+                btnText.style.display = 'none';
+                spinner.style.display = 'block';
+                button.disabled = true;
+            } else {
+                btnText.style.display = 'inline';
+                spinner.style.display = 'none';
+                button.disabled = false;
+            }
+        }
+
+        // Función para mostrar mensajes
+        function showMessage(formId, message, isError = false) {
+            const errorElement = document.getElementById(formId + '-error');
+            const successElement = document.getElementById(formId + '-success');
+
+            if (isError) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            } else {
+                successElement.textContent = message;
+                successElement.style.display = 'block';
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Cliente Login
+        async function handleClientLogin() {
+            const email = document.getElementById('client-login-email').value.trim();
+            const password = document.getElementById('client-login-password').value;
+
+            console.log('Intentando login con:', { email }); // Debug
+
+            setLoading('client-login-submit', true);
+
+            try {
+                console.log('Iniciando autenticación...'); // Debug
+
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                console.log('Usuario autenticado:', user.uid); // Debug
+
+                // Verificar que sea un cliente
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists && userDoc.data().userType === 'client') {
+                    const userData = userDoc.data();
+                    console.log('Datos del usuario:', userData); // Debug
+
+                    // Redirigir después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = 'gptdashboard.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Esta cuenta no está registrada como cliente');
+                }
+
+            } catch (error) {
+                console.error('Error completo en login:', error); // Debug completo
+                let errorMessage = 'Error al iniciar sesión';
+
+                if (error.message === 'Esta cuenta no está registrada como cliente') {
+                    errorMessage = 'Esta cuenta no está registrada como cliente';
+                } else {
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage = 'No existe una cuenta con este email';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage = 'Contraseña incorrecta';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Email inválido';
+                            break;
+                        case 'auth/user-disabled':
+                            errorMessage = 'Esta cuenta ha sido deshabilitada';
+                            break;
+                        case 'auth/network-request-failed':
+                            errorMessage = 'Error de conexión. Verifica tu internet';
+                            break;
+                        default:
+                            errorMessage = `Error: ${error.message}`;
+                    }
+                }
+
+                showMessage('client-login', errorMessage, true);
+            } finally {
+                setLoading('client-login-submit', false);
+            }
+        }
+
+        // Cliente Register
+        async function handleClientRegister() {
+            const name = document.getElementById('client-reg-name').value.trim();
+            const email = document.getElementById('client-reg-email').value.trim();
+            const password = document.getElementById('client-reg-password').value;
+            const phone = document.getElementById('client-reg-phone').value.trim();
+
+            console.log('Datos del formulario:', { name, email, phone }); // Debug
+
+            // Validar campos
+            if (!name || !email || !password || !phone) {
+                showMessage('client-register', 'Por favor completa todos los campos', true);
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('client-register', 'La contraseña debe tener al menos 6 caracteres', true);
+                return;
+            }
+
+            setLoading('client-register-submit', true);
+
+            try {
+                console.log('Iniciando creación de usuario en Firebase Auth...'); // Debug
+
+                // Crear usuario en Firebase Auth
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                console.log('Usuario creado en Auth:', user.uid); // Debug
+
+                // Guardar información adicional en Firestore
+                const userData = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    userType: 'client',
+                    status: 'active',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                console.log('Guardando en Firestore:', userData); // Debug
+
+                await db.collection('users').doc(user.uid).set(userData);
+
+                console.log('Usuario guardado exitosamente en Firestore'); // Debug
+
+                // Limpiar formulario
+                document.getElementById('client-register-form').reset();
+
+                // Redirigir después de 3 segundos
+                setTimeout(() => {
+                    window.location.href = 'gptdashboard.html';
+                }, 3000);
+
+            } catch (error) {
+                console.error('Error completo en registro:', error); // Debug completo
+                let errorMessage = 'Error al crear la cuenta';
+
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'Ya existe una cuenta con este email';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Email inválido';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+                        break;
+                    case 'auth/operation-not-allowed':
+                        errorMessage = 'El registro de usuarios está deshabilitado';
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMessage = 'Error de conexión. Verifica tu internet';
+                        break;
+                    default:
+                        errorMessage = `Error: ${error.message}`;
+                }
+
+                showMessage('client-register', errorMessage, true);
+            } finally {
+                setLoading('client-register-submit', false);
+            }
+        }
+
+        // Negocio Login
+        async function handleBusinessLogin() {
+            const email = document.getElementById('business-login-email').value;
+            const password = document.getElementById('business-login-password').value;
+
+            setLoading('business-login-submit', true);
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // Verificar que sea un usuario de negocio
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists && userDoc.data().userType === 'business') {
+                    if (userDoc.data().status === 'pending') {
+                        throw new Error('Tu cuenta está pendiente de aprobación');
+                    }
+
+                    // Guardar información del usuario en localStorage
+                    localStorage.setItem('userType', 'business');
+                    localStorage.setItem('userEmail', user.email);
+                    localStorage.setItem('userId', user.uid);
+                    localStorage.setItem('isAuthenticated', 'true');
+
+                    showMessage('business-login', '¡Inicio de sesión exitoso! Redirigiendo...', false);
+
+                    // Redirigir después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = 'gptdashboard.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Esta cuenta no está registrada como negocio');
+                }
+
+            } catch (error) {
+                console.error('Error en login de negocio:', error);
+                let errorMessage = 'Error al iniciar sesión';
+
+                if (error.message === 'Esta cuenta no está registrada como negocio') {
+                    errorMessage = 'Esta cuenta no está registrada como negocio';
+                } else if (error.message === 'Tu cuenta está pendiente de aprobación') {
+                    errorMessage = 'Tu cuenta está pendiente de aprobación por el administrador';
+                } else {
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage = 'No existe una cuenta con este email';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage = 'Contraseña incorrecta';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Email inválido';
+                            break;
+                    }
+                }
+
+                showMessage('business-login', errorMessage, true);
+            } finally {
+                setLoading('business-login-submit', false);
+            }
+        }
+
+        // Negocio Register
+        async function handleBusinessRegister() {
+            const bizName = document.getElementById('business-reg-name').value;
+            const email = document.getElementById('business-reg-email').value;
+            const password = document.getElementById('business-reg-password').value;
+            const phone = document.getElementById('business-reg-phone').value;
+            const address = document.getElementById('business-reg-address').value;
+            const license = document.getElementById('business-reg-license').value;
+
+            // Validar campos
+            if (!bizName || !email || !password || !phone || !address || !license) {
+                showMessage('business-register', 'Por favor completa todos los campos', true);
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('business-register', 'La contraseña debe tener al menos 6 caracteres', true);
+                return;
+            }
+
+            setLoading('business-register-submit', true);
+
+            try {
+                // Crear usuario en Firebase Auth
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // Guardar información adicional en Firestore
+                await db.collection('users').doc(user.uid).set({
+                    businessName: bizName,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    license: license,
+                    userType: 'business',
+                    status: 'pending',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                showMessage('business-register', '¡Registro exitoso! Tu negocio ha sido registrado. Pendiente de aprobación por el administrador.', false);
+
+                // Limpiar formulario
+                document.getElementById('business-register-form').reset();
+
+            } catch (error) {
+                console.error('Error en registro de negocio:', error);
+                let errorMessage = 'Error al crear la cuenta';
+
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'Ya existe una cuenta con este email';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Email inválido';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+                        break;
+                    case 'auth/operation-not-allowed':
+                        errorMessage = 'El registro de usuarios está deshabilitado';
+                        break;
+                }
+
+                showMessage('business-register', errorMessage, true);
+            } finally {
+                setLoading('business-register-submit', false);
+            }
+        }
+
+        // Verificar estado de autenticación al cargar la página
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                // Usuario ya está logueado, redirigir
+                window.location.href = 'gptdashboard.html';
+            }
         });
     </script>
-
     <style>
         * {
             margin: 0;
@@ -222,59 +728,209 @@
             box-sizing: border-box;
         }
 
+        /* Color Variables to match website theme */
+        :root {
+            --primary-gold: #D8AF53;
+            --secondary-gold: #D3B76D;
+            --light-bg: #ECE8E2;
+            --gray-text: #929191;
+            --gray-border: #E3E3E3;
+            --black-text: #000000;
+            --white: #ffffff;
+            --shadow-light: rgba(216, 175, 83, 0.1);
+            --shadow-medium: rgba(216, 175, 83, 0.2);
+            --shadow-dark: rgba(0, 0, 0, 0.1);
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Botón de regreso */
+        .back-button-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Animated background elements */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        body::before {
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        body::after {
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
         }
 
         .container {
             width: 100%;
             max-width: 500px;
+            position: relative;
+            z-index: 2;
         }
 
         .auth-wrapper {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .auth-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header del formulario */
+        .auth-header {
+            text-align: center;
+            padding: 30px 30px 20px;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #f8f9fa 100%);
+        }
+
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .auth-subtitle {
+            color: var(--gray-text);
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .nav-tabs {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #f8f9fa 100%);
+            border-bottom: 1px solid var(--gray-border);
+            position: relative;
+        }
+
+        .nav-tabs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 20px;
+            padding: 22px 20px;
             border: none;
             background: transparent;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            color: #6c757d;
-            transition: all 0.3s ease;
+            color: var(--gray-text);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab-btn:hover::before {
+            left: 100%;
         }
 
         .tab-btn:hover {
-            background: #e9ecef;
-            color: #495057;
+            background: rgba(216, 175, 83, 0.1);
+            color: var(--black-text);
+            transform: translateY(-2px);
         }
 
         .tab-btn.active {
-            background: #007bff;
-            color: white;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: var(--white);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+            transform: translateY(-2px);
         }
 
         .form-container {
             position: relative;
             min-height: 500px;
+            background: var(--white);
         }
 
         .auth-section {
@@ -284,8 +940,8 @@
             width: 100%;
             opacity: 0;
             visibility: hidden;
-            transform: translateX(20px);
-            transition: all 0.4s ease;
+            transform: translateX(2000px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .auth-section.active {
@@ -297,32 +953,61 @@
 
         .section-tabs {
             display: flex;
-            background: #f1f3f4;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #f8f9fa 100%);
             margin: 0;
+            position: relative;
+        }
+
+        .section-tabs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
         }
 
         .section-tab-btn {
             flex: 1;
-            padding: 15px;
+            padding: 18px 15px;
             border: none;
             background: transparent;
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
-            color: #666;
-            transition: all 0.3s ease;
+            color: var(--gray-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .section-tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--primary-gold);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
         }
 
         .section-tab-btn:hover {
-            background: #e9ecef;
-            color: #333;
+            background: rgba(216, 175, 83, 0.1);
+            color: var(--black-text);
+            transform: translateY(-1px);
         }
 
         .section-tab-btn.active {
-            background: white;
-            color: #007bff;
-            border-bottom-color: #007bff;
+            background: var(--white);
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .section-tab-btn.active::after {
+            width: 80%;
         }
 
         .auth-form {
@@ -330,11 +1015,11 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 30px;
+            padding: 35px;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
+            transform: translateY(30px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .auth-form.active {
@@ -346,123 +1031,268 @@
 
         .auth-form h2 {
             text-align: center;
-            margin-bottom: 25px;
-            color: #333;
-            font-size: 24px;
-            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--black-text);
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .auth-form h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(200%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--secondary-gold));
+            border-radius: 2px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--black-text);
             font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-border);
+            border-radius: 12px;
             font-size: 16px;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--light-bg);
+            color: var(--black-text);
+            font-weight: 500;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #007bff;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            border-color: var(--primary-gold);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--shadow-light);
+            transform: translateY(-2px);
         }
 
         .form-group input:valid {
-            border-color: #28a745;
+            border-color: var(--secondary-gold);
+            background: rgba(211, 183, 109, 0.05);
+        }
+
+        .form-group input:invalid {
+            border-color: var(--error-color);
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+        .form-group input.valid {
+            border-color: var(--success-color);
+            background: rgba(40, 167, 69, 0.05);
+        }
+
+        .form-group input.invalid {
+            border-color: var(--error-color);
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+        .form-group.focused input {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 4px var(--shadow-light);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder {
+            color: var(--gray-text);
+            opacity: 0.7;
+        }
+
+        /* Animación para campos de entrada */
+        .form-group input {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Estilos para mensajes de error de campo */
+        .field-error {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mejorar la apariencia de los campos de teléfono */
+        input[type="tel"] {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* Estilos para campos requeridos */
+        .form-group.required label::after {
+            content: ' *';
+            color: var(--error-color);
+            font-weight: bold;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: var(--white);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
         }
 
         .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px var(--shadow-medium);
         }
 
         .submit-btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .error-message {
-            color: #dc3545;
+            color: var(--error-color);
             font-size: 14px;
-            margin-top: 10px;
+            margin-top: 15px;
             text-align: center;
             min-height: 20px;
+            padding: 10px;
+            background: rgba(220, 53, 69, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--error-color);
+            display: none;
         }
 
-        .switch-form {
-            text-align: center;
-            margin-top: 20px;
+        .success-message {
+            color: var(--success-color);
             font-size: 14px;
-            color: #666;
-        }
-
-        .switch-link {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .switch-link:hover {
-            color: #0056b3;
-            text-decoration: underline;
+            margin-top: 15px;
+            text-align: center;
+            min-height: 20px;
+            padding: 10px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--success-color);
+            display: none;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .back-button-container {
+                top: 10px;
+                left: 10px;
+            }
+
+            .back-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
             .container {
                 padding: 10px;
             }
 
             .tab-btn {
-                font-size: 11px;
-                padding: 12px 8px;
+                font-size: 14px;
+                padding: 18px 15px;
             }
 
             .auth-form {
-                padding: 20px;
+                padding: 25px;
             }
 
             .auth-form h2 {
-                font-size: 20px;
-                margin-bottom: 20px;
+                font-size: 22px;
+                margin-bottom: 25px;
             }
 
             .form-group input {
-                padding: 10px 12px;
-                font-size: 14px;
+                padding: 14px 16px;
+                font-size: 15px;
             }
 
             .submit-btn {
-                padding: 12px;
-                font-size: 14px;
+                padding: 16px;
+                font-size: 15px;
+            }
+
+            .logo-text {
+                font-size: 2rem;
             }
         }
 
@@ -475,7 +1305,39 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .auth-form {
+                padding: 20px;
+            }
+
+            .auth-form h2 {
+                font-size: 20px;
+            }
+
+            .back-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-gold);
         }
     </style>
 </body>
+
 </html>
