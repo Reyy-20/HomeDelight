@@ -695,6 +695,98 @@
                 window.location.href = 'gptdashboard.html';
             }
         });
+        async function handleLogout() {
+            try {
+                console.log('Iniciando proceso de logout...'); // Debug
+
+                // Mostrar indicador de carga si tienes un botón de logout
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.disabled = true;
+                    logoutBtn.textContent = 'Cerrando sesión...';
+                }
+
+                // Cerrar sesión en Firebase Auth
+                await auth.signOut();
+
+                // Limpiar localStorage
+                localStorage.removeItem('userType');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('isAuthenticated');
+
+                // Limpiar sessionStorage si lo usas
+                sessionStorage.clear();
+
+                console.log('Logout exitoso, redirigiendo...'); // Debug
+
+                // Mostrar mensaje de confirmación (opcional)
+                alert('Has cerrado sesión exitosamente');
+
+                // Redirigir a la página de login
+                window.location.href = 'index.html'; // o el nombre de tu página de login
+
+            } catch (error) {
+                console.error('Error al cerrar sesión:', error);
+
+                // Mostrar mensaje de error
+                alert('Error al cerrar sesión: ' + error.message);
+
+                // Restaurar botón de logout si hay error
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.disabled = false;
+                    logoutBtn.textContent = 'Cerrar Sesión';
+                }
+            }
+        }
+
+        // Función alternativa con confirmación
+        async function handleLogoutWithConfirmation() {
+            // Mostrar confirmación antes de cerrar sesión
+            const confirmLogout = confirm('¿Estás seguro que deseas cerrar sesión?');
+
+            if (confirmLogout) {
+                await handleLogout();
+            }
+        }
+
+        // Función para agregar el event listener al botón de logout
+        function setupLogoutButton() {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogoutWithConfirmation);
+            }
+
+            // También puedes agregar logout con tecla ESC (opcional)
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && event.ctrlKey) {
+                    handleLogoutWithConfirmation();
+                }
+            });
+        }
+
+        // Llamar esta función cuando se cargue la página del dashboard
+        document.addEventListener('DOMContentLoaded', function () {
+            setupLogoutButton();
+        });
+
+        
+
+        // Función para verificar si el usuario está autenticado (para usar en otras páginas)
+        function checkAuthStatus() {
+            auth.onAuthStateChanged(function (user) {
+                if (!user) {
+                    // Usuario no está autenticado, redirigir a login
+                    if (window.location.pathname !== 'index.html' && window.location.pathname !== '/') {
+                        window.location.href = 'login&register2.html';
+                    }
+                }
+            });
+        }
+
+        // Llamar en páginas protegidas
+        // checkAuthStatus();
     </script>
     <style>
         * {

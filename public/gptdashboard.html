@@ -10,9 +10,10 @@
 </head>
 
 <body>
+    <script src="js/nav.js"></script>
     <!-- Header -->
     <header class="header">
-        <a href="Marketplace.html" class="back-btn">
+        <a href="Marketplace.html" class="back-btn" onclick="simulateLogin()">
             ← Regresar al Marketplace
         </a>
         <h1>Dashboard</h1>
@@ -43,7 +44,7 @@
                 <div class="sidebar-title">Configuración</div>
                 <a href="#" class="sidebar-item" onclick="showSection('notificaciones')">Notificaciones</a>
                 <a href="#" class="sidebar-item" onclick="showSection('cambiar-password')">Cambiar contraseña</a>
-                <a href="#" class="sidebar-item" onclick="logout()" style="color: #D8AF53;">Cerrar sesión</a>
+                <a href="login&register2.html" class="sidebar-item" onclick="simulateLogout()" style="color: #D8AF53;">Cerrar sesión</a>
             </div>
         </aside>
 
