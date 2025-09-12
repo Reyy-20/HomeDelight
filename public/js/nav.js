@@ -66,10 +66,4 @@ document.getElementById('authButton').addEventListener('click', function (e) {
     }
 });
 
-function Out() {
-    window.location.href = "index.html"
-    const authButton = document.getElementById('authButton');
-    authButton.textContent = 'LogIn/Register';
-    authButton.href = 'login&register2.html';
-    
-}
+
