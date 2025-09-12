@@ -11,6 +11,7 @@
 
 <body>
     <script src="js/nav.js"></script>
+    <script src="js/log.js"></script>
     <!-- Header -->
     <header class="header">
         <a href="Marketplace.html" class="back-btn" onclick="simulateLogin()">
@@ -44,7 +45,7 @@
                 <div class="sidebar-title">Configuración</div>
                 <a href="#" class="sidebar-item" onclick="showSection('notificaciones')">Notificaciones</a>
                 <a href="#" class="sidebar-item" onclick="showSection('cambiar-password')">Cambiar contraseña</a>
-                <a href="login&register2.html" class="logout-btn" onclick="simulateLogout()" style="color: #D8AF53;">Cerrar sesión</a>
+                <a href="login&register2.html" class="sidebar-item" id="logout-btn" onclick="handleLogout()" style="color: #D8AF53;">Cerrar sesión</a>
             </div>
         </aside>
 

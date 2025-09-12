@@ -13,8 +13,7 @@
             } else {
                 // User is not logged in - show LogIn/Register button
                 authButton.textContent = 'LogIn/Register';
-                authButton.className = 'Nav-btn';
-                authButton.href = 'public/login&register2.html'; // Update href to login page
+                authButton.href = 'login&register2.html'; // Update href to login page
             }
         }
 
@@ -38,23 +37,7 @@
             checkAuthStatus();
         }
 
-        // Demo functions for testing (remove these in production)
-        function simulateLogin() {
-            const demoUser = {
-                id: 123,
-                name: 'John Doe',
-                email: 'john@example.com'
-            };
-            onLoginSuccess(demoUser);
-            alert('Login simulated! The header button should now show "Dashboard"');
-        }
-
-        function simulateLogout() {
-            onLogout();
-            alert('Logout simulated! The header button should now show "LogIn/Register"');
-        }
-
-        // Check authentication status when the page loads
+                // Check authentication status when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
         });
@@ -82,3 +65,9 @@
                 window.location.href ='login&register2.html'
             }
         });
+        function Out() {
+                // User is not logged in - show LogIn/Register button
+                authButton.textContent = 'LogIn/Register';
+                authButton.href = 'login&register2.html';
+                window.location.href="index.html"
+        }
