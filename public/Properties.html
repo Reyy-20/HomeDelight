@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="css/Properties.css">
-    <style>
+    <!-- Scripts de Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-    </style>
+    <!-- Script global de autenticación -->
+    <script src="js/global.js"></script>
 </head>
 
 <body>
@@ -187,22 +191,23 @@
 
     <!-- Vista de Propiedad Individual -->
     <div id="property-detail" class="property-detail">
-            <!-- Inicio del codigo del header-->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png" alt="thumbnail-Home-Deligth-removebg"></a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="inicio">Inicio</a></li>
-                <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
-                <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
-                <li><a href="AboutUs.html" class="about">About Us</a></li>
-            </ul>
-            <a href="login&register2.html" class="Nav-btn" id="authButton" >LogIn/Register</a>
-        </nav>
-    </header>
-    <script src="js/nav.js"></script>
-   
-    <!-- final del codigo del header-->
+        <!-- Inicio del codigo del header-->
+        <header class="header">
+            <nav class="nav-container">
+                <a href="#" class="logo"><img src="https://i.ibb.co/Pvw3rSDG/logo.png"
+                        alt="thumbnail-Home-Deligth-removebg"></a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="inicio">Inicio</a></li>
+                    <li><a href="Marketplace.html" class="marketplace">Marketplace</a></li>
+                    <li><a href="ContactUs.html" class="contact">Contact Us</a></li>
+                    <li><a href="AboutUs.html" class="about">About Us</a></li>
+                </ul>
+                <a href="login&register2.html" class="Nav-btn" id="authButton">LogIn/Register</a>
+            </nav>
+        </header>
+        <script src="js/nav.js"></script>
+
+        <!-- final del codigo del header-->
 
 
 

@@ -7,10 +7,13 @@
     <title>Dashboard - Propiedades Premium</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/footer.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="js/dashboard.js"></script>
 </head>
 
 <body>
-    <script src="js/nav.js"></script>
     <!-- Header -->
     <header class="header">
         <a href="Marketplace.html" class="back-btn" onclick="simulateLogin()">
@@ -44,7 +47,7 @@
                 <div class="sidebar-title">Configuración</div>
                 <a href="#" class="sidebar-item" onclick="showSection('notificaciones')">Notificaciones</a>
                 <a href="#" class="sidebar-item" onclick="showSection('cambiar-password')">Cambiar contraseña</a>
-                <a class="sidebar-item" id="logout-btn" onclick="window.location.href='index.html'" style="color: #D8AF53;">Cerrar sesión</a>
+                <button id="logout-btn" style="color: #D8AF53;">Cerrar sesión</button>
             </div>
         </aside>
 
@@ -193,66 +196,66 @@
             <!-- Planes Premium -->
             <section id="planes-premium" class="content-section">
                 <h2 class="section-title">Planes Premium</h2>
-               <div class="pricing-card">
-            <div class="pricing-header">
-                <h3>Básico</h3>
-                <div class="pricing-price">
-                    <span class="price">Gratis</span>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Básico</h3>
+                        <div class="pricing-price">
+                            <span class="price">Gratis</span>
+                        </div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Prueba gratuita de dos semanas</li>
+                            <li>Búsquedas limitadas de propiedades</li>
+                            <li>Acceso básico al marketplace</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="pricing-features">
-                <ul>
-                    <li>Prueba gratuita de dos semanas</li>
-                    <li>Búsquedas limitadas de propiedades</li>
-                    <li>Acceso básico al marketplace</li>
-                </ul>
-            </div>
-        </div>
 
-        <!-- Plan Profesional -->
-        <div class="pricing-card featured">
-            <div class="badge">ACTUAL</div>
-            <div class="pricing-header">
-                <h3>Profesional</h3>
-                <div class="pricing-price">
-                    <span class="price">$20</span>
-                    <span class="period">/mes</span>
+                <!-- Plan Profesional -->
+                <div class="pricing-card featured">
+                    <div class="badge">ACTUAL</div>
+                    <div class="pricing-header">
+                        <h3>Profesional</h3>
+                        <div class="pricing-price">
+                            <span class="price">$20</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Búsquedas ilimitadas de propiedades</li>
+                            <li>Acceso completo al marketplace</li>
+                            <li>Contacto directo con agentes</li>
+                            <li>Notificaciones personalizadas</li>
+                            <li>Acceso a propiedades premium</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-actions">
+                        <button class="btn btn-primary">Plan Actual</button>
+                    </div>
                 </div>
-            </div>
-            <div class="pricing-features">
-                <ul>
-                    <li>Búsquedas ilimitadas de propiedades</li>
-                    <li>Acceso completo al marketplace</li>
-                    <li>Contacto directo con agentes</li>
-                    <li>Notificaciones personalizadas</li>
-                    <li>Acceso a propiedades premium</li>
-                </ul>
-            </div>
-            <div class="pricing-actions">
-                <button class="btn btn-primary">Plan Actual</button>
-            </div>
-        </div>
 
-        <!-- Plan Ultra -->
-        <div class="pricing-card">
-            <div class="pricing-header">
-                <h3>Ultra</h3>
-                <div class="pricing-price">
-                    <span class="price">$200</span>
-                    <span class="period">/mes</span>
-                </div>
-            </div>
-            <div class="pricing-features">
-                <ul>
-                    <li>20x más propiedades exclusivas</li>
-                    <li>Acceso prioritario a nuevas propiedades</li>
-                    <li>Asesoría personalizada 24/7</li>
-                    <li>Vista previa de propiedades antes del lanzamiento</li>
-                </ul>
-            </div>
-            <div class="pricing-actions">
-                <button class="btn btn-primary">Obtener Ultra</button>
-            </div>
+                <!-- Plan Ultra -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Ultra</h3>
+                        <div class="pricing-price">
+                            <span class="price">$200</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>20x más propiedades exclusivas</li>
+                            <li>Acceso prioritario a nuevas propiedades</li>
+                            <li>Asesoría personalizada 24/7</li>
+                            <li>Vista previa de propiedades antes del lanzamiento</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-actions">
+                        <button class="btn btn-primary">Obtener Ultra</button>
+                    </div>
             </section>
 
             <!-- Notificaciones -->
@@ -348,89 +351,6 @@
             </div>
         </div>
     </footer>
-    <script>
-        // Función para mostrar secciones
-        function showSection(sectionId) {
-            // Ocultar todas las secciones
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => section.classList.remove('active'));
-
-            // Remover clase active de todos los items del sidebar
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
-            sidebarItems.forEach(item => item.classList.remove('active'));
-
-            // Mostrar la sección seleccionada
-            document.getElementById(sectionId).classList.add('active');
-
-            // Agregar clase active al item clickeado
-            event.target.classList.add('active');
-        }
-
-        // Función para regresar al marketplace
-        function goToMarketplace() {
-            alert('Redirigiendo al marketplace...');
-            // Aquí iría la lógica para redirigir
-        }
-
-        // Función para cerrar sesión
-        function logout() {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                alert('Cerrando sesión...');
-                // Aquí iría la lógica para cerrar sesión
-            }
-        }
-
-        // Función para toggle de notificaciones
-        function toggleNotification(toggle) {
-            toggle.classList.toggle('active');
-        }
-
-        // Función para manejar formularios
-        function handleFormSubmit(formType) {
-            alert(`Formulario de ${formType} enviado correctamente`);
-        }
-
-        // Event listeners para formularios
-        document.addEventListener('DOMContentLoaded', function () {
-            // Agregar event listeners a los botones
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function (e) {
-                    if (!this.onclick) {
-                        e.preventDefault();
-                        const section = this.closest('.content-section');
-                        const sectionTitle = section.querySelector('.section-title').textContent;
-                        alert(`Acción ejecutada en: ${sectionTitle}`);
-                    }
-                });
-            });
-
-            // Animar entrada de estadísticas
-            const statCards = document.querySelectorAll('.stat-card');
-            statCards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.style.animation = 'fadeIn 0.5s ease forwards';
-            });
-        });
-
-        // Responsive sidebar toggle
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('open');
-        }
-
-        // Cerrar sidebar en mobile cuando se hace click fuera
-        document.addEventListener('click', function (e) {
-            const sidebar = document.querySelector('.sidebar');
-            const isClickInsideSidebar = sidebar.contains(e.target);
-
-            if (!isClickInsideSidebar && window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-            }
-        });
-
-
-    </script>
 </body>
 
 </html>
