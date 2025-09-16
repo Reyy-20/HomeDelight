@@ -23,7 +23,8 @@ const db = firebase.firestore();
 // Función para actualizar el botón de autenticación
 function updateAuthButton(isAuthenticated, userData = null) {
     const authButton = document.getElementById('authButton');
-    
+    const publish = document.getElementById('publish')
+
     if (!authButton) {
         console.warn('Botón de autenticación no encontrado');
         return;
@@ -34,16 +35,17 @@ function updateAuthButton(isAuthenticated, userData = null) {
         authButton.href = 'gptdashboard.html';
         authButton.textContent = 'Dashboard';
         authButton.classList.add('authenticated');
-        
-        
+        publish.href = 'gptdashboard.html';
+
         console.log('Botón actualizado: Dashboard');
     } else {
         // Usuario no logueado - cambiar a Login/Register
         authButton.href = 'login&register2.html';
         authButton.textContent = 'LogIn/Register';
         authButton.classList.remove('authenticated');
-        
-        
+        publish.href = 'login&register2.html';
+
+
         console.log('Botón actualizado: LogIn/Register');
     }
 }
@@ -53,12 +55,12 @@ function checkAuthFromLocalStorage() {
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     const userEmail = localStorage.getItem('userEmail');
     const userType = localStorage.getItem('userType');
-    
+
     if (isAuthenticated === 'true' && userEmail) {
         updateAuthButton(true, { email: userEmail, userType: userType });
         return true;
     }
-    
+
     updateAuthButton(false);
     return false;
 }
@@ -67,17 +69,17 @@ function checkAuthFromLocalStorage() {
 function handleAuthState() {
     // Primero verificar localStorage para respuesta inmediata
     const hasLocalAuth = checkAuthFromLocalStorage();
-    
+
     // Luego verificar con Firebase para estar seguro
-    auth.onAuthStateChanged(function(user) {
+    auth.onAuthStateChanged(function (user) {
         if (user) {
             console.log('Usuario autenticado:', user.email);
-            
+
             // Actualizar localStorage si no está actualizado
             localStorage.setItem('isAuthenticated', 'true');
             localStorage.setItem('userEmail', user.email);
             localStorage.setItem('userId', user.uid);
-            
+
             // Obtener información adicional del usuario
             db.collection('users').doc(user.uid).get()
                 .then((doc) => {
@@ -93,16 +95,16 @@ function handleAuthState() {
                     console.warn('Error al obtener datos del usuario:', error);
                     updateAuthButton(true, { email: user.email });
                 });
-                
+
         } else {
             console.log('Usuario no autenticado');
-            
+
             // Limpiar localStorage
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('userEmail');
             localStorage.removeItem('userId');
             localStorage.removeItem('userType');
-            
+
             updateAuthButton(false);
         }
     });
@@ -114,11 +116,11 @@ function handleGlobalLogout() {
         console.log('Sesión cerrada exitosamente');
         localStorage.clear();
         updateAuthButton(false);
-        
+
         // Redirigir solo si estamos en página protegida
         const currentPage = window.location.pathname.split('/').pop();
         const protectedPages = ['gptdashboard.html', 'dashboard.html', 'profile.html'];
-        
+
         if (protectedPages.includes(currentPage)) {
             window.location.href = 'login&register2.html';
         }
@@ -132,15 +134,15 @@ function checkPageAuth() {
     const currentPage = window.location.pathname.split('/').pop();
     const protectedPages = ['gptdashboard.html', 'dashboard.html', 'profile.html'];
     const authPages = ['login&register2.html', 'login.html', 'register.html'];
-    
+
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     const user = firebase.auth().currentUser;
-    
+
     if (protectedPages.includes(currentPage) && !isAuthenticated && !user) {
         console.log('Página protegida, redirigiendo al login...');
         window.location.href = 'login&register2.html';
     }
-    
+
     if (authPages.includes(currentPage) && isAuthenticated && user) {
         console.log('Usuario ya autenticado, redirigiendo al dashboard...');
         window.location.href = 'gptdashboard.html';
@@ -148,17 +150,17 @@ function checkPageAuth() {
 }
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Inicializando manejo global de autenticación...');
-    
+
     // Esperar un poco para que Firebase se inicialice completamente
     setTimeout(() => {
         handleAuthState();
         checkPageAuth();
     }, 100);
-    
+
     // Escuchar cambios en localStorage (para sincronizar entre pestañas)
-    window.addEventListener('storage', function(e) {
+    window.addEventListener('storage', function (e) {
         if (e.key === 'isAuthenticated') {
             console.log('Estado de autenticación cambió en otra pestaña');
             handleAuthState();
@@ -172,7 +174,7 @@ window.handleGlobalLogout = handleGlobalLogout;
 window.checkAuthState = handleAuthState;
 
 // Función para llamar desde HTML si es necesario
-window.logout = function() {
+window.logout = function () {
     if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
         handleGlobalLogout();
     }
