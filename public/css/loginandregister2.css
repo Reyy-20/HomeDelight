@@ -12,6 +12,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    animation: fadeIn 500ms;
 }
 
 .container {

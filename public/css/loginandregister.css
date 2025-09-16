@@ -8,6 +8,7 @@
 
 /* Body Styles */
 body {
+  animation: fadeIn 500ms;
   margin: 0;
   padding: 0;
   width: 100vw;
