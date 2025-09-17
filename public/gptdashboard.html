@@ -10,13 +10,249 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="js/dashboard.js"></script>
+    <style>
+        /* Estilos adicionales para el formulario completo */
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #D8AF53;
+            box-shadow: 0 0 0 3px rgba(216, 175, 83, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .image-upload {
+            border: 3px dashed #D8AF53;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: #fefefe;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .image-upload:hover {
+            background-color: #f9f9f9;
+            border-color: #c19942;
+        }
+        
+        .image-upload input[type="file"] {
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 2.5rem;
+            color: #D8AF53;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-hint {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        #imagePreview {
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .features-section {
+            margin-top: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .feature-input {
+            position: relative;
+        }
+        
+        .feature-input input {
+            padding-left: 2.5rem;
+        }
+        
+        .feature-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #D8AF53;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #D8AF53, #c19942);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 2rem;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #c19942, #a88238);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(216, 175, 83, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Estilos para la lista de propiedades */
+        .user-properties-container {
+            margin-top: 2rem;
+        }
+        
+        .property-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .property-item:hover {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+        
+        .property-details {
+            flex: 1;
+        }
+        
+        .property-details h4 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+        }
+        
+        .property-price {
+            font-weight: 600;
+            color: #D8AF53;
+            margin-bottom: 0.25rem;
+        }
+        
+        .property-location {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .property-stats span {
+            color: #999;
+        }
+        
+        .status-active {
+            color: #28a745 !important;
+            font-weight: 600;
+        }
+        
+        .status-inactive {
+            color: #dc3545 !important;
+            font-weight: 600;
+        }
+        
+        .property-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-edit, .btn-toggle, .btn-delete {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-toggle {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-edit:hover, .btn-toggle:hover, .btn-delete:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 
 <body>
     <!-- Header -->
     <header class="header">
-        <a href="Marketplace.html" class="back-btn" onclick="simulateLogin()">
+        <a href="Marketplace.html" class="back-btn">
             ← Regresar al Marketplace
         </a>
         <h1>Dashboard</h1>
@@ -30,8 +266,7 @@
         <aside class="sidebar">
             <div class="sidebar-section">
                 <div class="sidebar-title">Propiedades</div>
-                <a href="#" class="sidebar-item" onclick="showSection('propiedades-vendidas')">Propiedades más
-                    vendidas</a>
+                <a href="#" class="sidebar-item" onclick="showSection('propiedades-vendidas')">Propiedades más vendidas</a>
                 <a href="#" class="sidebar-item" onclick="showSection('propiedades-subidas')">Propiedades subidas</a>
                 <a href="#" class="sidebar-item" onclick="showSection('todas-propiedades')">Todas las propiedades</a>
                 <a href="#" class="sidebar-item" onclick="showSection('subir-propiedades')">Subir propiedades</a>
@@ -59,19 +294,19 @@
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">24</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-label">Propiedades Activas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">156</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-label">Vistas Este Mes</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Consultas Recibidas</div>
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Me Gusta Recibidos</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">3</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-label">Ventas Completadas</div>
                     </div>
                 </div>
@@ -116,21 +351,8 @@
             <!-- Propiedades subidas -->
             <section id="propiedades-subidas" class="content-section">
                 <h2 class="section-title">Mis Propiedades Subidas</h2>
-                <div class="property-item">
-                    <div class="property-image">🏠</div>
-                    <div class="property-details">
-                        <h4>Casa Familiar en Providencia</h4>
-                        <div class="property-price">$380,000</div>
-                        <div class="property-location">Providencia, Santiago</div>
-                    </div>
-                </div>
-                <div class="property-item">
-                    <div class="property-image">🏢</div>
-                    <div class="property-details">
-                        <h4>Oficina Comercial Centro</h4>
-                        <div class="property-price">$150,000</div>
-                        <div class="property-location">Santiago Centro</div>
-                    </div>
+                <div id="user-properties-list" class="user-properties-container">
+                    <p>Cargando propiedades...</p>
                 </div>
             </section>
 
@@ -156,23 +378,143 @@
             <!-- Subir propiedades -->
             <section id="subir-propiedades" class="content-section">
                 <h2 class="section-title">Subir Nueva Propiedad</h2>
-                <div class="form-group">
-                    <label class="form-label">Título de la Propiedad</label>
-                    <input type="text" class="form-input" placeholder="Ej: Casa moderna con jardín">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Precio</label>
-                    <input type="number" class="form-input" placeholder="Ej: 450000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Ubicación</label>
-                    <input type="text" class="form-input" placeholder="Ej: Las Condes, Santiago">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Descripción</label>
-                    <textarea class="form-input" rows="4" placeholder="Describe la propiedad..."></textarea>
-                </div>
-                <button class="btn">Publicar Propiedad</button>
+                <form id="property-form" enctype="multipart/form-data">
+                    
+                    <!-- Información básica -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="title">Título de la Propiedad *</label>
+                            <input type="text" id="title" name="title" class="form-input" 
+                                   placeholder="Ej: Casa moderna con jardín" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="propertyType">Tipo de Propiedad *</label>
+                            <select id="propertyType" name="propertyType" class="form-select" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="casa">Casa</option>
+                                <option value="apartamento">Apartamento</option>
+                                <option value="ph">PH</option>
+                                <option value="villa">Villa</option>
+                                <option value="mansion">Mansión</option>
+                                <option value="local">Local Comercial</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Precio y ubicación -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="price">Precio (B/.) *</label>
+                            <input type="number" id="price" name="price" class="form-input" 
+                                   placeholder="Ej: 450000" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="location">Ubicación *</label>
+                            <select id="location" name="location" class="form-select" required>
+                                <option value="">Seleccionar ubicación</option>
+                                <option value="Albrook">Albrook</option>
+                                <option value="Costa Sur">Costa Sur</option>
+                                <option value="Punta Barco">Punta Barco</option>
+                                <option value="San Francisco">San Francisco</option>
+                                <option value="Costa del Este">Costa del Este</option>
+                                <option value="Tumba Muerto">Tumba Muerto</option>
+                                <option value="Brisas del Golf">Brisas del Golf</option>
+                                <option value="Avenida Balboa">Avenida Balboa</option>
+                                <option value="Casco Viejo">Casco Viejo</option>
+                                <option value="El Cangrejo">El Cangrejo</option>
+                                <option value="Bella Vista">Bella Vista</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="discount">Descuento (opcional)</label>
+                            <input type="text" id="discount" name="discount" class="form-input" 
+                                   placeholder="Ej: Rebajado 5%">
+                        </div>
+                    </div>
+
+                    <!-- Especificaciones -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="rooms">Habitaciones *</label>
+                            <input type="number" id="rooms" name="rooms" class="form-input" 
+                                   placeholder="Ej: 3" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="bathrooms">Baños *</label>
+                            <input type="number" id="bathrooms" name="bathrooms" class="form-input" 
+                                   placeholder="Ej: 2" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="area">Área *</label>
+                            <input type="text" id="area" name="area" class="form-input" 
+                                   placeholder="Ej: 250 m²" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="year">Año de Construcción</label>
+                            <input type="number" id="year" name="year" class="form-input" 
+                                   placeholder="Ej: 2020" min="1900" max="2025">
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="form-group">
+                        <label class="form-label" for="description">Descripción *</label>
+                        <textarea id="description" name="description" class="form-textarea" rows="4" 
+                                  placeholder="Describe la propiedad, sus características especiales, ubicación, etc." required></textarea>
+                    </div>
+
+                    <!-- Imagen de la propiedad -->
+                    <div class="form-group">
+                        <label class="form-label">Imagen Principal de la Propiedad</label>
+                        <div class="image-upload" onclick="document.getElementById('propertyImage').click()">
+                            <div class="upload-icon">📷</div>
+                            <div class="upload-text">Haz clic para subir una imagen</div>
+                            <div class="upload-hint">JPG, PNG, WEBP (máx. 10MB)</div>
+                            <input type="file" id="propertyImage" name="propertyImage" 
+                                   accept="image/jpeg,image/png,image/webp" onchange="previewImage(this)">
+                        </div>
+                        <div id="imagePreview"></div>
+                    </div>
+
+                    <!-- Características especiales -->
+                    <div class="features-section">
+                        <label class="form-label">Características Especiales</label>
+                        <div class="features-grid">
+                            <div class="feature-input">
+                                <span class="feature-icon">🏠</span>
+                                <input type="text" name="feature1" class="form-input" 
+                                       placeholder="Ej: Cocina completamente equipada">
+                            </div>
+                            <div class="feature-input">
+                                <span class="feature-icon">🚗</span>
+                                <input type="text" name="feature2" class="form-input" 
+                                       placeholder="Ej: Estacionamiento privado">
+                            </div>
+                            <div class="feature-input">
+                                <span class="feature-icon">🛡️</span>
+                                <input type="text" name="feature3" class="form-input" 
+                                       placeholder="Ej: Sistema de seguridad 24/7">
+                            </div>
+                            <div class="feature-input">
+                                <span class="feature-icon">🧺</span>
+                                <input type="text" name="feature4" class="form-input" 
+                                       placeholder="Ej: Área de lavandería">
+                            </div>
+                            <div class="feature-input">
+                                <span class="feature-icon">🌳</span>
+                                <input type="text" name="feature5" class="form-input" 
+                                       placeholder="Ej: Jardín privado">
+                            </div>
+                            <div class="feature-input">
+                                <span class="feature-icon">✨</span>
+                                <input type="text" name="feature6" class="form-input" 
+                                       placeholder="Ej: Acabados de lujo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Publicar Propiedad</button>
+                </form>
             </section>
 
             <!-- Perfil -->
@@ -188,7 +530,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Teléfono</label>
-                    <input type="tel" class="form-input" value="+56 9 1234 5678" placeholder="+56 9 xxxx xxxx">
+                    <input type="tel" class="form-input" value="+507 6246 4959" placeholder="+507 xxxx xxxx">
                 </div>
                 <button class="btn">Actualizar Perfil</button>
             </section>
@@ -212,7 +554,6 @@
                     </div>
                 </div>
 
-                <!-- Plan Profesional -->
                 <div class="pricing-card featured">
                     <div class="badge">ACTUAL</div>
                     <div class="pricing-header">
@@ -236,7 +577,6 @@
                     </div>
                 </div>
 
-                <!-- Plan Ultra -->
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Ultra</h3>
@@ -256,6 +596,7 @@
                     <div class="pricing-actions">
                         <button class="btn btn-primary">Obtener Ultra</button>
                     </div>
+                </div>
             </section>
 
             <!-- Notificaciones -->
@@ -297,15 +638,14 @@
                 <button class="btn">Cambiar Contraseña</button>
             </section>
         </main>
-
     </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Home Delight</h3>
-                    <p style="color:#D8AF53;text-align: justify;">Home Delight nació en 2024 con la visión de que un hogar es más que paredes y techos. Transformamos la búsqueda de vivienda en una experiencia simple y personalizada, uniendo tecnología inteligente y asesoría experta para dar a cada hogar confort, personalidad y alegría.</p>
                 </div>
 
                 <div class="footer-column">
@@ -352,6 +692,31 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="js/firebase-properties-system.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Función para mostrar secciones
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar la sección seleccionada
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+        }
+        
+        // Función para toggle de notificaciones
+        function toggleNotification(toggle) {
+            toggle.classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>

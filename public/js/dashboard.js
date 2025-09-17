@@ -282,3 +282,253 @@ auth.onAuthStateChanged(function(user) {
         window.location.href = 'login&register2.html';
     }
 });
+// API Key de ImageBB
+const IMAGEBB_API_KEY = '8f1ff347c29761b3daa42850e314b9ee';
+
+// =====================================================
+// Función para subir imagen a ImageBB
+// =====================================================
+async function uploadImageToImageBB(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('key', IMAGEBB_API_KEY);
+    
+    try {
+        const response = await fetch('https://api.imgbb.com/1/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            return data.data.url;
+        } else {
+            throw new Error('Error uploading image to ImageBB');
+        }
+    } catch (error) {
+        console.error('Error uploading to ImageBB:', error);
+        throw error;
+    }
+}
+
+// =====================================================
+// dashboard.js - Funciones para el Dashboard
+// =====================================================
+
+// Función mejorada para subir propiedades con ImageBB
+async function submitPropertyForm(event) {
+    event.preventDefault();
+    
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subiendo propiedad...';
+    
+    try {
+        const formData = new FormData(event.target);
+        const imageFile = formData.get('propertyImage');
+        
+        let imageURL = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80';
+        
+        // Subir imagen a ImageBB si se proporcionó una
+        if (imageFile && imageFile.size > 0) {
+            submitBtn.textContent = 'Subiendo imagen...';
+            imageURL = await uploadImageToImageBB(imageFile);
+        }
+        
+        submitBtn.textContent = 'Guardando propiedad...';
+        
+        // Crear objeto de propiedad con todos los campos necesarios
+        const property = {
+            id: generatePropertyId(),
+            title: formData.get('title'),
+            price: parseFloat(formData.get('price')),
+            location: formData.get('location'),
+            description: formData.get('description'),
+            rooms: parseInt(formData.get('rooms')) || 3,
+            bathrooms: parseInt(formData.get('bathrooms')) || 2,
+            area: formData.get('area') || '250 m²',
+            year: parseInt(formData.get('year')) || new Date().getFullYear(),
+            propertyType: formData.get('propertyType') || 'casa',
+            status: 'active',
+            image: imageURL,
+            likes: 0,
+            views: 0,
+            discount: formData.get('discount') || '',
+            features: [
+                formData.get('feature1') || 'Cocina completamente equipada',
+                formData.get('feature2') || 'Estacionamiento privado',
+                formData.get('feature3') || 'Sistema de seguridad',
+                formData.get('feature4') || 'Área de lavandería',
+                formData.get('feature5') || 'Jardín privado',
+                formData.get('feature6') || 'Acabados de calidad'
+            ].filter(feature => feature.trim() !== ''),
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            ownerId: getCurrentUserId()
+        };
+        
+        // Guardar en Firestore
+        await db.collection('properties').doc(property.id).set(property);
+        
+        alert('¡Propiedad publicada exitosamente!');
+        event.target.reset();
+        
+        // Limpiar preview de imagen
+        const imagePreview = document.getElementById('imagePreview');
+        if (imagePreview) {
+            imagePreview.style.display = 'none';
+            imagePreview.innerHTML = '';
+        }
+        
+        // Recargar la lista de propiedades
+        loadUserProperties();
+        
+    } catch (error) {
+        console.error('Error al subir propiedad:', error);
+        alert('Error al publicar la propiedad. Por favor, intenta de nuevo.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Publicar Propiedad';
+    }
+}
+
+// Generar ID único para la propiedad
+function generatePropertyId() {
+    return 'prop_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Obtener ID del usuario actual
+function getCurrentUserId() {
+    const user = firebase.auth().currentUser;
+    return user ? user.uid : 'user_demo';
+}
+
+// Cargar propiedades del usuario actual en el dashboard
+async function loadUserProperties() {
+    try {
+        const userId = getCurrentUserId();
+        const snapshot = await db.collection('properties')
+            .where('ownerId', '==', userId)
+            .orderBy('createdAt', 'desc')
+            .get();
+        
+        const properties = [];
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            properties.push({ 
+                id: doc.id, 
+                ...data,
+                createdAt: data.createdAt ? data.createdAt.toDate() : new Date()
+            });
+        });
+        
+        displayUserProperties(properties);
+        updateDashboardStats(properties);
+        
+    } catch (error) {
+        console.error('Error loading user properties:', error);
+    }
+}
+
+// Mostrar propiedades del usuario en el dashboard
+function displayUserProperties(properties) {
+    const container = document.getElementById('user-properties-list');
+    if (!container) return;
+    
+    if (properties.length === 0) {
+        container.innerHTML = '<p>No tienes propiedades publicadas aún.</p>';
+        return;
+    }
+    
+    container.innerHTML = properties.map(property => `
+        <div class="property-item">
+            <div class="property-image">
+                <img src="${property.image}" alt="${property.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="property-details">
+                <h4>${property.title}</h4>
+                <div class="property-price">B/. ${property.price.toLocaleString()}</div>
+                <div class="property-location">${property.location}</div>
+                <div class="property-stats">
+                    <span>👁️ ${property.views || 0} vistas</span>
+                    <span>❤️ ${property.likes || 0} me gusta</span>
+                    <span class="status-${property.status}">${property.status === 'active' ? 'Activa' : 'Inactiva'}</span>
+                </div>
+            </div>
+            <div class="property-actions">
+                <button onclick="editProperty('${property.id}')" class="btn-edit">Editar</button>
+                <button onclick="togglePropertyStatus('${property.id}', '${property.status}')" class="btn-toggle">
+                    ${property.status === 'active' ? 'Desactivar' : 'Activar'}
+                </button>
+                <button onclick="deleteProperty('${property.id}')" class="btn-delete">Eliminar</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Actualizar estadísticas del dashboard
+function updateDashboardStats(properties) {
+    const activeProperties = properties.filter(p => p.status === 'active').length;
+    const totalViews = properties.reduce((sum, p) => sum + (p.views || 0), 0);
+    const totalLikes = properties.reduce((sum, p) => sum + (p.likes || 0), 0);
+    const completedSales = properties.filter(p => p.status === 'sold').length;
+    
+    // Actualizar elementos del DOM con fallbacks
+    const updateStat = (selector, value) => {
+        const element = document.querySelector(selector);
+        if (element) element.textContent = value;
+    };
+    
+    updateStat('.stat-card:nth-child(1) .stat-number', activeProperties);
+    updateStat('.stat-card:nth-child(2) .stat-number', totalViews);
+    updateStat('.stat-card:nth-child(3) .stat-number', totalLikes);
+    updateStat('.stat-card:nth-child(4) .stat-number', completedSales);
+}
+
+// Funciones para gestionar propiedades
+async function togglePropertyStatus(propertyId, currentStatus) {
+    try {
+        const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+        await db.collection('properties').doc(propertyId).update({
+            status: newStatus,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        loadUserProperties();
+    } catch (error) {
+        console.error('Error updating property status:', error);
+    }
+}
+
+async function deleteProperty(propertyId) {
+    if (confirm('¿Estás seguro de que quieres eliminar esta propiedad?')) {
+        try {
+            await db.collection('properties').doc(propertyId).delete();
+            loadUserProperties();
+            alert('Propiedad eliminada exitosamente');
+        } catch (error) {
+            console.error('Error deleting property:', error);
+            alert('Error al eliminar la propiedad');
+        }
+    }
+}
+
+// Preview de imagen en el formulario
+function previewImage(input) {
+    const file = input.files[0];
+    const preview = document.getElementById('imagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = `
+                <img src="${e.target.result}" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px;">
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                    ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)
+                </p>
+            `;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+}
