@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Propiedades Premium</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/footer.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -252,7 +252,7 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <a href="/Marketplace.html" class="back-btn">
+        <a href="Marketplace.html" class="back-btn">
             ← Regresar al Marketplace
         </a>
         <h1>Dashboard</h1>
@@ -651,9 +651,9 @@
                 <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
                     <ul>
-                        <li><a href="/AboutUs.html">About Us</a></li>
-                        <li><a href="/ContactUs.html">Contact Us</a></li>
-                        <li><a href="/Marketplace.html">Marketplace</a></li>
+                        <li><a href="AboutUs.html">About Us</a></li>
+                        <li><a href="ContactUs.html">Contact Us</a></li>
+                        <li><a href="Marketplace.html">Marketplace</a></li>
                         <li><a href="#prices">Precios</a></li>
                     </ul>
                 </div>
@@ -694,8 +694,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/js/firebase-properties-system.js"></script>
-    <script src="/js/dashboard.js"></script>
+    <script src="js/firebase-properties-system.js"></script>
+    <script src="js/dashboard.js"></script>
     <script>
         // Función para mostrar secciones
         function showSection(sectionId) {
@@ -716,6 +716,29 @@
         function toggleNotification(toggle) {
             toggle.classList.toggle('active');
         }
+    </script>
+    
+    <script>
+        // Logout functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async function() {
+                    try {
+                        if (typeof firebase !== 'undefined' && firebase.auth) {
+                            await firebase.auth().signOut();
+                            console.log('Sesión cerrada exitosamente');
+                            // Redirigir al inicio
+                            window.location.href = 'index.html';
+                        }
+                    } catch (error) {
+                        console.error('Error al cerrar sesión:', error);
+                        alert('Error al cerrar sesión. Por favor, inténtalo de nuevo.');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
